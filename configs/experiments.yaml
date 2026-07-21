@@ -1,0 +1,12 @@
+experiments:
+  default_seeds: [42, 123, 2026]
+  fast_mode_sample_size: 5000
+  fast_mode_seed: 42
+  default_feature_set: "all_physics"
+  default_objective: "roc_auc"
+  ams_default_br: 10.0
+  recommendation_weights:
+    roc_auc: 0.4
+    ams: 0.3
+    calibration: 0.2
+    stability: 0.1

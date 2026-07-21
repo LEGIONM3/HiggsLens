@@ -1,0 +1,19 @@
+cern_record_id: 328
+cern_api_url: "https://opendata.cern.ch/api/records/328"
+canonical_url: "https://opendata.cern.ch/record/328/files/atlas-higgs-challenge-2014-v2.csv.gz"
+doi: "10.7483/OPENDATA.ATLAS.ZBP2.M5T8"
+filename: "atlas-higgs-challenge-2014-v2.csv.gz"
+expected_rows: 818238
+expected_cols: 35
+sentinel_value: -999.0
+
+partitions:
+  official:
+    t: "train"
+    b: "validation"
+    v: "test"
+    u: "holdout"
+  stratified_random:
+    test_size: 0.2
+    val_size: 0.2
+    seed: 42
