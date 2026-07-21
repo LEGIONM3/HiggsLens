@@ -28,7 +28,7 @@ def get_dataset_status():
     report_file = settings.ARTIFACTS_DIR / "metrics" / "dataset_validation_report.json"
     if report_file.exists():
         try:
-            with open(report_file, "r") as f:
+            with open(report_file, "r", encoding="utf-8") as f:
                 data = json.load(f)
                 report = DatasetValidationReport.model_validate(data)
         except Exception:
@@ -93,7 +93,7 @@ def get_dataset_summary():
         report = validator.validate()
         return report.model_dump()
     try:
-        with open(report_file, "r") as f:
+        with open(report_file, "r", encoding="utf-8") as f:
             return json.load(f)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

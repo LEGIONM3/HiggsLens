@@ -75,12 +75,12 @@ class DatasetPipeline:
         # Verify no EventId overlap
         self.verify_no_overlap(partitions)
 
-        # If sample_size requested (e.g. fast_mode bounded sample), sample each active partition stratifying by Label
+        # If sample_size requested (e.g. fast_mode bounded sample), sample ONLY the training partition stratifying by Label
+        # Validation ('b') is kept as complete 100,000 events so official event weights retain exact intended normalization for AMS.
         if sample_size and sample_size < len(df):
             for p_name, p_df in partitions.items():
-                if len(p_df) > 0 and p_name != "holdout":  # do not sample holdout for experiments
-                    # Proportional sample size based on original partition size
-                    p_sample_size = min(len(p_df), max(100, int(sample_size * (len(p_df) / len(df)))))
+                if len(p_df) > 0 and p_name == "train":
+                    p_sample_size = min(len(p_df), max(100, sample_size))
                     from sklearn.model_selection import train_test_split
                     _, sampled_p = train_test_split(
                         p_df, test_size=p_sample_size, random_state=seed, stratify=p_df["Label"]

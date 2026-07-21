@@ -39,7 +39,7 @@ class ExperimentTracker:
         content = f"""# Model Card: {display_name} (`{model_id}`)
 
 ## 1. Intended Use & Scope
-- **Task**: Binary classification of simulated ATLAS Higgs-to-tau-tau ($H \to \tau\tau$) collision events against background processes ($Z \to \tau\tau$, $t\\bar{{t}}$, $W+\\text{{jets}}$).
+- **Task**: Binary classification of simulated ATLAS Higgs-to-tau-tau ($H \\to \\tau\\tau$) collision events against background processes ($Z \\to \\tau\\tau$, $t\\bar{{t}}$, $W+\\text{{jets}}$).
 - **Target Audience**: Educational and scientific machine learning researchers analyzing benchmark collider datasets (`CERN Open Data Record 328`).
 - **Out of Scope**: Real-time LHC trigger deployment, uncalibrated discovery claims, or generalized high-energy physics classification beyond the $8\\text{{ TeV}}$ Higgs Challenge topology.
 
@@ -47,31 +47,41 @@ class ExperimentTracker:
 - **Dataset Version**: ATLAS Higgs Boson Machine Learning Challenge 2014 (`DOI: 10.7483/OPENDATA.ATLAS.ZBP2.M5T8`).
 - **Partitioning**: Official `KaggleSet` mapping (`t` for training, `b` for validation and threshold optimization, `v` for final test evaluation).
 - **Feature Group**: `{feature_set}`.
+- **Mode & Benchmark Status**: `{metrics.mode.upper()}` mode. {'FAST-MODE SAMPLE RESULT -- NOT A FULL-DATASET BENCHMARK' if metrics.mode == 'fast' else 'FULL-DATASET BENCHMARK'}
 
 ## 3. Preprocessing & Sentinel Handling
 - **Missing Value Strategy**: `{preprocessing_strategy}`.
-- **Sentinel Handling**: `-999.0` values corresponding to physical unavailability under jet multiplicity (`PRI_jet_num`) were treated according to physical rules. Imputers and scalers were fit exclusively on training data.
+- **Sentinel Handling**: `-999.0` values corresponding to physical unavailability under jet multiplicity (`PRI_jet_num`) were treated according to physical rules. Imputers and scalers were fit exclusively on training data without test/validation leakage.
 
-## 4. Evaluation Metrics (Validation Set)
-- **ROC-AUC**: `{metrics.roc_auc_mean:.4f} ± {metrics.roc_auc_std:.4f}`
-- **PR-AUC**: `{metrics.pr_auc_mean:.4f} ± {metrics.pr_auc_std:.4f}`
-- **Log Loss**: `{metrics.log_loss_mean:.4f} ± {metrics.log_loss_std:.4f}`
-- **Balanced Accuracy**: `{metrics.balanced_accuracy_mean:.4f} ± {metrics.balanced_accuracy_std:.4f}`
-- **F1 Score**: `{metrics.f1_mean:.4f} ± {metrics.f1_std:.4f}`
-- **Brier Score (Calibration)**: `{metrics.brier_score_mean:.4f} ± {metrics.brier_score_std:.4f}`
-- **Optimal Decision Threshold (Validation)**: `{metrics.optimal_threshold:.4f}`
-- **Approximate Median Significance (AMS)**: `{metrics.ams_score:.4f}` (evaluated at $b_r = 10$)
+## 4. Evaluation Metrics (Validation Set `b`, {metrics.validation_rows} rows)
+- **ROC-AUC**: `{metrics.roc_auc_mean:.4f} +/- {metrics.roc_auc_std:.4f}`
+- **PR-AUC**: `{metrics.pr_auc_mean:.4f} +/- {metrics.pr_auc_std:.4f}`
+- **Log Loss**: `{metrics.log_loss_mean:.4f} +/- {metrics.log_loss_std:.4f}`
+- **Balanced Accuracy**: `{metrics.balanced_accuracy_mean:.4f} +/- {metrics.balanced_accuracy_std:.4f}`
+- **Precision (at 0.5 / at selected threshold)**: `{metrics.precision_05:.4f}` / `{metrics.precision_selected:.4f}`
+- **Recall (at 0.5 / at selected threshold)**: `{metrics.recall_05:.4f}` / `{metrics.recall_selected:.4f}`
+- **F1 Score**: `{metrics.f1_mean:.4f} +/- {metrics.f1_std:.4f}`
+- **Brier Score**: `{metrics.brier_score_mean:.4f} +/- {metrics.brier_score_std:.4f}`
+- **Expected Calibration Error (ECE)**: `{metrics.expected_calibration_error:.4f}`
+- **Validation-Selected Threshold**: `{metrics.optimal_threshold:.4f}`
+- **Confusion Matrix at Threshold 0.5**: `{metrics.confusion_matrix_05}`
+- **Confusion Matrix at Selected Threshold**: `{metrics.confusion_matrix_selected}`
+- **Weighted Signal Yield (`s`)**: `{metrics.weighted_signal_yield_s:.2f}`
+- **Weighted Background Yield (`b`)**: `{metrics.weighted_background_yield_b:.2f}`
+- **Regularization (`br`)**: `{metrics.ams_br:.2f}`
+- **Approximate Median Significance (AMS)**: `{metrics.ams_score:.4f}`
 
 ## 5. Stability Across Seeds & Calibration
 - **Seeds Evaluated**: `{metrics.seeds_evaluated}`
-- **Stability Assessment**: `{metrics.stability_status}`
+- **Stability Status**: `{metrics.stability_status}`
+- **Calibration Method**: `{metrics.calibration_method}`
 - **Calibration Status**: `{metrics.calibration_status}`
 - **Training Duration**: `{metrics.training_duration_seconds:.2f} s`
 
 ## 6. Ethical & Scientific Caveats
 - Predictions represent statistical similarity to Monte Carlo simulation templates. High classifier confidence does not imply real-world particle existence or physical discovery.
 """
-        with open(card_path, "w") as f:
+        with open(card_path, "w", encoding="utf-8") as f:
             f.write(content)
         return str(card_path)
 
@@ -104,12 +114,12 @@ class ExperimentTracker:
             recommendation=recommendation
         )
 
-        with open(self.log_file, "a") as f:
+        with open(self.log_file, "a", encoding="utf-8") as f:
             f.write(response.model_dump_json() + "\n")
 
         # Also save individual run json
         run_json = self.metrics_dir / f"run_{run_id}.json"
-        with open(run_json, "w") as f:
+        with open(run_json, "w", encoding="utf-8") as f:
             f.write(response.model_dump_json(indent=2))
 
         return response

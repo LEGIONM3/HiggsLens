@@ -35,7 +35,7 @@ def get_model_metrics(model_id: str):
     latest_metrics: Optional[Dict[str, Any]] = None
 
     if log_file.exists():
-        with open(log_file, "r") as f:
+        with open(log_file, "r", encoding="utf-8") as f:
             for line in f:
                 if not line.strip():
                     continue

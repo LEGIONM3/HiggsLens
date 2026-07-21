@@ -152,11 +152,17 @@ class BackgroundJobManager:
 
                 # Check variance stability across seeds
                 roc_std = float(np.std(roc_aucs))
-                stability = "stable" if roc_std < 0.05 else "high_variance"
+                if len(seeds) <= 1:
+                    stability = "not_assessed"
+                else:
+                    stability = "stable" if roc_std < 0.05 else "high_variance"
 
                 # Check calibration
                 brier_mean = float(np.mean(briers))
-                cal_status = "calibrated" if brier_mean < 0.18 else "uncalibrated"
+                cal_status = "not_calibrated"
+                cal_method = "none"
+
+                last_eval = eval_metrics if isinstance(eval_metrics, dict) else {}
 
                 m_schema = ModelMetricsSchema(
                     model_id=m_id,
@@ -180,7 +186,20 @@ class BackgroundJobManager:
                     ams_default_threshold_score=float(np.mean(ams_05s)),
                     training_duration_seconds=duration,
                     stability_status=stability,
-                    calibration_status=cal_status
+                    calibration_status=cal_status,
+                    validation_rows=last_eval.get("validation_rows", 0),
+                    precision_05=last_eval.get("precision_05", 0.0),
+                    recall_05=last_eval.get("recall_05", 0.0),
+                    precision_selected=last_eval.get("precision_selected", 0.0),
+                    recall_selected=last_eval.get("recall_selected", 0.0),
+                    confusion_matrix_05=last_eval.get("confusion_matrix_05", {}),
+                    confusion_matrix_selected=last_eval.get("confusion_matrix_selected", {}),
+                    weighted_signal_yield_s=last_eval.get("weighted_signal_yield_s", 0.0),
+                    weighted_background_yield_b=last_eval.get("weighted_background_yield_b", 0.0),
+                    ams_br=last_eval.get("ams_br", 10.0),
+                    calibration_method=cal_method,
+                    expected_calibration_error=last_eval.get("expected_calibration_error", 0.0),
+                    reliability_bins=last_eval.get("reliability_bins", [])
                 )
 
                 # Generate model card & save checkpoint

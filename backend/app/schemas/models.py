@@ -43,9 +43,22 @@ class ModelMetricsSchema(BaseModel):
     ams_score: float
     ams_default_threshold_score: float
     training_duration_seconds: float
-    stability_status: str  # "stable", "high_variance", "overfitting_warning"
-    calibration_status: str  # "calibrated", "uncalibrated"
+    stability_status: str  # "stable", "high_variance", "not_assessed", "overfitting_warning"
+    calibration_status: str  # "calibrated", "not_calibrated", "uncalibrated"
     model_card_path: Optional[str] = None
+    validation_rows: int = 0
+    precision_05: float = 0.0
+    recall_05: float = 0.0
+    precision_selected: float = 0.0
+    recall_selected: float = 0.0
+    confusion_matrix_05: Dict[str, int] = {}
+    confusion_matrix_selected: Dict[str, int] = {}
+    weighted_signal_yield_s: float = 0.0
+    weighted_background_yield_b: float = 0.0
+    ams_br: float = 10.0
+    calibration_method: str = "none"
+    expected_calibration_error: float = 0.0
+    reliability_bins: List[Dict[str, Any]] = []
 
 
 class ModelRegistryResponse(BaseModel):

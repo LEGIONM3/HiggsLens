@@ -147,11 +147,11 @@ class DatasetValidator:
         metrics_dir.mkdir(parents=True, exist_ok=True)
 
         json_path = metrics_dir / "dataset_validation_report.json"
-        with open(json_path, "w") as f:
+        with open(json_path, "w", encoding="utf-8") as f:
             f.write(report.model_dump_json(indent=2))
 
         md_path = metrics_dir / "dataset_validation_report.md"
-        with open(md_path, "w") as f:
+        with open(md_path, "w", encoding="utf-8") as f:
             f.write("# Dataset Validation Report\n\n")
             f.write(f"- **Valid**: `{report.is_valid}`\n")
             f.write(f"- **Rows**: `{report.row_count:,}` | **Columns**: `{report.column_count}`\n")

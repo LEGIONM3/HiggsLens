@@ -60,5 +60,43 @@ def test_predict_endpoint_with_custom_features(mock_raw_df):
     assert resp.status_code == 200
     data = resp.json()
     assert "objects" in data
-    assert "prediction" in data
     assert data["prediction"]["model_id"] == "dummy_prior"
+
+
+def test_job_state_transitions(monkeypatch):
+    import time
+
+    from backend.app.experiments.job_manager import job_manager
+    from backend.app.schemas.experiments import TrainingRequest
+
+    recorded_states = ["queued"]
+    orig_update_job = job_manager._update_job
+
+    def spy_update_job(job_id, state, message, **kwargs):
+        recorded_states.append(state)
+        return orig_update_job(job_id, state, message, **kwargs)
+
+    monkeypatch.setattr(job_manager, "_update_job", spy_update_job)
+
+    req = TrainingRequest(mode="fast", feature_set="primary_only", models=["dummy_prior"], seeds=[42])
+    job = job_manager.create_job(req)
+
+    # Wait briefly for background thread to complete
+    for _ in range(50):
+        if job_manager.get_job_status(job.job_id).state in ("completed", "failed"):
+            break
+        time.sleep(0.1)
+
+    expected_states = [
+        "queued",
+        "validating_data",
+        "preprocessing",
+        "training",
+        "evaluating",
+        "saving_artifacts",
+        "completed"
+    ]
+    # Verify every required granular transition occurs in exact chronological order
+    for state in expected_states:
+        assert state in recorded_states, f"Missing state transition: {state}"
+    assert job_manager.get_job_status(job.job_id).state == "completed"

@@ -40,7 +40,7 @@ def list_experiments():
     log_file = settings.ARTIFACTS_DIR / "experiments_log.jsonl"
     runs: List[ExperimentRunResponse] = []
     if log_file.exists():
-        with open(log_file, "r") as f:
+        with open(log_file, "r", encoding="utf-8") as f:
             for line in f:
                 if not line.strip():
                     continue
@@ -56,7 +56,7 @@ def list_experiments():
 def get_experiment_run(run_id: str):
     log_file = settings.ARTIFACTS_DIR / "experiments_log.jsonl"
     if log_file.exists():
-        with open(log_file, "r") as f:
+        with open(log_file, "r", encoding="utf-8") as f:
             for line in f:
                 if not line.strip():
                     continue
