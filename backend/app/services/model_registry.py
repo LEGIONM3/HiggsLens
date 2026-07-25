@@ -1,3 +1,8 @@
+"""
+Model Registry Service for HiggsLens FastAPI Backend Service Layer.
+Scans ARTIFACTS_DIR, validates manifests & metadata, and lazy-loads + caches trained weights.
+"""
+
 import json
 import logging
 from dataclasses import dataclass
@@ -11,7 +16,7 @@ logger = logging.getLogger("higgslens.model_registry")
 
 
 class ModelNotFoundError(Exception):
-    """Raised when an requested model_id does not exist in the registry."""
+    """Raised when a requested model_id does not exist in the registry."""
     def __init__(self, model_id: str):
         self.model_id = model_id
         super().__init__(f"Unknown model_id '{model_id}'.")
@@ -44,6 +49,7 @@ class ModelRegistryService:
     """
     Singleton Model Registry scanning ARTIFACTS_DIR, validating manifests & metadata,
     and lazy-loading + caching trained weights in memory for inference.
+    Guards optional PyTorch dependencies cleanly.
     """
     def __init__(self, artifacts_dir: Optional[Path] = None):
         self.artifacts_dir = artifacts_dir or settings.ARTIFACTS_DIR
@@ -64,7 +70,11 @@ class ModelRegistryService:
             metrics_file = model_dir / "metrics.json"
             schema_file = model_dir / "feature_schema.json"
             manifest_file = model_dir / "manifest.json"
+
+            # Check weights path: model.joblib or model.pt
             weights_file = model_dir / "model.joblib"
+            if not weights_file.exists():
+                weights_file = model_dir / "model.pt"
 
             if not (metrics_file.exists() and schema_file.exists() and manifest_file.exists()):
                 logger.warning(f"Skipping incomplete artifact directory: {model_dir}")
@@ -97,7 +107,6 @@ class ModelRegistryService:
 
     def get_artifact(self, model_id: str) -> ModelArtifact:
         if model_id not in self._artifacts:
-            # Rescan to catch newly added artifacts before raising 404
             self.scan_artifacts()
         if model_id not in self._artifacts:
             raise ModelNotFoundError(model_id)
@@ -109,15 +118,27 @@ class ModelRegistryService:
         if not artifact.has_weights:
             raise ArtifactCorruptError(
                 model_id,
-                f"Model weights artifact 'model.joblib' is missing at {artifact.weights_path}"
+                f"Model weights artifact is missing at {artifact.weights_path}"
             )
 
         if artifact.cached_model is None:
             try:
                 logger.info(f"Lazy-loading model weights for '{model_id}' from {artifact.weights_path}")
-                artifact.cached_model = joblib.load(artifact.weights_path)
+                if artifact.weights_path.suffix == ".pt":
+                    try:
+                        import torch  # noqa: F401
+                        artifact.cached_model = joblib.load(artifact.weights_path)
+                    except ImportError:
+                        raise ArtifactCorruptError(
+                            model_id,
+                            "PyTorch is not installed in the backend environment. Cannot load PyTorch model weights."
+                        )
+                else:
+                    artifact.cached_model = joblib.load(artifact.weights_path)
+            except ArtifactCorruptError:
+                raise
             except Exception as e:
-                raise ArtifactCorruptError(model_id, f"Failed to load joblib weights: {str(e)}")
+                raise ArtifactCorruptError(model_id, f"Failed to load weights: {str(e)}")
 
         return artifact.cached_model
 

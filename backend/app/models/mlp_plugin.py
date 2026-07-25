@@ -22,13 +22,13 @@ class MLPCandidate(ModelCandidate):
         if self._status is not None:
             return self._status
         try:
-            import torch
-            import torch.nn as nn
+            import torch  # noqa: F401
+            import torch.nn as nn  # noqa: F401
             self._backend = "torch"
             self._status = "available"
         except ImportError:
             try:
-                from sklearn.neural_network import MLPClassifier
+                from sklearn.neural_network import MLPClassifier  # noqa: F401
                 self._backend = "sklearn"
                 self._status = "available"
             except ImportError:

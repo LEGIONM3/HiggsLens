@@ -1,0 +1,17 @@
+{
+  "model_id": "svm_rbf",
+  "roc_auc_mean": 0.872318548472261,
+  "ams_score": 2.719804250694722,
+  "optimal_threshold": 0.7722222222222221,
+  "f1_mean": 0.5143961123189067,
+  "precision_selected": 0.8628361296253735,
+  "recall_selected": 0.3664230916887359,
+  "weighted_signal_yield_s": 237.7232529271877,
+  "weighted_background_yield_b": 7550.722663076573,
+  "training_duration_seconds": 11.203125476837158,
+  "inference_latency_ms": 0.28466871685451933,
+  "device": "cpu",
+  "subsample_size": 10000,
+  "validation_roc_auc": 0.8704866763427356,
+  "validation_ams": 2.713617098223619
+}

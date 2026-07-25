@@ -9,10 +9,10 @@ from ml.models.spec import DependencyMissingError
 
 def test_registered_model_specs_count():
     specs = list_model_specs()
-    assert len(specs) == 11
+    assert len(specs) == 12
     expected_ids = {
         "dummy_prior", "logistic_regression", "random_forest",
-        "histogram_gradient_boosting", "mlp", "xgboost", "lightgbm",
+        "histogram_gradient_boosting", "mlp", "mlp_torch", "xgboost", "lightgbm",
         "svm_rbf", "calibrated_ensemble", "quantum_kernel_svm",
         "variational_quantum_classifier"
     }

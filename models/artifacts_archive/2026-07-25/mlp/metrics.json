@@ -1,0 +1,11 @@
+{
+  "model_id": "mlp",
+  "roc_auc_mean": 0.9027,
+  "ams_score": 3.2119,
+  "optimal_threshold": 0.7326,
+  "training_duration_seconds": 109.64,
+  "inference_latency_ms": 0.0003,
+  "device": "cpu",
+  "subsample_size": 250000,
+  "validation_roc_auc": 0.9009
+}

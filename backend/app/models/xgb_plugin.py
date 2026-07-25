@@ -21,7 +21,7 @@ class XGBoostCandidate(ModelCandidate):
         if self._status is not None:
             return self._status
         try:
-            import xgboost as xgb
+            import xgboost as xgb  # noqa: F401
             self._status = "available"
         except ImportError:
             self._status = "unavailable"

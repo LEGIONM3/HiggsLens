@@ -1,0 +1,28 @@
+INFO:higgslens.benchmark:=== HiggsLens R004 Model Arena Benchmark Orchestration Started ===
+INFO:higgslens.benchmark:Loading existing processed dataset splits from data\processed\v1...
+INFO:higgslens.benchmark:Dataset preparation complete. Full SHA-256 Hash: 54242acf28a78ce303ea48bcf7002f0a44df08448271477e0a63331486c4f316
+INFO:higgslens.benchmark:Split row counts: {'train': 250000, 'validation': 100000, 'test': 450000, 'holdout': 18238}
+INFO:higgslens.benchmark:Weight Renormalization Factors: {'train': {'signal_factor': 3.2576736550430385, 'background_factor': 3.2796579253717266, 'split_signal_weight_sum': 212.41802617053307, 'split_background_weight_sum': 125317.90103543407, 'full_signal_weight_sum': 691.9886077119883, 'full_background_weight_sum': 410999.8473218111}, 'validation': {'signal_factor': 8.21347471297913, 'background_factor': 8.144431241528784, 'split_signal_weight_sum': 84.25040946659169, 'split_background_weight_sum': 50463.91026375252, 'full_signal_weight_sum': 691.9886077119883, 'full_background_weight_sum': 410999.8473218111}, 'test': {'signal_factor': 1.8205996822908546, 'background_factor': 1.818228942218773, 'split_signal_weight_sum': 380.08828324152034, 'split_background_weight_sum': 226044.05736731406, 'full_signal_weight_sum': 691.9886077119883, 'full_background_weight_sum': 410999.8473218111}, 'holdout': {'signal_factor': 45.43025591134819, 'background_factor': 44.80061081065441, 'split_signal_weight_sum': 15.231888833343197, 'split_background_weight_sum': 9173.97865531038, 'full_signal_weight_sum': 691.9886077119883, 'full_background_weight_sum': 410999.8473218111}}
+INFO:higgslens.benchmark:HOLD OUT DISCIPLINE ASSERTION PASSED: 18,238 holdout events remain completely untouched.
+INFO:higgslens.benchmark:NVIDIA-SMI Snapshot captured:
+INFO:higgslens.benchmark:
+Sat Jul 25 20:10:59 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 595.79                 Driver Version: 595.79         CUDA Version: 13.2     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                  Driver-Model | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|       ...
+INFO:higgslens.benchmark:
+--- Benchmarking Model: dummy_prior (Dummy Prior Baseline) ---
+INFO:higgslens.benchmark:
+--- Benchmarking Model: logistic_regression (Logistic Regression) ---
+INFO:higgslens.benchmark:
+--- Benchmarking Model: random_forest (Random Forest) ---
+INFO:higgslens.benchmark:
+--- Benchmarking Model: histogram_gradient_boosting (Hist. Gradient Boosting) ---
+INFO:higgslens.benchmark:
+--- Benchmarking Model: mlp (Multi-Layer Perceptron (MLP)) ---
+INFO:higgslens.benchmark:
+--- Benchmarking Model: mlp_torch (PyTorch MLP (CUDA)) ---
+WARNING:higgslens.ml.mlp_torch:CUDA requested but torch.cuda.is_available() is False; using CPU.

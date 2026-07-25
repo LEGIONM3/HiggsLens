@@ -3,7 +3,7 @@ Declarative ModelSpec Interface for HiggsLens ML Model Arena.
 """
 
 from dataclasses import dataclass, field
-from typing import Any, Callable, Dict, List, Optional
+from typing import Any, Callable, Dict, List
 
 
 class DependencyMissingError(Exception):

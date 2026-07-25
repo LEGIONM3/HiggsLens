@@ -1,121 +1,17 @@
 {
   "model_id": "logistic_regression",
-  "feature_set": "all_physics",
-  "mode": "fast",
-  "seeds_evaluated": [
-    42
-  ],
-  "roc_auc_mean": 0.8103279719596324,
-  "roc_auc_std": 0.0,
-  "pr_auc_mean": 0.6691734864518137,
-  "pr_auc_std": 0.0,
-  "log_loss_mean": 0.5005772234857574,
-  "log_loss_std": 0.0,
-  "balanced_accuracy_mean": 0.7264523138064398,
-  "balanced_accuracy_std": 0.0,
-  "f1_mean": 0.6405417658392837,
-  "f1_std": 0.0,
-  "brier_score_mean": 0.16508285268520762,
-  "brier_score_std": 0.0,
-  "optimal_threshold": 0.4216,
-  "ams_score": 0.6973724913316252,
-  "ams_default_threshold_score": 0.6766297435120384,
-  "training_duration_seconds": 0.2787282466888428,
-  "stability_status": "not_assessed",
-  "calibration_status": "not_calibrated",
-  "model_card_path": "D:\\HiggsLens\\artifacts\\models\\logistic_regression_card.md",
-  "validation_rows": 100000,
-  "precision_05": 0.6585565106201605,
-  "recall_05": 0.5449228508449669,
-  "precision_selected": 0.6183429524877595,
-  "recall_selected": 0.6643938280675974,
-  "confusion_matrix_05": {
-    "tn": 56362,
-    "fp": 9613,
-    "fn": 15484,
-    "tp": 18541
-  },
-  "confusion_matrix_selected": {
-    "tn": 52022,
-    "fp": 13953,
-    "fn": 11419,
-    "tp": 22606
-  },
-  "weighted_signal_yield_s": 53.219588845525855,
-  "weighted_background_yield_b": 5796.180371155397,
-  "ams_br": 10.0,
-  "calibration_method": "none",
-  "expected_calibration_error": 0.01987386989907062,
-  "reliability_bins": [
-    {
-      "bin_low": 0.0,
-      "bin_high": 0.1,
-      "confidence": 0.05455868007258334,
-      "accuracy": 0.05352908531355633,
-      "count": 19821
-    },
-    {
-      "bin_low": 0.1,
-      "bin_high": 0.2,
-      "confidence": 0.14829356777927286,
-      "accuracy": 0.10859810817365996,
-      "count": 16492
-    },
-    {
-      "bin_low": 0.2,
-      "bin_high": 0.30000000000000004,
-      "confidence": 0.24856041397170336,
-      "accuracy": 0.24128060263653484,
-      "count": 13275
-    },
-    {
-      "bin_low": 0.30000000000000004,
-      "bin_high": 0.4,
-      "confidence": 0.3496387141073356,
-      "accuracy": 0.3789436987972808,
-      "count": 11474
-    },
-    {
-      "bin_low": 0.4,
-      "bin_high": 0.5,
-      "confidence": 0.44949652076133195,
-      "accuracy": 0.47116097922848665,
-      "count": 10784
-    },
-    {
-      "bin_low": 0.5,
-      "bin_high": 0.6000000000000001,
-      "confidence": 0.5491272607641322,
-      "accuracy": 0.562569102422354,
-      "count": 9949
-    },
-    {
-      "bin_low": 0.6000000000000001,
-      "bin_high": 0.7000000000000001,
-      "confidence": 0.6470833518508167,
-      "accuracy": 0.6419662509170947,
-      "count": 8178
-    },
-    {
-      "bin_low": 0.7000000000000001,
-      "bin_high": 0.8,
-      "confidence": 0.7455053256488522,
-      "accuracy": 0.7196044211751018,
-      "count": 5157
-    },
-    {
-      "bin_low": 0.8,
-      "bin_high": 0.9,
-      "confidence": 0.8459169533428085,
-      "accuracy": 0.779126213592233,
-      "count": 2884
-    },
-    {
-      "bin_low": 0.9,
-      "bin_high": 1.0,
-      "confidence": 0.9466422308915471,
-      "accuracy": 0.8741188318227593,
-      "count": 1986
-    }
-  ]
+  "roc_auc_mean": 0.8146136068929322,
+  "ams_score": 2.058950021722848,
+  "optimal_threshold": 0.41585858585858587,
+  "f1_mean": 0.6459457681694172,
+  "precision_selected": 0.6227472580567232,
+  "recall_selected": 0.6709395313730211,
+  "weighted_signal_yield_s": 450.51406255074085,
+  "weighted_background_yield_b": 47716.861518036945,
+  "training_duration_seconds": 0.4590177536010742,
+  "inference_latency_ms": 0.00019834836324055988,
+  "device": "cpu",
+  "subsample_size": 250000,
+  "validation_roc_auc": 0.8128205884768656,
+  "validation_ams": 2.047175211149039
 }

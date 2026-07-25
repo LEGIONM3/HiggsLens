@@ -19,7 +19,7 @@ jobs:
       - name: Set up Python 3.12 environment
         run: |
           uv venv --python 3.12 .venv
-          uv pip install -e backend/ -e .
+          uv pip install -e backend/
       - name: Run Ruff Lint
         run: uv run --python 3.12 ruff check backend/app backend/tests scripts ml
       - name: Run Mypy Typecheck
@@ -39,7 +39,7 @@ jobs:
           cache-dependency-path: frontend/package-lock.json
       - name: Install Frontend Dependencies
         working-directory: ./frontend
-        run: npm ci
+        run: npm install
       - name: Run TypeScript Typecheck
         working-directory: ./frontend
         run: npm run typecheck

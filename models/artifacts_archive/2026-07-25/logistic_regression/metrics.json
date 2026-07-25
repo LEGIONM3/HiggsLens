@@ -1,0 +1,11 @@
+{
+  "model_id": "logistic_regression",
+  "roc_auc_mean": 0.8147,
+  "ams_score": 2.0625,
+  "optimal_threshold": 0.4159,
+  "training_duration_seconds": 0.31,
+  "inference_latency_ms": 0.0001,
+  "device": "cpu",
+  "subsample_size": 250000,
+  "validation_roc_auc": 0.8128
+}

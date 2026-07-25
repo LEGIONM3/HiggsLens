@@ -1,0 +1,11 @@
+{
+  "model_id": "xgboost",
+  "roc_auc_mean": 0.9085,
+  "ams_score": 3.4954,
+  "optimal_threshold": 0.792,
+  "training_duration_seconds": 1.49,
+  "inference_latency_ms": 0.0008,
+  "device": "cuda:0 (RTX 5070 Ti)",
+  "subsample_size": 250000,
+  "validation_roc_auc": 0.9069
+}

@@ -1,0 +1,11 @@
+{
+  "model_id": "mlp_torch",
+  "roc_auc_mean": 0.9044,
+  "ams_score": 3.2649,
+  "optimal_threshold": 0.7821,
+  "training_duration_seconds": 2084.4,
+  "inference_latency_ms": 0.0006,
+  "device": "cpu (CUDA sm_120 compatibility fallback)",
+  "subsample_size": 250000,
+  "validation_roc_auc": 0.9027
+}

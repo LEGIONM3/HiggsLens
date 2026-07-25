@@ -130,7 +130,6 @@ def client(temp_artifacts_dir: Path, monkeypatch: pytest.MonkeyPatch) -> Generat
     monkeypatch.setattr(settings, "ARTIFACTS_DIR", temp_artifacts_dir)
     # Re-initialize registry service with temp artifacts dir
     from backend.app.services.metrics_service import metrics_service
-    from backend.app.services.model_registry import model_registry_service
     from backend.app.services.prediction_service import prediction_service
 
     test_registry = ModelRegistryService(temp_artifacts_dir)

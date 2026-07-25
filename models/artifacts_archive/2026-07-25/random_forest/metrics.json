@@ -1,0 +1,11 @@
+{
+  "model_id": "random_forest",
+  "roc_auc_mean": 0.9046,
+  "ams_score": 3.4567,
+  "optimal_threshold": 0.792,
+  "training_duration_seconds": 3.77,
+  "inference_latency_ms": 0.0012,
+  "device": "cpu",
+  "subsample_size": 250000,
+  "validation_roc_auc": 0.9029
+}

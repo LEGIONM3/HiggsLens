@@ -1,0 +1,11 @@
+{
+  "model_id": "calibrated_ensemble",
+  "roc_auc_mean": 0.8964,
+  "ams_score": 3.3693,
+  "optimal_threshold": 0.693,
+  "training_duration_seconds": 27.52,
+  "inference_latency_ms": 0.001,
+  "device": "cpu",
+  "subsample_size": 250000,
+  "validation_roc_auc": 0.8943
+}

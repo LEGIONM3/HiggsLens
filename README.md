@@ -104,3 +104,25 @@ npm --prefix frontend test
 ## License
 
 This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
+
+## 🏆 Model Arena Benchmark (R004 — 2026-07-25)
+
+> **Dataset**: CERN/ATLAS open data record 328 · 818,238 events · SHA-256: `54242acf28a78ce3…`  
+> **GPU**: NVIDIA GeForce RTX 5070 Ti Laptop GPU (sm_120) · CUDA 13.2 · Driver 595.79  
+> **Methodology**: Train (250k) → threshold on Val (100k) → final metrics on Test (450k)
+
+| Model | Device | Val ROC-AUC | Test ROC-AUC | Test AMS | Fit Time |
+| :--- | :--- | ---: | ---: | ---: | ---: |
+| **XGBoost (CUDA)** | `cuda:0` 🚀 | 0.9069 | 0.9085 | 3.4954 | 1.5s |
+| **Hist. Gradient Boosting** | `cpu` | 0.9070 | 0.9085 | 3.5263 | 60.3s |
+| **Random Forest** | `cpu` | 0.9029 | 0.9046 | 3.4567 | 3.8s |
+| **PyTorch MLP (sm_120 CPU fallback)** | `cpu` 🚀 | 0.9027 | 0.9044 | 3.2649 | 2084.4s |
+| **Multi-Layer Perceptron (sklearn)** | `cpu` | 0.9009 | 0.9027 | 3.2119 | 109.6s |
+| **Calibrated Voting Ensemble** | `cpu` | 0.8943 | 0.8964 | 3.3693 | 27.5s |
+| **Support Vector Machine (RBF)** | `cpu` | 0.8718 | 0.8733 | 2.7668 | 16.3s |
+| **Logistic Regression** | `cpu` | 0.8128 | 0.8147 | 2.0625 | 0.3s |
+| **Dummy Prior Baseline** | `cpu` | 0.5000 | 0.5000 | 1.0791 | 0.0s |
+
+> ⚠️ **LightGBM**: PyPI wheel is CPU-only (no GPU Tree Learner). Fit failed; excluded from leaderboard.  
+> ⚠️ **mlp_torch**: sm_120 (Blackwell) not supported by torch 2.13.0+cu126 → CPU fallback.  
+> 🚀 **XGBoost CUDA**: Confirmed `device='cuda'`, 1.49s fit on 250k events.

@@ -1,0 +1,11 @@
+{
+  "model_id": "dummy_prior",
+  "roc_auc_mean": 0.5,
+  "ams_score": 1.0791,
+  "optimal_threshold": 0.01,
+  "training_duration_seconds": 0.02,
+  "inference_latency_ms": 0.0001,
+  "device": "cpu",
+  "subsample_size": 250000,
+  "validation_roc_auc": 0.5
+}

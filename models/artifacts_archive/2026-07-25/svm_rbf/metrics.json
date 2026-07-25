@@ -1,0 +1,11 @@
+{
+  "model_id": "svm_rbf",
+  "roc_auc_mean": 0.8733,
+  "ams_score": 2.7668,
+  "optimal_threshold": 0.7029,
+  "training_duration_seconds": 16.31,
+  "inference_latency_ms": 0.003,
+  "device": "cpu",
+  "subsample_size": 10000,
+  "validation_roc_auc": 0.8718
+}
