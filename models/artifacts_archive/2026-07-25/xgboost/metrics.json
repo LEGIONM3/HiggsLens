@@ -1,11 +1,17 @@
 {
   "model_id": "xgboost",
-  "roc_auc_mean": 0.9085,
-  "ams_score": 3.4954,
-  "optimal_threshold": 0.792,
-  "training_duration_seconds": 1.49,
-  "inference_latency_ms": 0.0008,
+  "roc_auc_mean": 0.909647633921429,
+  "ams_score": 3.5526389160500504,
+  "optimal_threshold": 0.8118181818181818,
+  "f1_mean": 0.5815834001246772,
+  "precision_selected": 0.9211391173110287,
+  "recall_selected": 0.4249396484972313,
+  "weighted_signal_yield_s": 237.08313970464246,
+  "weighted_background_yield_b": 4365.145416861889,
+  "training_duration_seconds": 0.4810466766357422,
+  "inference_latency_ms": 0.00021281242370605467,
   "device": "cuda:0 (RTX 5070 Ti)",
   "subsample_size": 250000,
-  "validation_roc_auc": 0.9069
+  "validation_roc_auc": 0.908217127644202,
+  "validation_ams": 3.4543058779713327
 }

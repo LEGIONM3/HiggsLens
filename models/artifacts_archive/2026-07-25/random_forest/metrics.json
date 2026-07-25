@@ -1,11 +1,17 @@
 {
   "model_id": "random_forest",
-  "roc_auc_mean": 0.9046,
-  "ams_score": 3.4567,
-  "optimal_threshold": 0.792,
-  "training_duration_seconds": 3.77,
-  "inference_latency_ms": 0.0012,
+  "roc_auc_mean": 0.9060975938911137,
+  "ams_score": 3.488003338300991,
+  "optimal_threshold": 0.7623232323232323,
+  "f1_mean": 0.590234498785254,
+  "precision_selected": 0.9119755185311119,
+  "recall_selected": 0.4363072037896189,
+  "weighted_signal_yield_s": 259.35506293732897,
+  "weighted_background_yield_b": 5433.081084247966,
+  "training_duration_seconds": 4.703614950180054,
+  "inference_latency_ms": 0.0010874949561225044,
   "device": "cpu",
   "subsample_size": 250000,
-  "validation_roc_auc": 0.9029
+  "validation_roc_auc": 0.9043084052890027,
+  "validation_ams": 3.501076975968641
 }

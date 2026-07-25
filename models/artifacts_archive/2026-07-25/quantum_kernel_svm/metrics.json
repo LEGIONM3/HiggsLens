@@ -1,0 +1,17 @@
+{
+  "model_id": "quantum_kernel_svm",
+  "roc_auc_mean": 0.5012280488284346,
+  "ams_score": 1.079073517290301,
+  "optimal_threshold": 0.01,
+  "f1_mean": 0.5091513261098953,
+  "precision_selected": 0.34151777777777775,
+  "recall_selected": 1.0,
+  "weighted_signal_yield_s": 691.9886077119772,
+  "weighted_background_yield_b": 410999.84732181113,
+  "training_duration_seconds": 229.9276261329651,
+  "inference_latency_ms": 1.9104792102177939,
+  "device": "cpu/gpu",
+  "subsample_size": 500,
+  "validation_roc_auc": 0.4997568825053687,
+  "validation_ams": 1.0790735172818724
+}

@@ -59,8 +59,8 @@ GPU_CAPABLE = {"xgboost", "lightgbm", "mlp_torch"}
 # Subsample sizes (for expensive CPU-bound models)
 SUBSAMPLES: Dict[str, int] = {
     "svm_rbf": 10000,
-    "quantum_kernel_svm": 1000,
-    "variational_quantum_classifier": 1000,
+    "quantum_kernel_svm": 500,
+    "variational_quantum_classifier": 200,
 }
 
 

@@ -1,8 +1,8 @@
-2026-07-25 21:10:08,673 [INFO] higgslens.benchmark_gpu: ======================================================================
-2026-07-25 21:10:08,673 [INFO] higgslens.benchmark_gpu: HiggsLens R004 — GPU-first Sequential Benchmark
-2026-07-25 21:10:08,674 [INFO] higgslens.benchmark_gpu: ======================================================================
-2026-07-25 21:10:08,742 [INFO] higgslens.benchmark_gpu: NVIDIA-SMI:
-Sat Jul 25 21:10:08 2026       
+2026-07-25 22:55:04,444 [INFO] higgslens.benchmark_gpu: ======================================================================
+2026-07-25 22:55:04,445 [INFO] higgslens.benchmark_gpu: HiggsLens R004 — GPU-first Sequential Benchmark
+2026-07-25 22:55:04,445 [INFO] higgslens.benchmark_gpu: ======================================================================
+2026-07-25 22:55:04,546 [INFO] higgslens.benchmark_gpu: NVIDIA-SMI:
+Sat Jul 25 22:55:04 2026       
 +-----------------------------------------------------------------------------------------+
 | NVIDIA-SMI 595.79                 Driver Version: 595.79         CUDA Version: 13.2     |
 +-----------------------------------------+------------------------+----------------------+
@@ -10,120 +10,136 @@ Sat Jul 25 21:10:08 2026
 | Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
 |                                         |                        |               MIG M. |
 |===============
-2026-07-25 21:10:10,261 [INFO] higgslens.benchmark_gpu: PyTorch GPU status: cuda:0 (NVIDIA GeForce RTX 5070 Ti Laptop GPU, sm_120)
-2026-07-25 21:10:10,261 [INFO] higgslens.benchmark_gpu: torch GPU: AVAILABLE — mlp_torch will train on CUDA
-2026-07-25 21:10:10,262 [WARNING] higgslens.benchmark_gpu: Dataset hash mismatch! Expected 54242acf28a78ce3... got ...
-2026-07-25 21:10:10,262 [INFO] higgslens.benchmark_gpu: Loading dataset splits (train/val/test)...
-2026-07-25 21:10:12,081 [INFO] higgslens.benchmark_gpu: HOLDOUT DISCIPLINE: 18238 rows completely untouched.
-2026-07-25 21:10:12,106 [INFO] higgslens.benchmark_gpu: Splits loaded — Train: 250,000  Val: 100,000  Test: 450,000  Holdout: 18,238
-2026-07-25 21:10:12,106 [INFO] higgslens.benchmark_gpu: 
+2026-07-25 22:55:06,897 [INFO] higgslens.benchmark_gpu: PyTorch GPU status: cuda:0 (NVIDIA GeForce RTX 5070 Ti Laptop GPU, sm_120)
+2026-07-25 22:55:06,898 [INFO] higgslens.benchmark_gpu: torch GPU: AVAILABLE — mlp_torch will train on CUDA
+2026-07-25 22:55:06,898 [WARNING] higgslens.benchmark_gpu: Dataset hash mismatch! Expected 54242acf28a78ce3... got ...
+2026-07-25 22:55:06,899 [INFO] higgslens.benchmark_gpu: Loading dataset splits (train/val/test)...
+2026-07-25 22:55:08,424 [INFO] higgslens.benchmark_gpu: HOLDOUT DISCIPLINE: 18238 rows completely untouched.
+2026-07-25 22:55:08,443 [INFO] higgslens.benchmark_gpu: Splits loaded — Train: 250,000  Val: 100,000  Test: 450,000  Holdout: 18,238
+2026-07-25 22:55:08,443 [INFO] higgslens.benchmark_gpu: 
 ============================================================
-2026-07-25 21:10:12,107 [INFO] higgslens.benchmark_gpu: [dummy_prior] Dummy Prior Baseline
-2026-07-25 21:10:12,107 [INFO] higgslens.benchmark_gpu:   Fitting on 250,000 events...
-2026-07-25 21:10:12,128 [INFO] higgslens.benchmark_gpu:   Fit complete — 0.02s on cpu
-2026-07-25 21:10:12,258 [INFO] higgslens.benchmark_gpu:   Val AUC=0.5000  Test AUC=0.5000  Test AMS=1.0791  Thresh=0.0100  F1=0.5092  Lat=0.0000ms
-2026-07-25 21:10:12,259 [INFO] higgslens.benchmark_gpu: 
+2026-07-25 22:55:08,443 [INFO] higgslens.benchmark_gpu: [dummy_prior] Dummy Prior Baseline
+2026-07-25 22:55:08,443 [INFO] higgslens.benchmark_gpu:   Fitting on 250,000 events...
+2026-07-25 22:55:08,459 [INFO] higgslens.benchmark_gpu:   Fit complete — 0.02s on cpu
+2026-07-25 22:55:08,563 [INFO] higgslens.benchmark_gpu:   Val AUC=0.5000  Test AUC=0.5000  Test AMS=1.0791  Thresh=0.0100  F1=0.5092  Lat=0.0000ms
+2026-07-25 22:55:08,563 [INFO] higgslens.benchmark_gpu: 
 ============================================================
-2026-07-25 21:10:12,259 [INFO] higgslens.benchmark_gpu: [logistic_regression] Logistic Regression
-2026-07-25 21:10:12,259 [INFO] higgslens.benchmark_gpu:   Fitting on 250,000 events...
-2026-07-25 21:10:12,718 [INFO] higgslens.benchmark_gpu:   Fit complete — 0.46s on cpu
-2026-07-25 21:10:13,040 [INFO] higgslens.benchmark_gpu:   Val AUC=0.8128  Test AUC=0.8146  Test AMS=2.0590  Thresh=0.4159  F1=0.6459  Lat=0.0002ms
-2026-07-25 21:10:13,040 [INFO] higgslens.benchmark_gpu: 
+2026-07-25 22:55:08,563 [INFO] higgslens.benchmark_gpu: [logistic_regression] Logistic Regression
+2026-07-25 22:55:08,563 [INFO] higgslens.benchmark_gpu:   Fitting on 250,000 events...
+2026-07-25 22:55:08,986 [INFO] higgslens.benchmark_gpu:   Fit complete — 0.42s on cpu
+2026-07-25 22:55:09,267 [INFO] higgslens.benchmark_gpu:   Val AUC=0.8128  Test AUC=0.8146  Test AMS=2.0590  Thresh=0.4159  F1=0.6459  Lat=0.0002ms
+2026-07-25 22:55:09,267 [INFO] higgslens.benchmark_gpu: 
 ============================================================
-2026-07-25 21:10:13,040 [INFO] higgslens.benchmark_gpu: [random_forest] Random Forest
-2026-07-25 21:10:13,040 [INFO] higgslens.benchmark_gpu:   Fitting on 250,000 events...
-2026-07-25 21:10:19,102 [INFO] higgslens.benchmark_gpu:   Fit complete — 6.06s on cpu
-2026-07-25 21:10:19,886 [INFO] higgslens.benchmark_gpu:   Val AUC=0.9043  Test AUC=0.9061  Test AMS=3.4880  Thresh=0.7623  F1=0.5902  Lat=0.0010ms
-2026-07-25 21:10:19,886 [INFO] higgslens.benchmark_gpu: 
+2026-07-25 22:55:09,267 [INFO] higgslens.benchmark_gpu: [random_forest] Random Forest
+2026-07-25 22:55:09,267 [INFO] higgslens.benchmark_gpu:   Fitting on 250,000 events...
+2026-07-25 22:55:13,384 [INFO] higgslens.benchmark_gpu:   Fit complete — 4.12s on cpu
+2026-07-25 22:55:14,080 [INFO] higgslens.benchmark_gpu:   Val AUC=0.9043  Test AUC=0.9061  Test AMS=3.4880  Thresh=0.7623  F1=0.5902  Lat=0.0008ms
+2026-07-25 22:55:14,080 [INFO] higgslens.benchmark_gpu: 
 ============================================================
-2026-07-25 21:10:19,886 [INFO] higgslens.benchmark_gpu: [histogram_gradient_boosting] Hist. Gradient Boosting
-2026-07-25 21:10:19,886 [INFO] higgslens.benchmark_gpu:   Fitting on 250,000 events...
-2026-07-25 21:10:21,835 [INFO] higgslens.benchmark_gpu:   Fit complete — 1.95s on cpu
-2026-07-25 21:10:22,283 [INFO] higgslens.benchmark_gpu:   Val AUC=0.8988  Test AUC=0.9003  Test AMS=3.3986  Thresh=0.7920  F1=0.5102  Lat=0.0004ms
-2026-07-25 21:10:22,283 [INFO] higgslens.benchmark_gpu: 
+2026-07-25 22:55:14,081 [INFO] higgslens.benchmark_gpu: [histogram_gradient_boosting] Hist. Gradient Boosting
+2026-07-25 22:55:14,081 [INFO] higgslens.benchmark_gpu:   Fitting on 250,000 events...
+2026-07-25 22:55:16,482 [INFO] higgslens.benchmark_gpu:   Fit complete — 2.40s on cpu
+2026-07-25 22:55:16,815 [INFO] higgslens.benchmark_gpu:   Val AUC=0.8988  Test AUC=0.9003  Test AMS=3.3986  Thresh=0.7920  F1=0.5102  Lat=0.0003ms
+2026-07-25 22:55:16,815 [INFO] higgslens.benchmark_gpu: 
 ============================================================
-2026-07-25 21:10:22,283 [INFO] higgslens.benchmark_gpu: [mlp] Multi-Layer Perceptron (MLP)
-2026-07-25 21:10:22,283 [INFO] higgslens.benchmark_gpu:   Fitting on 250,000 events...
-2026-07-25 21:10:40,095 [INFO] higgslens.benchmark_gpu:   Fit complete — 17.81s on cpu
-2026-07-25 21:10:40,534 [INFO] higgslens.benchmark_gpu:   Val AUC=0.9043  Test AUC=0.9060  Test AMS=3.4216  Thresh=0.8316  F1=0.5607  Lat=0.0005ms
-2026-07-25 21:10:40,534 [INFO] higgslens.benchmark_gpu: 
+2026-07-25 22:55:16,815 [INFO] higgslens.benchmark_gpu: [mlp] Multi-Layer Perceptron (MLP)
+2026-07-25 22:55:16,815 [INFO] higgslens.benchmark_gpu:   Fitting on 250,000 events...
+2026-07-25 22:55:28,516 [INFO] higgslens.benchmark_gpu:   Fit complete — 11.70s on cpu
+2026-07-25 22:55:29,024 [INFO] higgslens.benchmark_gpu:   Val AUC=0.9043  Test AUC=0.9060  Test AMS=3.4216  Thresh=0.8316  F1=0.5607  Lat=0.0005ms
+2026-07-25 22:55:29,024 [INFO] higgslens.benchmark_gpu: 
 ============================================================
-2026-07-25 21:10:40,534 [INFO] higgslens.benchmark_gpu: [mlp_torch] PyTorch MLP (CUDA)
-2026-07-25 21:10:40,536 [INFO] higgslens.benchmark_gpu:   Fitting on 250,000 events...
-2026-07-25 21:10:40,747 [INFO] higgslens.ml.mlp_torch: TorchMLPClassifier: training on cuda:0 (NVIDIA GeForce RTX 5070 Ti Laptop GPU, sm_120)
-2026-07-25 21:11:47,029 [INFO] higgslens.ml.mlp_torch: Completed TorchMLPClassifier training on cuda:0 (NVIDIA GeForce RTX 5070 Ti Laptop GPU, sm_120) (50 epochs)
-2026-07-25 21:11:47,031 [INFO] higgslens.benchmark_gpu:   Fit complete — 66.50s on cuda:0 (NVIDIA GeForce RTX 5070 Ti Laptop GPU, sm_120)
-2026-07-25 21:11:47,338 [INFO] higgslens.benchmark_gpu:   Val AUC=0.9053  Test AUC=0.9064  Test AMS=3.3296  Thresh=0.7623  F1=0.6281  Lat=0.0002ms
-2026-07-25 21:11:47,339 [INFO] higgslens.benchmark_gpu: 
+2026-07-25 22:55:29,025 [INFO] higgslens.benchmark_gpu: [mlp_torch] PyTorch MLP (CUDA)
+2026-07-25 22:55:29,026 [INFO] higgslens.benchmark_gpu:   Fitting on 250,000 events...
+2026-07-25 22:55:29,293 [INFO] higgslens.ml.mlp_torch: TorchMLPClassifier: training on cuda:0 (NVIDIA GeForce RTX 5070 Ti Laptop GPU, sm_120)
+2026-07-25 22:56:16,908 [INFO] higgslens.ml.mlp_torch: Completed TorchMLPClassifier training on cuda:0 (NVIDIA GeForce RTX 5070 Ti Laptop GPU, sm_120) (50 epochs)
+2026-07-25 22:56:16,911 [INFO] higgslens.benchmark_gpu:   Fit complete — 47.88s on cuda:0 (NVIDIA GeForce RTX 5070 Ti Laptop GPU, sm_120)
+2026-07-25 22:56:17,266 [INFO] higgslens.benchmark_gpu:   Val AUC=0.9053  Test AUC=0.9064  Test AMS=3.3296  Thresh=0.7623  F1=0.6281  Lat=0.0003ms
+2026-07-25 22:56:17,267 [INFO] higgslens.benchmark_gpu: 
 ============================================================
-2026-07-25 21:11:47,339 [INFO] higgslens.benchmark_gpu: [xgboost] XGBoost Classifier (CUDA)
-2026-07-25 21:11:47,370 [INFO] higgslens.benchmark_gpu:   Fitting on 250,000 events...
-2026-07-25 21:11:47,775 [INFO] higgslens.benchmark_gpu:   Fit complete — 0.40s on cuda:0 (RTX 5070 Ti)
-2026-07-25 21:11:48,063 [INFO] higgslens.benchmark_gpu:   Val AUC=0.9082  Test AUC=0.9096  Test AMS=3.5526  Thresh=0.8118  F1=0.5816  Lat=0.0002ms
-2026-07-25 21:11:48,064 [INFO] higgslens.benchmark_gpu: 
+2026-07-25 22:56:17,267 [INFO] higgslens.benchmark_gpu: [xgboost] XGBoost Classifier (CUDA)
+2026-07-25 22:56:17,284 [INFO] higgslens.benchmark_gpu:   Fitting on 250,000 events...
+2026-07-25 22:56:17,737 [INFO] higgslens.benchmark_gpu:   Fit complete — 0.45s on cuda:0 (RTX 5070 Ti)
+2026-07-25 22:56:18,016 [INFO] higgslens.benchmark_gpu:   Val AUC=0.9082  Test AUC=0.9096  Test AMS=3.5526  Thresh=0.8118  F1=0.5816  Lat=0.0002ms
+2026-07-25 22:56:18,016 [INFO] higgslens.benchmark_gpu: 
 ============================================================
-2026-07-25 21:11:48,064 [INFO] higgslens.benchmark_gpu: [lightgbm] LightGBM Classifier
-2026-07-25 21:11:48,088 [WARNING] higgslens.ml.registry: LightGBM GPU probe failed (GPU Tree Learner was not enabled in this build.
+2026-07-25 22:56:18,016 [INFO] higgslens.benchmark_gpu: [lightgbm] LightGBM Classifier
+2026-07-25 22:56:18,041 [WARNING] higgslens.ml.registry: LightGBM GPU probe failed (GPU Tree Learner was not enabled in this build.
 Please recompile with CMake option -DUSE_GPU=1); falling back to CPU. Recompile with -DUSE_GPU=1 for GPU support.
-2026-07-25 21:11:48,088 [INFO] higgslens.benchmark_gpu:   Fitting on 250,000 events...
-2026-07-25 21:11:48,732 [INFO] higgslens.benchmark_gpu:   Fit complete — 0.64s on gpu/cpu
-2026-07-25 21:11:49,139 [INFO] higgslens.benchmark_gpu:   Val AUC=0.9072  Test AUC=0.9087  Test AMS=3.5583  Thresh=0.8217  F1=0.5637  Lat=0.0004ms
-2026-07-25 21:11:49,139 [INFO] higgslens.benchmark_gpu: 
+2026-07-25 22:56:18,042 [INFO] higgslens.benchmark_gpu:   Fitting on 250,000 events...
+2026-07-25 22:56:18,550 [INFO] higgslens.benchmark_gpu:   Fit complete — 0.51s on gpu/cpu
+2026-07-25 22:56:18,919 [INFO] higgslens.benchmark_gpu:   Val AUC=0.9072  Test AUC=0.9087  Test AMS=3.5583  Thresh=0.8217  F1=0.5637  Lat=0.0004ms
+2026-07-25 22:56:18,919 [INFO] higgslens.benchmark_gpu: 
 ============================================================
-2026-07-25 21:11:49,139 [INFO] higgslens.benchmark_gpu: [svm_rbf] Support Vector Machine (RBF)
-2026-07-25 21:11:49,147 [INFO] higgslens.benchmark_gpu:   Subsampled to 10,000 training events
-2026-07-25 21:11:49,147 [INFO] higgslens.benchmark_gpu:   Fitting on 10,000 events...
-2026-07-25 21:12:00,350 [INFO] higgslens.benchmark_gpu:   Fit complete — 11.20s on cpu
-2026-07-25 21:14:37,317 [INFO] higgslens.benchmark_gpu:   Val AUC=0.8705  Test AUC=0.8723  Test AMS=2.7198  Thresh=0.7722  F1=0.5144  Lat=0.2847ms
-2026-07-25 21:14:37,318 [INFO] higgslens.benchmark_gpu: 
+2026-07-25 22:56:18,919 [INFO] higgslens.benchmark_gpu: [svm_rbf] Support Vector Machine (RBF)
+2026-07-25 22:56:18,926 [INFO] higgslens.benchmark_gpu:   Subsampled to 10,000 training events
+2026-07-25 22:56:18,927 [INFO] higgslens.benchmark_gpu:   Fitting on 10,000 events...
+2026-07-25 22:56:26,801 [INFO] higgslens.benchmark_gpu:   Fit complete — 7.87s on cpu
+2026-07-25 22:58:36,970 [INFO] higgslens.benchmark_gpu:   Val AUC=0.8705  Test AUC=0.8723  Test AMS=2.7198  Thresh=0.7722  F1=0.5144  Lat=0.2363ms
+2026-07-25 22:58:36,970 [INFO] higgslens.benchmark_gpu: 
 ============================================================
-2026-07-25 21:14:37,318 [INFO] higgslens.benchmark_gpu: [calibrated_ensemble] Calibrated Voting Ensemble
-2026-07-25 21:14:37,318 [INFO] higgslens.benchmark_gpu:   Fitting on 250,000 events...
-2026-07-25 21:14:46,213 [INFO] higgslens.benchmark_gpu:   Fit complete — 8.89s on cpu
-2026-07-25 21:14:47,200 [INFO] higgslens.benchmark_gpu:   Val AUC=0.8944  Test AUC=0.8963  Test AMS=3.3628  Thresh=0.6930  F1=0.5545  Lat=0.0014ms
-2026-07-25 21:14:47,200 [INFO] higgslens.benchmark_gpu: 
+2026-07-25 22:58:36,970 [INFO] higgslens.benchmark_gpu: [calibrated_ensemble] Calibrated Voting Ensemble
+2026-07-25 22:58:36,971 [INFO] higgslens.benchmark_gpu:   Fitting on 250,000 events...
+2026-07-25 22:58:45,097 [INFO] higgslens.benchmark_gpu:   Fit complete — 8.13s on cpu
+2026-07-25 22:58:46,110 [INFO] higgslens.benchmark_gpu:   Val AUC=0.8944  Test AUC=0.8963  Test AMS=3.3628  Thresh=0.6930  F1=0.5545  Lat=0.0013ms
+2026-07-25 22:58:46,110 [INFO] higgslens.benchmark_gpu: 
 ============================================================
-2026-07-25 21:14:47,201 [INFO] higgslens.benchmark_gpu: [quantum_kernel_svm] Quantum Kernel Support Vector Machine
-2026-07-25 21:14:47,201 [WARNING] higgslens.benchmark_gpu:   SKIPPED — missing dependency: qiskit_machine_learning
-2026-07-25 21:14:47,201 [INFO] higgslens.benchmark_gpu: 
+2026-07-25 22:58:46,110 [INFO] higgslens.benchmark_gpu: [quantum_kernel_svm] Quantum Kernel Support Vector Machine
+2026-07-25 22:58:47,603 [INFO] higgslens.benchmark_gpu:   Subsampled to 500 training events
+2026-07-25 22:58:47,603 [INFO] higgslens.benchmark_gpu:   Fitting on 500 events...
+2026-07-25 22:58:47,604 [INFO] higgslens.ml.quantum: QuantumKernelSVM: Evaluating 500x500 quantum kernel matrix...
+2026-07-25 23:02:12,590 [INFO] higgslens.ml.quantum: QuantumKernelSVM fit complete.
+2026-07-25 23:02:12,590 [INFO] higgslens.benchmark_gpu:   Fit complete — 204.99s on cpu/gpu
+2026-07-25 23:02:12,607 [INFO] higgslens.ml.quantum: QuantumKernelSVM: Subsampling evaluation from 100,000 to 1,000 events for quantum simulation...
+2026-07-25 23:16:19,532 [INFO] higgslens.ml.quantum: QuantumKernelSVM: Subsampling evaluation from 450,000 to 1,000 events for quantum simulation...
+2026-07-25 23:30:24,864 [INFO] higgslens.benchmark_gpu:   Val AUC=0.4998  Test AUC=0.5012  Test AMS=1.0791  Thresh=0.0100  F1=0.5092  Lat=1.8784ms
+2026-07-25 23:30:24,865 [INFO] higgslens.benchmark_gpu: 
 ============================================================
-2026-07-25 21:14:47,201 [INFO] higgslens.benchmark_gpu: [variational_quantum_classifier] Variational Quantum Classifier
-2026-07-25 21:14:47,202 [WARNING] higgslens.benchmark_gpu:   SKIPPED — missing dependency: pennylane
-2026-07-25 21:14:47,202 [INFO] higgslens.benchmark_gpu: 
+2026-07-25 23:30:24,865 [INFO] higgslens.benchmark_gpu: [variational_quantum_classifier] Variational Quantum Classifier
+2026-07-25 23:30:24,871 [INFO] higgslens.benchmark_gpu:   Subsampled to 200 training events
+2026-07-25 23:30:24,871 [INFO] higgslens.benchmark_gpu:   Fitting on 200 events...
+2026-07-25 23:30:24,872 [INFO] higgslens.ml.quantum: VariationalQuantumClassifier: Training on 200 events (15 iterations)...
+2026-07-25 23:30:50,818 [INFO] higgslens.ml.quantum: VariationalQuantumClassifier fit complete.
+2026-07-25 23:30:50,819 [INFO] higgslens.benchmark_gpu:   Fit complete — 25.95s on cpu/gpu
+2026-07-25 23:30:50,832 [INFO] higgslens.ml.quantum: VariationalQuantumClassifier: Subsampling evaluation from 100,000 to 1,000 events for quantum simulation...
+2026-07-25 23:30:52,157 [INFO] higgslens.ml.quantum: VariationalQuantumClassifier: Subsampling evaluation from 450,000 to 1,000 events for quantum simulation...
+2026-07-25 23:30:53,309 [INFO] higgslens.benchmark_gpu:   Val AUC=0.5001  Test AUC=0.4995  Test AMS=1.0791  Thresh=0.0100  F1=0.5092  Lat=0.0025ms
+2026-07-25 23:30:53,309 [INFO] higgslens.benchmark_gpu: 
 RF Parity (Amendment 5):
   Iteration-01 baseline (100k fast split): 0.885100
   R004 val AUC ('b', 100k KaggleSet):      0.904308  (diff=+0.0192)
   R004 test AUC ('v', 450k KaggleSet):     0.906098
   Analysis: +1.92pp improvement from full 250k training vs Iter-01 sub-sample.
-2026-07-25 21:14:47,239 [INFO] higgslens.benchmark_gpu: Previous artifacts archived to models\artifacts_archive\2026-07-25
-2026-07-25 21:14:47,240 [INFO] higgslens.benchmark_gpu:   Packaged artifact: dummy_prior
-2026-07-25 21:14:47,242 [INFO] higgslens.benchmark_gpu:   Packaged artifact: logistic_regression
-2026-07-25 21:14:47,306 [INFO] higgslens.benchmark_gpu:   Packaged artifact: random_forest
-2026-07-25 21:14:47,313 [INFO] higgslens.benchmark_gpu:   Packaged artifact: histogram_gradient_boosting
-2026-07-25 21:14:47,316 [INFO] higgslens.benchmark_gpu:   Packaged artifact: mlp
-2026-07-25 21:14:47,321 [INFO] higgslens.benchmark_gpu:   Packaged artifact: mlp_torch
-2026-07-25 21:14:47,324 [INFO] higgslens.benchmark_gpu:   Packaged artifact: xgboost
-2026-07-25 21:14:47,329 [INFO] higgslens.benchmark_gpu:   Packaged artifact: lightgbm
-2026-07-25 21:14:47,332 [INFO] higgslens.benchmark_gpu:   Packaged artifact: svm_rbf
-2026-07-25 21:14:47,357 [INFO] higgslens.benchmark_gpu:   Packaged artifact: calibrated_ensemble
-2026-07-25 21:14:47,358 [INFO] higgslens.benchmark_gpu: 
+2026-07-25 23:30:53,342 [INFO] higgslens.benchmark_gpu: Previous artifacts archived to models\artifacts_archive\2026-07-25
+2026-07-25 23:30:53,343 [INFO] higgslens.benchmark_gpu:   Packaged artifact: dummy_prior
+2026-07-25 23:30:53,344 [INFO] higgslens.benchmark_gpu:   Packaged artifact: logistic_regression
+2026-07-25 23:30:53,395 [INFO] higgslens.benchmark_gpu:   Packaged artifact: random_forest
+2026-07-25 23:30:53,400 [INFO] higgslens.benchmark_gpu:   Packaged artifact: histogram_gradient_boosting
+2026-07-25 23:30:53,401 [INFO] higgslens.benchmark_gpu:   Packaged artifact: mlp
+2026-07-25 23:30:53,404 [INFO] higgslens.benchmark_gpu:   Packaged artifact: mlp_torch
+2026-07-25 23:30:53,407 [INFO] higgslens.benchmark_gpu:   Packaged artifact: xgboost
+2026-07-25 23:30:53,415 [INFO] higgslens.benchmark_gpu:   Packaged artifact: lightgbm
+2026-07-25 23:30:53,419 [INFO] higgslens.benchmark_gpu:   Packaged artifact: svm_rbf
+2026-07-25 23:30:53,471 [INFO] higgslens.benchmark_gpu:   Packaged artifact: calibrated_ensemble
+2026-07-25 23:30:53,485 [INFO] higgslens.benchmark_gpu:   Packaged artifact: quantum_kernel_svm
+2026-07-25 23:30:53,488 [INFO] higgslens.benchmark_gpu:   Packaged artifact: variational_quantum_classifier
+2026-07-25 23:30:53,489 [INFO] higgslens.benchmark_gpu: 
 Report written to reports\arena_benchmark_2026-07-25.md
-2026-07-25 21:14:47,358 [INFO] higgslens.benchmark_gpu: 
+2026-07-25 23:30:53,489 [INFO] higgslens.benchmark_gpu: 
 ======================================================================
-2026-07-25 21:14:47,358 [INFO] higgslens.benchmark_gpu: BENCHMARK SUMMARY
-2026-07-25 21:14:47,358 [INFO] higgslens.benchmark_gpu: ======================================================================
-2026-07-25 21:14:47,358 [INFO] higgslens.benchmark_gpu:   Completed : 10
-2026-07-25 21:14:47,358 [INFO] higgslens.benchmark_gpu:   Not completed: 2
-2026-07-25 21:14:47,358 [INFO] higgslens.benchmark_gpu:   xgboost                             Test AUC=0.9096  AMS=3.5526  0.4s [GPU]
-2026-07-25 21:14:47,358 [INFO] higgslens.benchmark_gpu:   lightgbm                            Test AUC=0.9087  AMS=3.5583  0.6s [GPU]
-2026-07-25 21:14:47,358 [INFO] higgslens.benchmark_gpu:   mlp_torch                           Test AUC=0.9064  AMS=3.3296  66.5s [GPU]
-2026-07-25 21:14:47,358 [INFO] higgslens.benchmark_gpu:   random_forest                       Test AUC=0.9061  AMS=3.4880  6.1s
-2026-07-25 21:14:47,358 [INFO] higgslens.benchmark_gpu:   mlp                                 Test AUC=0.9060  AMS=3.4216  17.8s
-2026-07-25 21:14:47,358 [INFO] higgslens.benchmark_gpu:   histogram_gradient_boosting         Test AUC=0.9003  AMS=3.3986  1.9s
-2026-07-25 21:14:47,358 [INFO] higgslens.benchmark_gpu:   calibrated_ensemble                 Test AUC=0.8963  AMS=3.3628  8.9s
-2026-07-25 21:14:47,359 [INFO] higgslens.benchmark_gpu:   svm_rbf                             Test AUC=0.8723  AMS=2.7198  11.2s
-2026-07-25 21:14:47,359 [INFO] higgslens.benchmark_gpu:   logistic_regression                 Test AUC=0.8146  AMS=2.0590  0.5s
-2026-07-25 21:14:47,359 [INFO] higgslens.benchmark_gpu:   dummy_prior                         Test AUC=0.5000  AMS=1.0791  0.0s
-2026-07-25 21:14:47,359 [INFO] higgslens.benchmark_gpu:   quantum_kernel_svm                  [SKIPPED] missing: qiskit_machine_learning
-2026-07-25 21:14:47,359 [INFO] higgslens.benchmark_gpu:   variational_quantum_classifier      [SKIPPED] missing: pennylane
-2026-07-25 21:14:47,359 [INFO] higgslens.benchmark_gpu: ======================================================================
+2026-07-25 23:30:53,489 [INFO] higgslens.benchmark_gpu: BENCHMARK SUMMARY
+2026-07-25 23:30:53,489 [INFO] higgslens.benchmark_gpu: ======================================================================
+2026-07-25 23:30:53,489 [INFO] higgslens.benchmark_gpu:   Completed : 12
+2026-07-25 23:30:53,489 [INFO] higgslens.benchmark_gpu:   Not completed: 0
+2026-07-25 23:30:53,489 [INFO] higgslens.benchmark_gpu:   xgboost                             Test AUC=0.9096  AMS=3.5526  0.5s [GPU]
+2026-07-25 23:30:53,489 [INFO] higgslens.benchmark_gpu:   lightgbm                            Test AUC=0.9087  AMS=3.5583  0.5s [GPU]
+2026-07-25 23:30:53,489 [INFO] higgslens.benchmark_gpu:   mlp_torch                           Test AUC=0.9064  AMS=3.3296  47.9s [GPU]
+2026-07-25 23:30:53,490 [INFO] higgslens.benchmark_gpu:   random_forest                       Test AUC=0.9061  AMS=3.4880  4.1s
+2026-07-25 23:30:53,490 [INFO] higgslens.benchmark_gpu:   mlp                                 Test AUC=0.9060  AMS=3.4216  11.7s
+2026-07-25 23:30:53,490 [INFO] higgslens.benchmark_gpu:   histogram_gradient_boosting         Test AUC=0.9003  AMS=3.3986  2.4s
+2026-07-25 23:30:53,490 [INFO] higgslens.benchmark_gpu:   calibrated_ensemble                 Test AUC=0.8963  AMS=3.3628  8.1s
+2026-07-25 23:30:53,490 [INFO] higgslens.benchmark_gpu:   svm_rbf                             Test AUC=0.8723  AMS=2.7198  7.9s
+2026-07-25 23:30:53,490 [INFO] higgslens.benchmark_gpu:   logistic_regression                 Test AUC=0.8146  AMS=2.0590  0.4s
+2026-07-25 23:30:53,490 [INFO] higgslens.benchmark_gpu:   quantum_kernel_svm                  Test AUC=0.5012  AMS=1.0791  205.0s [GPU]
+2026-07-25 23:30:53,490 [INFO] higgslens.benchmark_gpu:   dummy_prior                         Test AUC=0.5000  AMS=1.0791  0.0s
+2026-07-25 23:30:53,490 [INFO] higgslens.benchmark_gpu:   variational_quantum_classifier      Test AUC=0.4995  AMS=1.0791  25.9s [GPU]
+2026-07-25 23:30:53,490 [INFO] higgslens.benchmark_gpu: ======================================================================

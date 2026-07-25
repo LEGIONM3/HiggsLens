@@ -6,6 +6,6 @@
   "dataset_doi": "10.7483/OPENDATA.ATLAS.ZBP2.M5T8",
   "cern_record_id": 328,
   "created_date": "2026-07-25",
-  "device": "cpu (CUDA sm_120 compatibility fallback)",
+  "device": "cuda:0 (NVIDIA GeForce RTX 5070 Ti Laptop GPU, sm_120)",
   "subsample_size": 250000
 }

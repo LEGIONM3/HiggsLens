@@ -1,0 +1,11 @@
+{
+  "model_id": "quantum_kernel_svm",
+  "training_commit": "625d028",
+  "random_seed": 42,
+  "dataset_hash": "54242acf28a78ce303ea48bcf7002f0a44df08448271477e0a63331486c4f316",
+  "dataset_doi": "10.7483/OPENDATA.ATLAS.ZBP2.M5T8",
+  "cern_record_id": 328,
+  "created_date": "2026-07-25",
+  "device": "cpu/gpu",
+  "subsample_size": 500
+}

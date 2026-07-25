@@ -1,11 +1,17 @@
 {
   "model_id": "mlp_torch",
-  "roc_auc_mean": 0.9044,
-  "ams_score": 3.2649,
-  "optimal_threshold": 0.7821,
-  "training_duration_seconds": 2084.4,
-  "inference_latency_ms": 0.0006,
-  "device": "cpu (CUDA sm_120 compatibility fallback)",
+  "roc_auc_mean": 0.906446824835647,
+  "ams_score": 3.3296074915217915,
+  "optimal_threshold": 0.7623232323232323,
+  "f1_mean": 0.6280732389376051,
+  "precision_selected": 0.8926909980336675,
+  "recall_selected": 0.4844647748937749,
+  "weighted_signal_yield_s": 282.0646037781677,
+  "weighted_background_yield_b": 7073.064904345669,
+  "training_duration_seconds": 66.65087532997131,
+  "inference_latency_ms": 0.0002719381120469835,
+  "device": "cuda:0 (NVIDIA GeForce RTX 5070 Ti Laptop GPU, sm_120)",
   "subsample_size": 250000,
-  "validation_roc_auc": 0.9027
+  "validation_roc_auc": 0.9052657859457931,
+  "validation_ams": 3.3833258019748613
 }

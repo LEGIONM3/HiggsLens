@@ -1,11 +1,17 @@
 {
   "model_id": "mlp",
-  "roc_auc_mean": 0.9027,
-  "ams_score": 3.2119,
-  "optimal_threshold": 0.7326,
-  "training_duration_seconds": 109.64,
-  "inference_latency_ms": 0.0003,
+  "roc_auc_mean": 0.9059975516096903,
+  "ams_score": 3.4216038465609615,
+  "optimal_threshold": 0.8316161616161616,
+  "f1_mean": 0.5607423436772937,
+  "precision_selected": 0.9171124575144082,
+  "recall_selected": 0.40382475615390123,
+  "weighted_signal_yield_s": 228.48214630207215,
+  "weighted_background_yield_b": 4373.563486190373,
+  "training_duration_seconds": 12.201010942459106,
+  "inference_latency_ms": 0.0004314941830105252,
   "device": "cpu",
   "subsample_size": 250000,
-  "validation_roc_auc": 0.9009
+  "validation_roc_auc": 0.9043211084286763,
+  "validation_ams": 3.4240532222086553
 }

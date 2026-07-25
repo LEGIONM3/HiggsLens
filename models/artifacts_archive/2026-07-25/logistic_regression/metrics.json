@@ -1,11 +1,17 @@
 {
   "model_id": "logistic_regression",
-  "roc_auc_mean": 0.8147,
-  "ams_score": 2.0625,
-  "optimal_threshold": 0.4159,
-  "training_duration_seconds": 0.31,
-  "inference_latency_ms": 0.0001,
+  "roc_auc_mean": 0.8146136068929322,
+  "ams_score": 2.058950021722848,
+  "optimal_threshold": 0.41585858585858587,
+  "f1_mean": 0.6459457681694172,
+  "precision_selected": 0.6227472580567232,
+  "recall_selected": 0.6709395313730211,
+  "weighted_signal_yield_s": 450.51406255074085,
+  "weighted_background_yield_b": 47716.861518036945,
+  "training_duration_seconds": 0.3994479179382324,
+  "inference_latency_ms": 0.00021517965528700087,
   "device": "cpu",
   "subsample_size": 250000,
-  "validation_roc_auc": 0.8128
+  "validation_roc_auc": 0.8128205884768656,
+  "validation_ams": 2.047175211149039
 }

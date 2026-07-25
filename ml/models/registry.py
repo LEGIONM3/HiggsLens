@@ -123,18 +123,18 @@ def _build_calibrated_ensemble(feature_set: str) -> VotingClassifier:
 
 def _build_quantum_kernel_svm(feature_set: str) -> Any:
     try:
-        qiskit_machine = importlib.import_module("qiskit_machine_learning")
-        return qiskit_machine.algorithms.QSVC()
-    except ImportError:
-        raise DependencyMissingError("quantum_kernel_svm", "qiskit_machine_learning")
+        from ml.models.quantum_models import QuantumKernelSVM
+        return QuantumKernelSVM(num_qubits=4, subsample=500, seed=42)
+    except ImportError as e:
+        raise DependencyMissingError("quantum_kernel_svm", "qiskit_machine_learning") from e
 
 
 def _build_variational_quantum_classifier(feature_set: str) -> Any:
     try:
-        pennylane = importlib.import_module("pennylane")
-        return pennylane
-    except ImportError:
-        raise DependencyMissingError("variational_quantum_classifier", "pennylane")
+        from ml.models.quantum_models import VariationalQuantumClassifier
+        return VariationalQuantumClassifier(n_qubits=4, n_layers=2, max_iter=15, subsample=200, seed=42)
+    except ImportError as e:
+        raise DependencyMissingError("variational_quantum_classifier", "pennylane") from e
 
 
 # --- Declarative Model Specifications Registry ---
