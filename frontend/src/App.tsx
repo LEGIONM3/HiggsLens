@@ -4,12 +4,13 @@ import { fetchDatasetStatus, fetchModelRegistry } from './services/api';
 import { DatasetCardComponent } from './components/DatasetCard';
 import { ModelArenaComponent } from './components/ModelArena';
 import { DetectorViewComponent } from './components/DetectorView';
+import { LabComponent } from './components/LabComponent';
 import { Atom, Terminal, Shield, Sparkles, ExternalLink } from 'lucide-react';
 
 export const App: React.FC = () => {
   const [datasetStatus, setDatasetStatus] = useState<DatasetStatus | null>(null);
   const [models, setModels] = useState<Record<string, ModelInfo>>({});
-  const [activeTab, setActiveTab] = useState<'pipeline' | 'arena' | 'detector'>('pipeline');
+  const [activeTab, setActiveTab] = useState<'pipeline' | 'arena' | 'detector' | 'lab'>('pipeline');
 
   const loadInitialData = async () => {
     try {
@@ -79,6 +80,16 @@ export const App: React.FC = () => {
             >
               3. Detector View
             </button>
+            <button
+              onClick={() => setActiveTab('lab')}
+              className={`px-4 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                activeTab === 'lab'
+                  ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 shadow-md'
+                  : 'text-slate-400 hover:text-white'
+              }`}
+            >
+              4. Lab (Experimental)
+            </button>
           </nav>
 
           <div className="hidden lg:flex items-center gap-4 text-xs text-slate-400 mono">
@@ -125,6 +136,12 @@ export const App: React.FC = () => {
         {activeTab === 'detector' && (
           <div className="animate-fadeIn">
             <DetectorViewComponent models={models} />
+          </div>
+        )}
+
+        {activeTab === 'lab' && (
+          <div className="animate-fadeIn">
+            <LabComponent models={models} />
           </div>
         )}
       </main>

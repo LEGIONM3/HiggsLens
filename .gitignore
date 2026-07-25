@@ -29,6 +29,10 @@ data/interim/*
 data/processed/*
 !data/processed/.gitkeep
 !data/processed/**/dataset_manifest.json
+data/lab/*
+!data/lab/.gitkeep
+models/lab_artifacts/*
+!models/lab_artifacts/.gitkeep
 artifacts/models/*
 !artifacts/models/.gitkeep
 artifacts/metrics/*

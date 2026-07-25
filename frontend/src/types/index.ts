@@ -118,3 +118,39 @@ export interface PredictionResponse {
   };
   missing_adjusted_fields: string[];
 }
+
+export interface LabDatasetManifest {
+  dataset_id: string;
+  filename: string;
+  row_count: number;
+  column_count: number;
+  feature_columns: string[];
+  label_column: string;
+  weight_column?: string | null;
+  created_at: string;
+  content_hash: string;
+}
+
+export interface LabExperimentSummary {
+  experiment_id: string;
+  dataset_id: string;
+  status: 'queued' | 'running' | 'completed' | 'failed';
+  model_ids: string[];
+  created_at: string;
+  completed_at?: string | null;
+  error_message?: string | null;
+}
+
+export interface LabExperimentDetail {
+  summary: LabExperimentSummary;
+  dataset_manifest?: LabDatasetManifest | null;
+  split_config: Record<string, number>;
+  seed: number;
+  per_model_results: Record<string, {
+    test_metrics: ModelMetrics;
+    validation_optimal_threshold: number;
+    validation_ams?: number | null;
+    is_weighted: boolean;
+    subsample_size?: number | null;
+  }>;
+}

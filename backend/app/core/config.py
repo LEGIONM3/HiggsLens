@@ -16,6 +16,15 @@ class Settings(BaseSettings):
     ARTIFACTS_DIR: Path = BASE_DIR / "models" / "artifacts"
     CONFIG_DIR: Path = BASE_DIR / "configs"
 
+    # Lab Sandboxed Zone Paths & Resource Caps
+    LAB_DATA_DIR: Path = BASE_DIR / "data" / "lab"
+    LAB_ARTIFACTS_DIR: Path = BASE_DIR / "models" / "lab_artifacts"
+    LAB_MAX_UPLOAD_SIZE_BYTES: int = 200 * 1024 * 1024  # 200 MB
+    LAB_MAX_DATASET_ROWS: int = 500000
+    LAB_MAX_MODELS_PER_EXPERIMENT: int = 5
+    LAB_JOB_TIMEOUT_SECONDS: int = 300
+    LAB_MAX_CONCURRENT_EXPERIMENTS: int = 1
+
     # CERN ATLAS Dataset Facts
     CERN_RECORD_ID: int = 328
     CERN_DOI: str = "10.7483/OPENDATA.ATLAS.ZBP2.M5T8"
