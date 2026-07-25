@@ -1,0 +1,278 @@
+{
+  "feature_count": 30,
+  "feature_names": [
+    "DER_mass_MMC",
+    "DER_mass_transverse_met_lep",
+    "DER_mass_vis",
+    "DER_pt_h",
+    "DER_deltaeta_jet_jet",
+    "DER_mass_jet_jet",
+    "DER_prodeta_jet_jet",
+    "DER_deltar_tau_lep",
+    "DER_pt_tot",
+    "DER_sum_pt",
+    "DER_pt_ratio_lep_tau",
+    "DER_met_phi_centrality",
+    "DER_lep_eta_centrality",
+    "PRI_tau_pt",
+    "PRI_tau_eta",
+    "PRI_tau_phi",
+    "PRI_lep_pt",
+    "PRI_lep_eta",
+    "PRI_lep_phi",
+    "PRI_met",
+    "PRI_met_phi",
+    "PRI_met_sumet",
+    "PRI_jet_num",
+    "PRI_jet_leading_pt",
+    "PRI_jet_leading_eta",
+    "PRI_jet_leading_phi",
+    "PRI_jet_subleading_pt",
+    "PRI_jet_subleading_eta",
+    "PRI_jet_subleading_phi",
+    "PRI_jet_all_pt"
+  ],
+  "sentinel_value": -999.0,
+  "features": {
+    "DER_mass_MMC": {
+      "dtype": "float64",
+      "required": true,
+      "description": "ATLAS feature measurement: DER_mass_MMC",
+      "sentinel_value": -999.0,
+      "sentinel_allowed": true,
+      "sentinel_description": "Value -999.0 represents unmeasured or undefined detector sub-variable (e.g. 0-jet events)"
+    },
+    "DER_mass_transverse_met_lep": {
+      "dtype": "float64",
+      "required": true,
+      "description": "ATLAS feature measurement: DER_mass_transverse_met_lep",
+      "sentinel_value": -999.0,
+      "sentinel_allowed": true,
+      "sentinel_description": "Value -999.0 represents unmeasured or undefined detector sub-variable (e.g. 0-jet events)"
+    },
+    "DER_mass_vis": {
+      "dtype": "float64",
+      "required": true,
+      "description": "ATLAS feature measurement: DER_mass_vis",
+      "sentinel_value": -999.0,
+      "sentinel_allowed": true,
+      "sentinel_description": "Value -999.0 represents unmeasured or undefined detector sub-variable (e.g. 0-jet events)"
+    },
+    "DER_pt_h": {
+      "dtype": "float64",
+      "required": true,
+      "description": "ATLAS feature measurement: DER_pt_h",
+      "sentinel_value": -999.0,
+      "sentinel_allowed": true,
+      "sentinel_description": "Value -999.0 represents unmeasured or undefined detector sub-variable (e.g. 0-jet events)"
+    },
+    "DER_deltaeta_jet_jet": {
+      "dtype": "float64",
+      "required": true,
+      "description": "ATLAS feature measurement: DER_deltaeta_jet_jet",
+      "sentinel_value": -999.0,
+      "sentinel_allowed": true,
+      "sentinel_description": "Value -999.0 represents unmeasured or undefined detector sub-variable (e.g. 0-jet events)"
+    },
+    "DER_mass_jet_jet": {
+      "dtype": "float64",
+      "required": true,
+      "description": "ATLAS feature measurement: DER_mass_jet_jet",
+      "sentinel_value": -999.0,
+      "sentinel_allowed": true,
+      "sentinel_description": "Value -999.0 represents unmeasured or undefined detector sub-variable (e.g. 0-jet events)"
+    },
+    "DER_prodeta_jet_jet": {
+      "dtype": "float64",
+      "required": true,
+      "description": "ATLAS feature measurement: DER_prodeta_jet_jet",
+      "sentinel_value": -999.0,
+      "sentinel_allowed": true,
+      "sentinel_description": "Value -999.0 represents unmeasured or undefined detector sub-variable (e.g. 0-jet events)"
+    },
+    "DER_deltar_tau_lep": {
+      "dtype": "float64",
+      "required": true,
+      "description": "ATLAS feature measurement: DER_deltar_tau_lep",
+      "sentinel_value": -999.0,
+      "sentinel_allowed": true,
+      "sentinel_description": "Value -999.0 represents unmeasured or undefined detector sub-variable (e.g. 0-jet events)"
+    },
+    "DER_pt_tot": {
+      "dtype": "float64",
+      "required": true,
+      "description": "ATLAS feature measurement: DER_pt_tot",
+      "sentinel_value": -999.0,
+      "sentinel_allowed": true,
+      "sentinel_description": "Value -999.0 represents unmeasured or undefined detector sub-variable (e.g. 0-jet events)"
+    },
+    "DER_sum_pt": {
+      "dtype": "float64",
+      "required": true,
+      "description": "ATLAS feature measurement: DER_sum_pt",
+      "sentinel_value": -999.0,
+      "sentinel_allowed": true,
+      "sentinel_description": "Value -999.0 represents unmeasured or undefined detector sub-variable (e.g. 0-jet events)"
+    },
+    "DER_pt_ratio_lep_tau": {
+      "dtype": "float64",
+      "required": true,
+      "description": "ATLAS feature measurement: DER_pt_ratio_lep_tau",
+      "sentinel_value": -999.0,
+      "sentinel_allowed": true,
+      "sentinel_description": "Value -999.0 represents unmeasured or undefined detector sub-variable (e.g. 0-jet events)"
+    },
+    "DER_met_phi_centrality": {
+      "dtype": "float64",
+      "required": true,
+      "description": "ATLAS feature measurement: DER_met_phi_centrality",
+      "sentinel_value": -999.0,
+      "sentinel_allowed": true,
+      "sentinel_description": "Value -999.0 represents unmeasured or undefined detector sub-variable (e.g. 0-jet events)"
+    },
+    "DER_lep_eta_centrality": {
+      "dtype": "float64",
+      "required": true,
+      "description": "ATLAS feature measurement: DER_lep_eta_centrality",
+      "sentinel_value": -999.0,
+      "sentinel_allowed": true,
+      "sentinel_description": "Value -999.0 represents unmeasured or undefined detector sub-variable (e.g. 0-jet events)"
+    },
+    "PRI_tau_pt": {
+      "dtype": "float64",
+      "required": true,
+      "description": "ATLAS feature measurement: PRI_tau_pt",
+      "sentinel_value": -999.0,
+      "sentinel_allowed": true,
+      "sentinel_description": "Value -999.0 represents unmeasured or undefined detector sub-variable (e.g. 0-jet events)"
+    },
+    "PRI_tau_eta": {
+      "dtype": "float64",
+      "required": true,
+      "description": "ATLAS feature measurement: PRI_tau_eta",
+      "sentinel_value": -999.0,
+      "sentinel_allowed": true,
+      "sentinel_description": "Value -999.0 represents unmeasured or undefined detector sub-variable (e.g. 0-jet events)"
+    },
+    "PRI_tau_phi": {
+      "dtype": "float64",
+      "required": true,
+      "description": "ATLAS feature measurement: PRI_tau_phi",
+      "sentinel_value": -999.0,
+      "sentinel_allowed": true,
+      "sentinel_description": "Value -999.0 represents unmeasured or undefined detector sub-variable (e.g. 0-jet events)"
+    },
+    "PRI_lep_pt": {
+      "dtype": "float64",
+      "required": true,
+      "description": "ATLAS feature measurement: PRI_lep_pt",
+      "sentinel_value": -999.0,
+      "sentinel_allowed": true,
+      "sentinel_description": "Value -999.0 represents unmeasured or undefined detector sub-variable (e.g. 0-jet events)"
+    },
+    "PRI_lep_eta": {
+      "dtype": "float64",
+      "required": true,
+      "description": "ATLAS feature measurement: PRI_lep_eta",
+      "sentinel_value": -999.0,
+      "sentinel_allowed": true,
+      "sentinel_description": "Value -999.0 represents unmeasured or undefined detector sub-variable (e.g. 0-jet events)"
+    },
+    "PRI_lep_phi": {
+      "dtype": "float64",
+      "required": true,
+      "description": "ATLAS feature measurement: PRI_lep_phi",
+      "sentinel_value": -999.0,
+      "sentinel_allowed": true,
+      "sentinel_description": "Value -999.0 represents unmeasured or undefined detector sub-variable (e.g. 0-jet events)"
+    },
+    "PRI_met": {
+      "dtype": "float64",
+      "required": true,
+      "description": "ATLAS feature measurement: PRI_met",
+      "sentinel_value": -999.0,
+      "sentinel_allowed": true,
+      "sentinel_description": "Value -999.0 represents unmeasured or undefined detector sub-variable (e.g. 0-jet events)"
+    },
+    "PRI_met_phi": {
+      "dtype": "float64",
+      "required": true,
+      "description": "ATLAS feature measurement: PRI_met_phi",
+      "sentinel_value": -999.0,
+      "sentinel_allowed": true,
+      "sentinel_description": "Value -999.0 represents unmeasured or undefined detector sub-variable (e.g. 0-jet events)"
+    },
+    "PRI_met_sumet": {
+      "dtype": "float64",
+      "required": true,
+      "description": "ATLAS feature measurement: PRI_met_sumet",
+      "sentinel_value": -999.0,
+      "sentinel_allowed": true,
+      "sentinel_description": "Value -999.0 represents unmeasured or undefined detector sub-variable (e.g. 0-jet events)"
+    },
+    "PRI_jet_num": {
+      "dtype": "float64",
+      "required": true,
+      "description": "ATLAS feature measurement: PRI_jet_num",
+      "sentinel_value": -999.0,
+      "sentinel_allowed": true,
+      "sentinel_description": "Value -999.0 represents unmeasured or undefined detector sub-variable (e.g. 0-jet events)"
+    },
+    "PRI_jet_leading_pt": {
+      "dtype": "float64",
+      "required": true,
+      "description": "ATLAS feature measurement: PRI_jet_leading_pt",
+      "sentinel_value": -999.0,
+      "sentinel_allowed": true,
+      "sentinel_description": "Value -999.0 represents unmeasured or undefined detector sub-variable (e.g. 0-jet events)"
+    },
+    "PRI_jet_leading_eta": {
+      "dtype": "float64",
+      "required": true,
+      "description": "ATLAS feature measurement: PRI_jet_leading_eta",
+      "sentinel_value": -999.0,
+      "sentinel_allowed": true,
+      "sentinel_description": "Value -999.0 represents unmeasured or undefined detector sub-variable (e.g. 0-jet events)"
+    },
+    "PRI_jet_leading_phi": {
+      "dtype": "float64",
+      "required": true,
+      "description": "ATLAS feature measurement: PRI_jet_leading_phi",
+      "sentinel_value": -999.0,
+      "sentinel_allowed": true,
+      "sentinel_description": "Value -999.0 represents unmeasured or undefined detector sub-variable (e.g. 0-jet events)"
+    },
+    "PRI_jet_subleading_pt": {
+      "dtype": "float64",
+      "required": true,
+      "description": "ATLAS feature measurement: PRI_jet_subleading_pt",
+      "sentinel_value": -999.0,
+      "sentinel_allowed": true,
+      "sentinel_description": "Value -999.0 represents unmeasured or undefined detector sub-variable (e.g. 0-jet events)"
+    },
+    "PRI_jet_subleading_eta": {
+      "dtype": "float64",
+      "required": true,
+      "description": "ATLAS feature measurement: PRI_jet_subleading_eta",
+      "sentinel_value": -999.0,
+      "sentinel_allowed": true,
+      "sentinel_description": "Value -999.0 represents unmeasured or undefined detector sub-variable (e.g. 0-jet events)"
+    },
+    "PRI_jet_subleading_phi": {
+      "dtype": "float64",
+      "required": true,
+      "description": "ATLAS feature measurement: PRI_jet_subleading_phi",
+      "sentinel_value": -999.0,
+      "sentinel_allowed": true,
+      "sentinel_description": "Value -999.0 represents unmeasured or undefined detector sub-variable (e.g. 0-jet events)"
+    },
+    "PRI_jet_all_pt": {
+      "dtype": "float64",
+      "required": true,
+      "description": "ATLAS feature measurement: PRI_jet_all_pt",
+      "sentinel_value": -999.0,
+      "sentinel_allowed": true,
+      "sentinel_description": "Value -999.0 represents unmeasured or undefined detector sub-variable (e.g. 0-jet events)"
+    }
+  }
+}

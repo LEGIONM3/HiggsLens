@@ -1,0 +1,121 @@
+{
+  "model_id": "mlp",
+  "feature_set": "all_physics",
+  "mode": "fast",
+  "seeds_evaluated": [
+    42
+  ],
+  "roc_auc_mean": 0.8821012078195183,
+  "roc_auc_std": 0.0,
+  "pr_auc_mean": 0.8042511296294316,
+  "pr_auc_std": 0.0,
+  "log_loss_mean": 0.4068901290595915,
+  "log_loss_std": 0.0,
+  "balanced_accuracy_mean": 0.6794616723821922,
+  "balanced_accuracy_std": 0.0,
+  "f1_mean": 0.5366810353633373,
+  "f1_std": 0.0,
+  "brier_score_mean": 0.1289676096372671,
+  "brier_score_std": 0.0,
+  "optimal_threshold": 0.8136,
+  "ams_score": 0.9894271941547075,
+  "ams_default_threshold_score": 0.892872969801461,
+  "training_duration_seconds": 0.8043019771575928,
+  "stability_status": "not_assessed",
+  "calibration_status": "not_calibrated",
+  "model_card_path": "D:\\HiggsLens\\artifacts\\models\\mlp_card.md",
+  "validation_rows": 100000,
+  "precision_05": 0.7444078538585809,
+  "recall_05": 0.7042174871418075,
+  "precision_selected": 0.8801259715893862,
+  "recall_selected": 0.3860396767083027,
+  "confusion_matrix_05": {
+    "tn": 57748,
+    "fp": 8227,
+    "fn": 10064,
+    "tp": 23961
+  },
+  "confusion_matrix_selected": {
+    "tn": 64186,
+    "fp": 1789,
+    "fn": 20890,
+    "tp": 13135
+  },
+  "weighted_signal_yield_s": 27.452592132014484,
+  "weighted_background_yield_b": 750.740708610301,
+  "ams_br": 10.0,
+  "calibration_method": "none",
+  "expected_calibration_error": 0.01858558407203906,
+  "reliability_bins": [
+    {
+      "bin_low": 0.0,
+      "bin_high": 0.1,
+      "confidence": 0.03513252384202587,
+      "accuracy": 0.04681933842239186,
+      "count": 35370
+    },
+    {
+      "bin_low": 0.1,
+      "bin_high": 0.2,
+      "confidence": 0.14515159826727966,
+      "accuracy": 0.15580423989282055,
+      "count": 12689
+    },
+    {
+      "bin_low": 0.2,
+      "bin_high": 0.30000000000000004,
+      "confidence": 0.24716518088934214,
+      "accuracy": 0.250398137939483,
+      "count": 8163
+    },
+    {
+      "bin_low": 0.30000000000000004,
+      "bin_high": 0.4,
+      "confidence": 0.34890618596851636,
+      "accuracy": 0.33596519497260713,
+      "count": 6206
+    },
+    {
+      "bin_low": 0.4,
+      "bin_high": 0.5,
+      "confidence": 0.4497163883373609,
+      "accuracy": 0.4275631500742942,
+      "count": 5384
+    },
+    {
+      "bin_low": 0.5,
+      "bin_high": 0.6000000000000001,
+      "confidence": 0.55003895364723,
+      "accuracy": 0.515979976896419,
+      "count": 5194
+    },
+    {
+      "bin_low": 0.6000000000000001,
+      "bin_high": 0.7000000000000001,
+      "confidence": 0.6508028098743327,
+      "accuracy": 0.6196621749857658,
+      "count": 5269
+    },
+    {
+      "bin_low": 0.7000000000000001,
+      "bin_high": 0.8,
+      "confidence": 0.7508494316160746,
+      "accuracy": 0.7116585118947191,
+      "count": 5927
+    },
+    {
+      "bin_low": 0.8,
+      "bin_high": 0.9,
+      "confidence": 0.8522188289518745,
+      "accuracy": 0.8073560027758501,
+      "count": 7205
+    },
+    {
+      "bin_low": 0.9,
+      "bin_high": 1.0,
+      "confidence": 0.9506046058794725,
+      "accuracy": 0.9287792389153963,
+      "count": 8593
+    }
+  ]
+}

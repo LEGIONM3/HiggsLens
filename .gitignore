@@ -46,3 +46,5 @@ artifacts/*.jsonl
 .vscode/
 *.swp
 *.swo
+.aider*
+test_api_debug.py

@@ -1,0 +1,58 @@
+{
+  "model_id": "dummy_prior",
+  "feature_set": "all_physics",
+  "mode": "fast",
+  "seeds_evaluated": [
+    42
+  ],
+  "roc_auc_mean": 0.5,
+  "roc_auc_std": 0.0,
+  "pr_auc_mean": 0.34025,
+  "pr_auc_std": 0.0,
+  "log_loss_mean": 0.6412134356364868,
+  "log_loss_std": 0.0,
+  "balanced_accuracy_mean": 0.5,
+  "balanced_accuracy_std": 0.0,
+  "f1_mean": 0.5077410930796493,
+  "f1_std": 0.0,
+  "brier_score_mean": 0.22448546000000003,
+  "brier_score_std": 0.0,
+  "optimal_threshold": 0.01,
+  "ams_score": 0.3749020299810965,
+  "ams_default_threshold_score": 0.0,
+  "training_duration_seconds": 0.1858668327331543,
+  "stability_status": "not_assessed",
+  "calibration_status": "not_calibrated",
+  "model_card_path": "D:\\HiggsLens\\artifacts\\models\\dummy_prior_card.md",
+  "validation_rows": 100000,
+  "precision_05": 0.0,
+  "recall_05": 0.0,
+  "precision_selected": 0.34025,
+  "recall_selected": 1.0,
+  "confusion_matrix_05": {
+    "tn": 65975,
+    "fp": 0,
+    "fn": 34025,
+    "tp": 0
+  },
+  "confusion_matrix_selected": {
+    "tn": 0,
+    "fp": 65975,
+    "fn": 0,
+    "tp": 34025
+  },
+  "weighted_signal_yield_s": 84.25040946659169,
+  "weighted_background_yield_b": 50463.91026375252,
+  "ams_br": 10.0,
+  "calibration_method": "none",
+  "expected_calibration_error": 0.0023500000000001298,
+  "reliability_bins": [
+    {
+      "bin_low": 0.30000000000000004,
+      "bin_high": 0.4,
+      "confidence": 0.3426000000000001,
+      "accuracy": 0.34025,
+      "count": 100000
+    }
+  ]
+}
