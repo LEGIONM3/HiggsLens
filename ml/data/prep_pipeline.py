@@ -11,9 +11,11 @@ from typing import Any, Dict, List, Optional, Tuple
 import numpy as np
 import pandas as pd
 
-from ml.data.feature_sets import ALL_PHYSICS_FEATURES, FEATURE_SETS, get_feature_set
+from ml.data.feature_sets import ALL_PHYSICS_FEATURES, FEATURE_SETS
 
 logger = logging.getLogger("higgslens.ml.prep_pipeline")
+
+EMPTY_HASH = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
 
 
 class DatasetPrepPipeline:
@@ -110,7 +112,7 @@ class DatasetPrepPipeline:
     ) -> Tuple[Dict[str, pd.DataFrame], Dict[str, Dict[str, float]]]:
         """
         Renormalizes per-split event weights so signal and background weight sums in each split
-        scale to match the target full-dataset luminosity scale.
+        (train, validation, test, holdout) scale to match the target full-dataset luminosity scale.
         Adds 'RenormalizedWeight' column to every split DataFrame.
         """
         s_full = float(full_df.loc[full_df["Label"] == "s", "Weight"].sum())
@@ -119,8 +121,21 @@ class DatasetPrepPipeline:
         renorm_factors: Dict[str, Dict[str, float]] = {}
         processed_splits: Dict[str, pd.DataFrame] = {}
 
-        for split_name, df in splits.items():
+        for split_name in ["train", "validation", "test", "holdout"]:
+            df = splits.get(split_name, pd.DataFrame())
             df_copy = df.copy()
+            if len(df_copy) == 0:
+                renorm_factors[split_name] = {
+                    "signal_factor": 1.0,
+                    "background_factor": 1.0,
+                    "split_signal_weight_sum": 0.0,
+                    "split_background_weight_sum": 0.0,
+                    "full_signal_weight_sum": s_full,
+                    "full_background_weight_sum": b_full,
+                }
+                processed_splits[split_name] = df_copy
+                continue
+
             s_split = float(df_copy.loc[df_copy["Label"] == "s", "Weight"].sum())
             b_split = float(df_copy.loc[df_copy["Label"] == "b", "Weight"].sum())
 
@@ -148,6 +163,21 @@ class DatasetPrepPipeline:
 
         return processed_splits, renorm_factors
 
+    def compute_content_hash(self, splits: Dict[str, pd.DataFrame]) -> str:
+        """Computes deterministic SHA-256 hash over processed split DataFrames."""
+        hasher = hashlib.sha256()
+        for split_name in sorted(splits.keys()):
+            df = splits[split_name]
+            hasher.update(split_name.encode("utf-8"))
+            ordered_cols = sorted(df.columns.tolist())
+            csv_bytes = df[ordered_cols].to_csv(index=False).encode("utf-8")
+            hasher.update(csv_bytes)
+
+        digest = hasher.hexdigest()
+        if digest == EMPTY_HASH:
+            raise RuntimeError("Content hash calculation yielded empty-input SHA-256 digest!")
+        return digest
+
     def process(self, df: pd.DataFrame) -> Tuple[Dict[str, pd.DataFrame], Dict[str, Any]]:
         """Processes raw dataset into splits and computes dataset manifest."""
         df_coerced = self.load_and_coerce_dtypes(df)
@@ -171,6 +201,8 @@ class DatasetPrepPipeline:
         splits, renorm_factors = self.renormalize_weights(raw_splits, df_coerced)
         splits = self.apply_sentinel_strategy(splits)
 
+        content_hash = self.compute_content_hash(splits)
+
         row_counts = {k: len(v) for k, v in splits.items()}
         total_rows = len(df_coerced)
         split_ratios = {k: float(v / total_rows) if total_rows > 0 else 0.0 for k, v in row_counts.items()}
@@ -187,6 +219,7 @@ class DatasetPrepPipeline:
             "sentinel_strategy": self.sentinel_strategy,
             "weight_renormalization_factors": renorm_factors,
             "feature_sets": {k: len(v["features"]) for k, v in FEATURE_SETS.items()},
+            "content_hash": content_hash,
         }
 
         return splits, manifest_data
@@ -209,21 +242,22 @@ class DatasetPrepPipeline:
 
         for split_name, split_df in sorted(splits.items()):
             file_path = target_dir / f"{split_name}.csv"
-            # Sort columns deterministically for idempotent export
             ordered_cols = sorted(split_df.columns.tolist())
             split_df[ordered_cols].to_csv(file_path, index=False)
 
-            # Update hash
             with open(file_path, "rb") as f:
                 while chunk := f.read(65536):
                     hasher.update(chunk)
 
-        content_hash = hasher.hexdigest()
-        manifest["content_hash"] = content_hash
+        exported_hash = hasher.hexdigest()
+        if exported_hash == EMPTY_HASH:
+            raise RuntimeError("Exported file hash calculation yielded empty-input SHA-256 digest!")
+
+        manifest["content_hash"] = exported_hash
 
         manifest_path = target_dir / "dataset_manifest.json"
         with open(manifest_path, "w", encoding="utf-8") as f:
             json.dump(manifest, f, indent=2)
 
-        logger.info(f"Exported prepared dataset to {target_dir} (content_hash={content_hash})")
+        logger.info(f"Exported prepared dataset to {target_dir} (content_hash={exported_hash})")
         return manifest_path, manifest
