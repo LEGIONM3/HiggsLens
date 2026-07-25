@@ -7,17 +7,9 @@
 
 ---
 
-## Architecture Overview & Artifact Contract Layout
+## Architecture Overview
 
-HiggsLens features a decoupled, inference-only FastAPI service layer with zero training code paths. Pre-trained model weights load on-demand from versioned artifact directories and are cached in memory after first load.
-
-```
-models/artifacts/{model_id}/
-├── model.joblib          # Trained estimator weights (scikit-learn candidate)
-├── metrics.json          # Stored evaluation metrics (verbatim ROC-AUC, AMS, F1, yields)
-├── feature_schema.json   # Expected feature names (30 features), order, dtypes, & -999.0 missing sentinel
-└── manifest.json         # Provenance manifest (training commit 6f3555d, seed 42, dataset hash)
-```
+HiggsLens features a decoupled vertical architecture separating web serving from offline ML design:
 
 ```
 higgslens/
@@ -29,11 +21,39 @@ higgslens/
 │   │   ├── schemas/      # dataset.py, models.py, predict.py, metrics.py
 │   │   ├── services/     # dataset_service.py, model_registry.py, prediction_service.py, metrics_service.py
 │   │   └── api/v1/       # health.py, dataset.py, models.py, predict.py, metrics.py
-│   └── tests/            # Pytest test suite (31 unit/integration tests)
+│   └── tests/            # Pytest test suite (45 unit/integration tests)
+├── ml/                   # Offline ML Model Arena & Dataset Prep Foundations
+│   ├── data/             # DatasetPrepPipeline, feature set specs, luminosity weight renormalization
+│   ├── models/           # Declarative ModelSpec registry (11 candidate specs), build_model factory
+│   └── evaluation/       # EvaluationResult contract & compute_ams / threshold scan utilities
 ├── scripts/              # Data downloader, dataset validator, & artifact migration script
 ├── configs/              # YAML configuration schemas
+├── models/artifacts/     # Versioned pre-trained model artifacts (model.joblib, metrics.json, manifest.json)
 └── artifacts/            # Source metrics logs and evaluation reports
 ```
+
+---
+
+## Model Arena Candidate Specifications (`ml/models/`)
+
+The Model Arena defines declarative specifications (`ModelSpec`) and an unfitted pipeline factory (`build_model`) for 11 candidates:
+
+| Candidate ID | Family | Display Name | Optional Dependencies | Experimental |
+| :--- | :--- | :--- | :--- | :--- |
+| `dummy_prior` | Baseline | Dummy Prior Baseline | None | No |
+| `logistic_regression` | Linear | Logistic Regression | None | No |
+| `random_forest` | Tree Ensemble | Random Forest | None | No |
+| `histogram_gradient_boosting` | Boosting | Hist. Gradient Boosting | None | No |
+| `mlp` | Neural Network | Multi-Layer Perceptron | None | No |
+| `xgboost` | Boosting | XGBoost Classifier | `xgboost` | No |
+| `lightgbm` | Boosting | LightGBM Classifier | `lightgbm` | No |
+| `svm_rbf` | Support Vector | SVM (RBF Kernel) | None | No |
+| `calibrated_ensemble` | Ensemble | Calibrated Voting Ensemble | None | No |
+| `quantum_kernel_svm` | Quantum ML | Quantum Kernel SVM | `qiskit_machine_learning` | Yes (Stub) |
+| `variational_quantum_classifier` | Quantum ML | Variational Quantum Classifier | `pennylane` | Yes (Stub) |
+
+> [!NOTE]
+> **QML Track Disclaimer**: The QML specifications are experimental interface stubs. They represent statistical classifiers benchmarked against classical baselines — never quantum simulation or quantum-randomness prediction.
 
 ---
 
@@ -78,16 +98,16 @@ uv run uvicorn backend.app.main:app --reload --port 8000
 ```
 API Documentation is interactively available at `http://localhost:8000/docs`.
 
-### 3. Run Quality Gates & Tests
+### 3. Run Quality Gates & Test Suite
 ```bash
-# Run backend test suite (31 unit/integration tests)
+# Run test suite (45 unit/integration tests)
 uv run --python 3.12 pytest -v backend/tests
 
 # Run Ruff linter
-uv run --python 3.12 ruff check backend/app backend/tests scripts
+uv run --python 3.12 ruff check backend/app backend/tests scripts ml
 
 # Run Mypy static type checker
-uv run --python 3.12 mypy backend/app backend/tests scripts
+uv run --python 3.12 mypy backend/app backend/tests scripts ml
 ```
 
 ---

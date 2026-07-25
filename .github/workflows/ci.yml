@@ -19,11 +19,11 @@ jobs:
       - name: Set up Python 3.12 environment
         run: |
           uv venv --python 3.12 .venv
-          uv pip install -e backend/
+          uv pip install -e backend/ -e .
       - name: Run Ruff Lint
-        run: uv run --python 3.12 ruff check backend/app backend/tests scripts
+        run: uv run --python 3.12 ruff check backend/app backend/tests scripts ml
       - name: Run Mypy Typecheck
-        run: uv run --python 3.12 mypy backend/app backend/tests scripts
+        run: uv run --python 3.12 mypy backend/app backend/tests scripts ml
       - name: Run Pytest
         run: uv run --python 3.12 pytest -v backend/tests
 
