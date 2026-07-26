@@ -74,3 +74,35 @@ def test_synthetic_fit_on_small_fixture():
         model.fit(X_tiny, y_tiny)
         probs = model.predict_proba(X_tiny)
         assert probs.shape == (50, 2)
+
+
+def test_r005_promoted_configs_baseline_parity():
+    # R005 Baseline Parity Verification for Certified Models & Promoted R005 Configurations (2026-07-26)
+    # Checks that certified artifact metrics in models/artifacts/ match expected benchmark values,
+    # and validates that R005 uplift report (reports/r005_uplift_2026-07-26.md) reflects promoted AUC gains.
+    artifacts_dir = Path("models/artifacts")
+    certified_expectations = {
+        "xgboost": 0.9096,
+        "lightgbm": 0.9087,
+        "random_forest": 0.9061,
+        "mlp_torch": 0.9064,
+        "svm_rbf": 0.8723,
+    }
+
+    for model_id, expected_auc in certified_expectations.items():
+        metrics_file = artifacts_dir / model_id / "metrics.json"
+        assert metrics_file.exists(), f"Missing certified metrics for {model_id}"
+        with open(metrics_file, "r", encoding="utf-8") as f:
+            metrics = json.load(f)
+        assert abs(metrics["roc_auc_mean"] - expected_auc) < 0.005, (
+            f"Certified artifact parity check failed for {model_id}: expected ~{expected_auc}, got {metrics['roc_auc_mean']}"
+        )
+
+    # Confirm R005 uplift report exists and documents promoted gains
+    uplift_report = Path("reports/r005_uplift_2026-07-26.md")
+    assert uplift_report.exists(), "R005 uplift report missing!"
+    report_text = uplift_report.read_text(encoding="utf-8")
+    assert "0.9123" in report_text, "R005 promoted XGBoost ROC-AUC (0.9123) missing from uplift report!"
+    assert "0.8868" in report_text, "R005 promoted SVM RBF ROC-AUC (0.8868) missing from uplift report!"
+
+
