@@ -11,6 +11,7 @@ import {
   Compass,
   CheckCircle,
   ShieldAlert,
+  FileText,
 } from 'lucide-react';
 
 import {
@@ -21,6 +22,7 @@ import { DetectorScene } from './DetectorScene';
 import { EventObjects3D } from './EventObjects3D';
 import { CameraControls, CameraPreset } from './CameraControls';
 import { EducationMode } from '../education/EducationMode';
+import { ResearchReportModal } from './ResearchReportModal';
 import { useEducation } from '../../context/EducationContext';
 
 export interface EventData {
@@ -51,6 +53,7 @@ export const EventDisplay3D: React.FC = () => {
   const [labelFilter, setLabelFilter] = useState<string>('any');
   const [cameraPreset, setCameraPreset] = useState<CameraPreset>('perspective');
   const [showAxisHelper, setShowAxisHelper] = useState<boolean>(false);
+  const [isReportModalOpen, setIsReportModalOpen] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -412,6 +415,16 @@ export const EventDisplay3D: React.FC = () => {
                   Note: -999.0 indicates MMC mass algorithm did not converge for this event.
                 </div>
               )}
+
+              {/* Research Report Action Trigger */}
+              <button
+                onClick={() => setIsReportModalOpen(true)}
+                className="mt-2 w-full py-2.5 bg-sky-600/30 hover:bg-sky-500/40 border border-sky-500/50 hover:border-sky-400 text-sky-200 hover:text-white text-xs font-semibold rounded-lg shadow transition-all flex items-center justify-center gap-2 focus:ring-2 focus:ring-sky-400"
+                aria-label={`View Research Report for Event ${currentEvent.event_id}`}
+              >
+                <FileText className="w-4 h-4 text-sky-400" />
+                View Event Analysis Report
+              </button>
             </div>
           )}
 
@@ -467,6 +480,15 @@ export const EventDisplay3D: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Research Report Modal */}
+      {currentEvent && (
+        <ResearchReportModal
+          eventId={currentEvent.event_id}
+          isOpen={isReportModalOpen}
+          onClose={() => setIsReportModalOpen(false)}
+        />
+      )}
 
       {/* Physics Education Side Drawer */}
       <EducationMode

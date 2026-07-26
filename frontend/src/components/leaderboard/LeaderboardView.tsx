@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ThresholdExplorer } from "./ThresholdExplorer";
+import { ReproducibilitySection } from "./ReproducibilitySection";
 import type { ThresholdScanPoint } from "../../lib/thresholdExplorer";
 
 export interface ModelSummary {
@@ -170,6 +171,9 @@ export const LeaderboardView: React.FC = () => {
           scanPoints={scanPoints}
         />
       )}
+
+      {/* Reproducibility Section */}
+      <ReproducibilitySection />
     </div>
   );
 };

@@ -1,0 +1,260 @@
+{
+  "provenance_header": "Offline certified report fixture generated from Event 300000 using certified PredictionService, ExplanationService, and XGBoost model artifact.",
+  "generation_command": "uv run --python 3.12 python scripts/generate_report_fixture.py",
+  "event_id": 300000,
+  "source_split": "test",
+  "features": {
+    "DER_mass_MMC": 15.971545280479509,
+    "DER_mass_transverse_met_lep": 182.5705183336642,
+    "DER_mass_vis": 131.98601276931467,
+    "DER_pt_h": 65.94528949322128,
+    "DER_deltaeta_jet_jet": -2.2415913941569614,
+    "DER_mass_jet_jet": 105.59588913021666,
+    "DER_prodeta_jet_jet": -1.984380655820337,
+    "DER_deltar_tau_lep": 3.885734579637184,
+    "DER_pt_tot": 142.6507256637516,
+    "DER_sum_pt": 108.83106521127874,
+    "DER_pt_ratio_lep_tau": 42.09766198371126,
+    "DER_met_phi_centrality": -2.595456376583076,
+    "DER_lep_eta_centrality": 0.1629471627579293,
+    "PRI_tau_pt": 32.210627734589174,
+    "PRI_tau_eta": 1.036193171566993,
+    "PRI_tau_phi": -2.720138716405462,
+    "PRI_lep_pt": 49.49838847774519,
+    "PRI_lep_eta": 0.502584302168267,
+    "PRI_lep_phi": -1.9783681552358543,
+    "PRI_met": 4.3735083634209975,
+    "PRI_met_phi": -2.7781563980787203,
+    "PRI_met_sumet": 3.541814883575174,
+    "PRI_jet_num": 0.0,
+    "PRI_jet_leading_pt": -999.0,
+    "PRI_jet_leading_eta": -999.0,
+    "PRI_jet_leading_phi": -999.0,
+    "PRI_jet_subleading_pt": -999.0,
+    "PRI_jet_subleading_eta": -999.0,
+    "PRI_jet_subleading_phi": -999.0,
+    "PRI_jet_all_pt": 58.78754786689651
+  },
+  "classification": {
+    "model_id": "xgboost",
+    "signal_probability": 0.2604474723339081,
+    "predicted_label": "background",
+    "threshold": 0.8118181818181818
+  },
+  "explanation": {
+    "base_value": -0.6721648573875427,
+    "margin": -1.0436437726020813,
+    "attributions": [
+      {
+        "feature": "DER_mass_vis",
+        "value": 131.98601276931467,
+        "contribution": -0.9215866923332214
+      },
+      {
+        "feature": "DER_pt_tot",
+        "value": 142.6507256637516,
+        "contribution": 0.5010839700698853
+      },
+      {
+        "feature": "DER_mass_MMC",
+        "value": 15.971545280479509,
+        "contribution": -0.3681815564632416
+      },
+      {
+        "feature": "DER_mass_transverse_met_lep",
+        "value": 182.5705183336642,
+        "contribution": 0.35758551955223083
+      },
+      {
+        "feature": "PRI_jet_leading_eta",
+        "value": -999.0,
+        "contribution": 0.19995762407779694
+      },
+      {
+        "feature": "PRI_met_sumet",
+        "value": 3.541814883575174,
+        "contribution": 0.19124431908130646
+      },
+      {
+        "feature": "PRI_lep_eta",
+        "value": 0.502584302168267,
+        "contribution": 0.13461987674236298
+      },
+      {
+        "feature": "DER_deltar_tau_lep",
+        "value": 3.885734579637184,
+        "contribution": -0.10785284638404846
+      },
+      {
+        "feature": "PRI_met",
+        "value": 4.3735083634209975,
+        "contribution": 0.1058356985449791
+      },
+      {
+        "feature": "PRI_tau_pt",
+        "value": 32.210627734589174,
+        "contribution": -0.08985090255737305
+      },
+      {
+        "feature": "DER_lep_eta_centrality",
+        "value": 0.1629471627579293,
+        "contribution": -0.07390902191400528
+      },
+      {
+        "feature": "PRI_jet_num",
+        "value": 0.0,
+        "contribution": 0.07203154265880585
+      },
+      {
+        "feature": "DER_mass_jet_jet",
+        "value": 105.59588913021666,
+        "contribution": -0.07093627005815506
+      },
+      {
+        "feature": "DER_prodeta_jet_jet",
+        "value": -1.984380655820337,
+        "contribution": -0.06667305529117584
+      },
+      {
+        "feature": "DER_met_phi_centrality",
+        "value": -2.595456376583076,
+        "contribution": -0.06346659362316132
+      },
+      {
+        "feature": "DER_pt_ratio_lep_tau",
+        "value": 42.09766198371126,
+        "contribution": -0.05658578500151634
+      },
+      {
+        "feature": "PRI_jet_leading_pt",
+        "value": -999.0,
+        "contribution": -0.0547163188457489
+      },
+      {
+        "feature": "DER_pt_h",
+        "value": 65.94528949322128,
+        "contribution": -0.05064212158322334
+      },
+      {
+        "feature": "PRI_lep_pt",
+        "value": 49.49838847774519,
+        "contribution": -0.04441298544406891
+      },
+      {
+        "feature": "PRI_jet_subleading_eta",
+        "value": -999.0,
+        "contribution": 0.024445712566375732
+      },
+      {
+        "feature": "PRI_tau_eta",
+        "value": 1.036193171566993,
+        "contribution": 0.016942646354436874
+      },
+      {
+        "feature": "PRI_jet_all_pt",
+        "value": 58.78754786689651,
+        "contribution": 0.016207236796617508
+      },
+      {
+        "feature": "DER_sum_pt",
+        "value": 108.83106521127874,
+        "contribution": -0.01618965156376362
+      },
+      {
+        "feature": "PRI_jet_subleading_pt",
+        "value": -999.0,
+        "contribution": -0.014055943116545677
+      },
+      {
+        "feature": "PRI_tau_phi",
+        "value": -2.720138716405462,
+        "contribution": -0.013462943956255913
+      },
+      {
+        "feature": "PRI_jet_leading_phi",
+        "value": -999.0,
+        "contribution": 0.011696182191371918
+      },
+      {
+        "feature": "DER_deltaeta_jet_jet",
+        "value": -2.2415913941569614,
+        "contribution": 0.00933725107461214
+      },
+      {
+        "feature": "PRI_met_phi",
+        "value": -2.7781563980787203,
+        "contribution": -0.003373822197318077
+      },
+      {
+        "feature": "PRI_lep_phi",
+        "value": -1.9783681552358543,
+        "contribution": 0.002987178508192301
+      },
+      {
+        "feature": "PRI_jet_subleading_phi",
+        "value": -999.0,
+        "contribution": 0.0004427596286404878
+      }
+    ],
+    "object_groups": [
+      {
+        "group": "tau",
+        "total_abs_contribution": 0.28469512425363064,
+        "signed_contribution": -0.2508098315447569
+      },
+      {
+        "group": "lepton",
+        "total_abs_contribution": 0.18202004069462419,
+        "signed_contribution": 0.09319406980648637
+      },
+      {
+        "group": "leading_jet",
+        "total_abs_contribution": 0.26637012511491776,
+        "signed_contribution": 0.15693748742341995
+      },
+      {
+        "group": "subleading_jet",
+        "total_abs_contribution": 0.0389444153115619,
+        "signed_contribution": 0.010832529078470543
+      },
+      {
+        "group": "met",
+        "total_abs_contribution": 0.7215059529989958,
+        "signed_contribution": 0.587825121358037
+      },
+      {
+        "group": "global",
+        "total_abs_contribution": 2.166778369806707,
+        "signed_contribution": -0.9694583686068654
+      }
+    ]
+  },
+  "gallery": {
+    "category": "background",
+    "rank": 1,
+    "selection_method": "top_probability"
+  },
+  "reproducibility": {
+    "model_artifact": {
+      "model_id": "xgboost",
+      "feature_schema_version": "v1",
+      "device": "cuda:0 (RTX 5070 Ti)",
+      "training_run_origin": "R005 (GPU Sweep)",
+      "subsample_notes": "Full 250k train set"
+    },
+    "dataset": {
+      "record": "328",
+      "doi": "10.7483/OPENDATA.ATLAS.ZBP2.M5T8",
+      "content_hash": "54242acf28a78ce303ea48bcf7002f0a44df08448271477e0a63331486c4f316"
+    },
+    "inference_contract": {
+      "feature_count": 30,
+      "sentinel_value": -999.0,
+      "prediction_path": "certified PredictionService",
+      "explanation_path": "native XGBoost pred_contribs=True"
+    }
+  },
+  "provenance": {
+    "statement": "ATLAS open data (record 328, DOI 10.7483/OPENDATA.ATLAS.ZBP2.M5T8) \u2014 official ATLAS simulated events, classified by certified pre-trained models."
+  }
+}

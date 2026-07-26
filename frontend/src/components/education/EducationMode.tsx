@@ -10,8 +10,8 @@ interface EducationModeProps {
 
 export const EducationMode: React.FC<EducationModeProps> = ({
   features = {},
-  signalProbability = 0.9123,
-  threshold = 0.8118,
+  signalProbability = 0.5,
+  threshold = 0.5,
   onNavigateToLeaderboard,
 }) => {
   const { level, setLevel, isOpen, setIsOpen } = useEducation();

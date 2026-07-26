@@ -88,7 +88,9 @@ class GalleryService:
     """Computes gallery from test split events using certified model predictions."""
     # 1. Fetch headline metrics for threshold
     artifact = self.registry_service.get_artifact(model_id)
-    threshold = float(artifact.metrics.get("optimal_threshold", 0.8118))
+    threshold = float(
+        artifact.metrics.get("optimal_threshold", settings.DEFAULT_THRESHOLD)
+    )
 
     # 2. Fetch test split events (sample up to 1000 events for gallery building)
     sample_resp = self.sampling_service.sample_events(
