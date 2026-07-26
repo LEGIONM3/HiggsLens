@@ -8,11 +8,13 @@ from typing import Optional
 
 from backend.app.schemas.derive import DeriveRequest, DeriveResponse
 from backend.app.schemas.events import EventDataResponse, EventSampleResponse
+from backend.app.schemas.explain import ExplainResponse
 from backend.app.services.derivation import derivation_service
 from backend.app.services.event_sampling import (
     EventDatasetNotFoundError,
     event_sampling_service,
 )
+from backend.app.services.explanation import explanation_service
 from fastapi import APIRouter, HTTPException, Query, status
 
 logger = logging.getLogger("higgslens.api.events")
@@ -133,4 +135,42 @@ def derive_event(request: DeriveRequest) -> DeriveResponse:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Error deriving event features: {str(e)}"
+        )
+
+
+@router.get(
+    "/{event_id}/explain",
+    response_model=ExplainResponse,
+    status_code=status.HTTP_200_OK,
+    summary="Compute TreeSHAP feature attributions for a specific test-split event by EventId",
+    description=(
+        "Fetches event features from test split by EventId and computes TreeSHAP feature attributions. "
+        "Returns 404 Not Found for missing or holdout event IDs."
+    )
+)
+def explain_event_by_id(event_id: int, model_id: str = "xgboost") -> ExplainResponse:
+    try:
+        return explanation_service.explain_event_by_id(event_id, model_id=model_id)
+    except KeyError as e:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=str(e)
+        )
+    except EventDatasetNotFoundError as e:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail=str(e)
+        )
+    except ValueError as e:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail=str(e)
+        )
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Unexpected error explaining event {event_id}: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Error explaining event {event_id}: {str(e)}"
         )

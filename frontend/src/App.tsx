@@ -8,11 +8,12 @@ import { Atom, Terminal, Shield, Sparkles, ExternalLink, RotateCcw } from 'lucid
 
 const EventDisplay3D = lazy(() => import('./components/display/EventDisplay3D'));
 const AcceleratorJourneyView = lazy(() => import('./components/journey/AcceleratorJourneyView'));
+const LeaderboardView = lazy(() => import('./components/leaderboard/LeaderboardView'));
 
 export const App: React.FC = () => {
   const [datasetStatus, setDatasetStatus] = useState<DatasetStatus | null>(null);
   const [models, setModels] = useState<Record<string, ModelInfo>>({});
-  const [activeTab, setActiveTab] = useState<'pipeline' | 'journey' | 'arena' | 'detector' | 'lab'>('pipeline');
+  const [activeTab, setActiveTab] = useState<'pipeline' | 'journey' | 'leaderboard' | 'arena' | 'detector' | 'lab'>('pipeline');
 
   const loadInitialData = async () => {
     try {
@@ -73,6 +74,16 @@ export const App: React.FC = () => {
               2. Accelerator Journey
             </button>
             <button
+              onClick={() => setActiveTab('leaderboard')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                activeTab === 'leaderboard'
+                  ? 'bg-gradient-to-r from-cyan-400 to-blue-500 text-slate-950 shadow-md'
+                  : 'text-slate-400 hover:text-white'
+              }`}
+            >
+              3. Model Leaderboard
+            </button>
+            <button
               onClick={() => setActiveTab('arena')}
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                 activeTab === 'arena'
@@ -80,7 +91,7 @@ export const App: React.FC = () => {
                   : 'text-slate-400 hover:text-white'
               }`}
             >
-              3. Model Arena
+              4. Model Arena
             </button>
             <button
               onClick={() => setActiveTab('detector')}
@@ -150,6 +161,21 @@ export const App: React.FC = () => {
               }
             >
               <AcceleratorJourneyView />
+            </Suspense>
+          </div>
+        )}
+
+        {activeTab === 'leaderboard' && (
+          <div className="animate-fadeIn">
+            <Suspense
+              fallback={
+                <div className="glass-panel p-12 flex flex-col items-center justify-center gap-3 text-cyan-400">
+                  <RotateCcw className="w-8 h-8 animate-spin" />
+                  <span className="text-sm font-medium">Loading Official Leaderboard...</span>
+                </div>
+              }
+            >
+              <LeaderboardView />
             </Suspense>
           </div>
         )}

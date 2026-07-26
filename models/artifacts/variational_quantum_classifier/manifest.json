@@ -6,6 +6,9 @@
   "dataset_doi": "10.7483/OPENDATA.ATLAS.ZBP2.M5T8",
   "cern_record_id": 328,
   "created_date": "2026-07-25",
-  "device": "cpu/gpu",
-  "subsample_size": 200
+  "device": "CPU (lightning.qubit)",
+  "subsample_size": 200,
+  "training_run_origin": "R005 (QML Benchmark)",
+  "subsample_notes": "100-event budget (PennyLane)",
+  "dataset_provenance": "ATLAS open data (record 328, DOI 10.7483/OPENDATA.ATLAS.ZBP2.M5T8) \u2014 official ATLAS simulated events, classified by certified pre-trained models."
 }

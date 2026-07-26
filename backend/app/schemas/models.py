@@ -27,6 +27,10 @@ class ModelSummarySchema(BaseModel):
     optimal_threshold: float
     status: str
     weights_available: bool
+    device: str = "CPU"
+    training_run_origin: str = "R004 (Baseline)"
+    subsample_notes: str = "Full 250k train set"
+    dataset_provenance: str = "ATLAS open data (record 328, DOI 10.7483/OPENDATA.ATLAS.ZBP2.M5T8)"
 
     model_config = ConfigDict(frozen=True)
 

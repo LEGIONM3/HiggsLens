@@ -1,0 +1,146 @@
+2026-07-26 11:47:31,416 [INFO] higgslens.r005_uplift: ======================================================================
+2026-07-26 11:47:31,416 [INFO] higgslens.r005_uplift: HiggsLens R005 — GPU Uplift & Verification Closure Session
+2026-07-26 11:47:31,416 [INFO] higgslens.r005_uplift: ======================================================================
+2026-07-26 11:47:31,651 [INFO] higgslens.r005_uplift: NVIDIA-SMI Snapshot:
+Sun Jul 26 11:47:31 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 595.79                 Driver Version: 595.79         CUDA Version: 13.2     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                  Driver-Model | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|===============
+2026-07-26 11:47:33,536 [INFO] higgslens.r005_uplift: Loaded splits: Train 250,000, Val 100,000, Test 450,000, Holdout 18,238
+2026-07-26 11:47:33,536 [INFO] higgslens.r005_uplift: 
+============================================================
+2026-07-26 11:47:33,536 [INFO] higgslens.r005_uplift: [xgboost] GPU Hyperparameter Sweep (<= 25 configs)
+2026-07-26 11:47:34,061 [INFO] higgslens.r005_uplift: Evaluating 24 XGBoost configs on CUDA...
+2026-07-26 11:47:35,090 [INFO] higgslens.r005_uplift:   Config 01/24: {'max_depth': 4, 'learning_rate': 0.03, 'n_estimators': 100, 'subsample': 0.8} -> Val AUC: 0.89145 (1.03s)
+2026-07-26 11:47:35,753 [INFO] higgslens.r005_uplift:   Config 02/24: {'max_depth': 4, 'learning_rate': 0.03, 'n_estimators': 200, 'subsample': 0.8} -> Val AUC: 0.89917 (0.66s)
+2026-07-26 11:47:36,396 [INFO] higgslens.r005_uplift:   Config 03/24: {'max_depth': 4, 'learning_rate': 0.03, 'n_estimators': 300, 'subsample': 0.8} -> Val AUC: 0.90221 (0.64s)
+2026-07-26 11:47:36,742 [INFO] higgslens.r005_uplift:   Config 04/24: {'max_depth': 4, 'learning_rate': 0.08, 'n_estimators': 100, 'subsample': 0.8} -> Val AUC: 0.90116 (0.34s)
+2026-07-26 11:47:37,293 [INFO] higgslens.r005_uplift:   Config 05/24: {'max_depth': 4, 'learning_rate': 0.08, 'n_estimators': 200, 'subsample': 0.8} -> Val AUC: 0.90581 (0.55s)
+2026-07-26 11:47:37,978 [INFO] higgslens.r005_uplift:   Config 06/24: {'max_depth': 4, 'learning_rate': 0.08, 'n_estimators': 300, 'subsample': 0.8} -> Val AUC: 0.90788 (0.68s)
+2026-07-26 11:47:38,483 [INFO] higgslens.r005_uplift:   Config 07/24: {'max_depth': 6, 'learning_rate': 0.03, 'n_estimators': 100, 'subsample': 0.8} -> Val AUC: 0.89982 (0.50s)
+2026-07-26 11:47:39,396 [INFO] higgslens.r005_uplift:   Config 08/24: {'max_depth': 6, 'learning_rate': 0.03, 'n_estimators': 200, 'subsample': 0.8} -> Val AUC: 0.90581 (0.91s)
+2026-07-26 11:47:40,631 [INFO] higgslens.r005_uplift:   Config 09/24: {'max_depth': 6, 'learning_rate': 0.03, 'n_estimators': 300, 'subsample': 0.8} -> Val AUC: 0.90816 (1.23s)
+2026-07-26 11:47:41,172 [INFO] higgslens.r005_uplift:   Config 10/24: {'max_depth': 6, 'learning_rate': 0.08, 'n_estimators': 100, 'subsample': 0.8} -> Val AUC: 0.90715 (0.54s)
+2026-07-26 11:47:42,049 [INFO] higgslens.r005_uplift:   Config 11/24: {'max_depth': 6, 'learning_rate': 0.08, 'n_estimators': 200, 'subsample': 0.8} -> Val AUC: 0.90984 (0.88s)
+2026-07-26 11:47:43,367 [INFO] higgslens.r005_uplift:   Config 12/24: {'max_depth': 6, 'learning_rate': 0.08, 'n_estimators': 300, 'subsample': 0.8} -> Val AUC: 0.91058 (1.31s)
+2026-07-26 11:47:44,360 [INFO] higgslens.r005_uplift:   Config 13/24: {'max_depth': 8, 'learning_rate': 0.03, 'n_estimators': 100, 'subsample': 0.8} -> Val AUC: 0.90440 (0.99s)
+2026-07-26 11:47:46,181 [INFO] higgslens.r005_uplift:   Config 14/24: {'max_depth': 8, 'learning_rate': 0.03, 'n_estimators': 200, 'subsample': 0.8} -> Val AUC: 0.90909 (1.82s)
+2026-07-26 11:47:48,760 [INFO] higgslens.r005_uplift:   Config 15/24: {'max_depth': 8, 'learning_rate': 0.03, 'n_estimators': 300, 'subsample': 0.8} -> Val AUC: 0.91053 (2.58s)
+2026-07-26 11:47:49,728 [INFO] higgslens.r005_uplift:   Config 16/24: {'max_depth': 8, 'learning_rate': 0.08, 'n_estimators': 100, 'subsample': 0.8} -> Val AUC: 0.90967 (0.96s)
+2026-07-26 11:47:51,447 [INFO] higgslens.r005_uplift:   Config 17/24: {'max_depth': 8, 'learning_rate': 0.08, 'n_estimators': 200, 'subsample': 0.8} -> Val AUC: 0.91063 (1.72s)
+2026-07-26 11:47:53,746 [INFO] higgslens.r005_uplift:   Config 18/24: {'max_depth': 8, 'learning_rate': 0.08, 'n_estimators': 300, 'subsample': 0.8} -> Val AUC: 0.91053 (2.30s)
+2026-07-26 11:47:56,092 [INFO] higgslens.r005_uplift:   Config 19/24: {'max_depth': 10, 'learning_rate': 0.03, 'n_estimators': 100, 'subsample': 0.8} -> Val AUC: 0.90704 (2.34s)
+2026-07-26 11:48:00,321 [INFO] higgslens.r005_uplift:   Config 20/24: {'max_depth': 10, 'learning_rate': 0.03, 'n_estimators': 200, 'subsample': 0.8} -> Val AUC: 0.91041 (4.23s)
+2026-07-26 11:48:06,190 [INFO] higgslens.r005_uplift:   Config 21/24: {'max_depth': 10, 'learning_rate': 0.03, 'n_estimators': 300, 'subsample': 0.8} -> Val AUC: 0.91109 (5.86s)
+2026-07-26 11:48:07,947 [INFO] higgslens.r005_uplift:   Config 22/24: {'max_depth': 10, 'learning_rate': 0.08, 'n_estimators': 100, 'subsample': 0.8} -> Val AUC: 0.90987 (1.75s)
+2026-07-26 11:48:11,471 [INFO] higgslens.r005_uplift:   Config 23/24: {'max_depth': 10, 'learning_rate': 0.08, 'n_estimators': 200, 'subsample': 0.8} -> Val AUC: 0.90987 (3.52s)
+2026-07-26 11:48:16,527 [INFO] higgslens.r005_uplift:   Config 24/24: {'max_depth': 10, 'learning_rate': 0.08, 'n_estimators': 300, 'subsample': 0.8} -> Val AUC: 0.90910 (5.05s)
+2026-07-26 11:48:16,527 [INFO] higgslens.r005_uplift: Best XGBoost Config on Val: {'max_depth': 10, 'learning_rate': 0.03, 'n_estimators': 300, 'subsample': 0.8} (Val AUC: 0.91109)
+2026-07-26 11:48:16,822 [INFO] higgslens.r005_uplift: 
+============================================================
+2026-07-26 11:48:16,823 [INFO] higgslens.r005_uplift: [lightgbm] Hyperparameter Sweep (<= 25 configs)
+2026-07-26 11:48:16,861 [INFO] higgslens.r005_uplift: Evaluating 24 LightGBM configs on CPU...
+2026-07-26 11:48:17,664 [INFO] higgslens.r005_uplift:   Config 01/24: {'num_leaves': 31, 'learning_rate': 0.03, 'n_estimators': 100, 'min_child_samples': 20} -> Val AUC: 0.89896 (0.80s)
+2026-07-26 11:48:18,293 [INFO] higgslens.r005_uplift:   Config 02/24: {'num_leaves': 31, 'learning_rate': 0.03, 'n_estimators': 100, 'min_child_samples': 50} -> Val AUC: 0.89896 (0.63s)
+2026-07-26 11:48:19,305 [INFO] higgslens.r005_uplift:   Config 03/24: {'num_leaves': 31, 'learning_rate': 0.03, 'n_estimators': 200, 'min_child_samples': 20} -> Val AUC: 0.90562 (1.01s)
+2026-07-26 11:48:20,317 [INFO] higgslens.r005_uplift:   Config 04/24: {'num_leaves': 31, 'learning_rate': 0.03, 'n_estimators': 200, 'min_child_samples': 50} -> Val AUC: 0.90567 (1.01s)
+2026-07-26 11:48:21,702 [INFO] higgslens.r005_uplift:   Config 05/24: {'num_leaves': 31, 'learning_rate': 0.03, 'n_estimators': 300, 'min_child_samples': 20} -> Val AUC: 0.90803 (1.38s)
+2026-07-26 11:48:23,085 [INFO] higgslens.r005_uplift:   Config 06/24: {'num_leaves': 31, 'learning_rate': 0.03, 'n_estimators': 300, 'min_child_samples': 50} -> Val AUC: 0.90810 (1.38s)
+2026-07-26 11:48:23,696 [INFO] higgslens.r005_uplift:   Config 07/24: {'num_leaves': 31, 'learning_rate': 0.08, 'n_estimators': 100, 'min_child_samples': 20} -> Val AUC: 0.90732 (0.61s)
+2026-07-26 11:48:24,313 [INFO] higgslens.r005_uplift:   Config 08/24: {'num_leaves': 31, 'learning_rate': 0.08, 'n_estimators': 100, 'min_child_samples': 50} -> Val AUC: 0.90744 (0.62s)
+2026-07-26 11:48:25,185 [INFO] higgslens.r005_uplift:   Config 09/24: {'num_leaves': 31, 'learning_rate': 0.08, 'n_estimators': 200, 'min_child_samples': 20} -> Val AUC: 0.90900 (0.87s)
+2026-07-26 11:48:26,065 [INFO] higgslens.r005_uplift:   Config 10/24: {'num_leaves': 31, 'learning_rate': 0.08, 'n_estimators': 200, 'min_child_samples': 50} -> Val AUC: 0.90936 (0.88s)
+2026-07-26 11:48:27,220 [INFO] higgslens.r005_uplift:   Config 11/24: {'num_leaves': 31, 'learning_rate': 0.08, 'n_estimators': 300, 'min_child_samples': 20} -> Val AUC: 0.90956 (1.15s)
+2026-07-26 11:48:28,356 [INFO] higgslens.r005_uplift:   Config 12/24: {'num_leaves': 31, 'learning_rate': 0.08, 'n_estimators': 300, 'min_child_samples': 50} -> Val AUC: 0.90995 (1.14s)
+2026-07-26 11:48:29,181 [INFO] higgslens.r005_uplift:   Config 13/24: {'num_leaves': 63, 'learning_rate': 0.03, 'n_estimators': 100, 'min_child_samples': 20} -> Val AUC: 0.90272 (0.82s)
+2026-07-26 11:48:30,004 [INFO] higgslens.r005_uplift:   Config 14/24: {'num_leaves': 63, 'learning_rate': 0.03, 'n_estimators': 100, 'min_child_samples': 50} -> Val AUC: 0.90272 (0.82s)
+2026-07-26 11:48:31,436 [INFO] higgslens.r005_uplift:   Config 15/24: {'num_leaves': 63, 'learning_rate': 0.03, 'n_estimators': 200, 'min_child_samples': 20} -> Val AUC: 0.90827 (1.43s)
+2026-07-26 11:48:32,905 [INFO] higgslens.r005_uplift:   Config 16/24: {'num_leaves': 63, 'learning_rate': 0.03, 'n_estimators': 200, 'min_child_samples': 50} -> Val AUC: 0.90838 (1.47s)
+2026-07-26 11:48:34,854 [INFO] higgslens.r005_uplift:   Config 17/24: {'num_leaves': 63, 'learning_rate': 0.03, 'n_estimators': 300, 'min_child_samples': 20} -> Val AUC: 0.90970 (1.95s)
+2026-07-26 11:48:36,825 [INFO] higgslens.r005_uplift:   Config 18/24: {'num_leaves': 63, 'learning_rate': 0.03, 'n_estimators': 300, 'min_child_samples': 50} -> Val AUC: 0.90985 (1.97s)
+2026-07-26 11:48:37,639 [INFO] higgslens.r005_uplift:   Config 19/24: {'num_leaves': 63, 'learning_rate': 0.08, 'n_estimators': 100, 'min_child_samples': 20} -> Val AUC: 0.90944 (0.81s)
+2026-07-26 11:48:38,464 [INFO] higgslens.r005_uplift:   Config 20/24: {'num_leaves': 63, 'learning_rate': 0.08, 'n_estimators': 100, 'min_child_samples': 50} -> Val AUC: 0.90943 (0.82s)
+2026-07-26 11:48:39,638 [INFO] higgslens.r005_uplift:   Config 21/24: {'num_leaves': 63, 'learning_rate': 0.08, 'n_estimators': 200, 'min_child_samples': 20} -> Val AUC: 0.91013 (1.17s)
+2026-07-26 11:48:40,818 [INFO] higgslens.r005_uplift:   Config 22/24: {'num_leaves': 63, 'learning_rate': 0.08, 'n_estimators': 200, 'min_child_samples': 50} -> Val AUC: 0.91035 (1.18s)
+2026-07-26 11:48:42,391 [INFO] higgslens.r005_uplift:   Config 23/24: {'num_leaves': 63, 'learning_rate': 0.08, 'n_estimators': 300, 'min_child_samples': 20} -> Val AUC: 0.91026 (1.57s)
+2026-07-26 11:48:43,960 [INFO] higgslens.r005_uplift:   Config 24/24: {'num_leaves': 63, 'learning_rate': 0.08, 'n_estimators': 300, 'min_child_samples': 50} -> Val AUC: 0.91055 (1.57s)
+2026-07-26 11:48:43,961 [INFO] higgslens.r005_uplift: Best LightGBM Config on Val: {'num_leaves': 63, 'learning_rate': 0.08, 'n_estimators': 300, 'min_child_samples': 50} (Val AUC: 0.91055)
+2026-07-26 11:48:44,644 [INFO] higgslens.r005_uplift: 
+============================================================
+2026-07-26 11:48:44,644 [INFO] higgslens.r005_uplift: [mlp_torch] PyTorch CUDA Hyperparameter Sweep (<= 25 configs)
+2026-07-26 11:48:54,421 [INFO] higgslens.r005_uplift: Evaluating 18 TorchMLPClassifier configs on CUDA...
+2026-07-26 11:48:54,589 [INFO] higgslens.ml.mlp_torch: TorchMLPClassifier: training on cuda:0 (NVIDIA GeForce RTX 5070 Ti Laptop GPU, sm_120)
+2026-07-26 11:49:44,507 [INFO] higgslens.ml.mlp_torch: Completed TorchMLPClassifier training on cuda:0 (NVIDIA GeForce RTX 5070 Ti Laptop GPU, sm_120) (50 epochs)
+2026-07-26 11:49:44,536 [INFO] higgslens.r005_uplift:   Config 01/18: {'hidden_layer_sizes': (64, 32), 'lr': 0.001, 'batch_size': 256, 'max_epochs': 50} -> Val AUC: 0.89529 (50.12s)
+2026-07-26 11:49:44,557 [INFO] higgslens.ml.mlp_torch: TorchMLPClassifier: training on cuda:0 (NVIDIA GeForce RTX 5070 Ti Laptop GPU, sm_120)
+2026-07-26 11:50:12,740 [INFO] higgslens.ml.mlp_torch: Completed TorchMLPClassifier training on cuda:0 (NVIDIA GeForce RTX 5070 Ti Laptop GPU, sm_120) (50 epochs)
+2026-07-26 11:50:12,761 [INFO] higgslens.r005_uplift:   Config 02/18: {'hidden_layer_sizes': (64, 32), 'lr': 0.001, 'batch_size': 512, 'max_epochs': 50} -> Val AUC: 0.89366 (28.22s)
+2026-07-26 11:50:12,776 [INFO] higgslens.ml.mlp_torch: TorchMLPClassifier: training on cuda:0 (NVIDIA GeForce RTX 5070 Ti Laptop GPU, sm_120)
+2026-07-26 11:51:02,037 [INFO] higgslens.ml.mlp_torch: Completed TorchMLPClassifier training on cuda:0 (NVIDIA GeForce RTX 5070 Ti Laptop GPU, sm_120) (50 epochs)
+2026-07-26 11:51:02,060 [INFO] higgslens.r005_uplift:   Config 03/18: {'hidden_layer_sizes': (64, 32), 'lr': 0.0005, 'batch_size': 256, 'max_epochs': 50} -> Val AUC: 0.89631 (49.30s)
+2026-07-26 11:51:02,076 [INFO] higgslens.ml.mlp_torch: TorchMLPClassifier: training on cuda:0 (NVIDIA GeForce RTX 5070 Ti Laptop GPU, sm_120)
+2026-07-26 11:51:28,896 [INFO] higgslens.ml.mlp_torch: Completed TorchMLPClassifier training on cuda:0 (NVIDIA GeForce RTX 5070 Ti Laptop GPU, sm_120) (50 epochs)
+2026-07-26 11:51:28,918 [INFO] higgslens.r005_uplift:   Config 04/18: {'hidden_layer_sizes': (64, 32), 'lr': 0.0005, 'batch_size': 512, 'max_epochs': 50} -> Val AUC: 0.89062 (26.86s)
+2026-07-26 11:51:28,933 [INFO] higgslens.ml.mlp_torch: TorchMLPClassifier: training on cuda:0 (NVIDIA GeForce RTX 5070 Ti Laptop GPU, sm_120)
+2026-07-26 11:52:20,788 [INFO] higgslens.ml.mlp_torch: Completed TorchMLPClassifier training on cuda:0 (NVIDIA GeForce RTX 5070 Ti Laptop GPU, sm_120) (50 epochs)
+2026-07-26 11:52:20,822 [INFO] higgslens.r005_uplift:   Config 05/18: {'hidden_layer_sizes': (64, 32), 'lr': 0.0003, 'batch_size': 256, 'max_epochs': 50} -> Val AUC: 0.89473 (51.90s)
+2026-07-26 11:52:20,843 [INFO] higgslens.ml.mlp_torch: TorchMLPClassifier: training on cuda:0 (NVIDIA GeForce RTX 5070 Ti Laptop GPU, sm_120)
+2026-07-26 11:52:48,957 [INFO] higgslens.ml.mlp_torch: Completed TorchMLPClassifier training on cuda:0 (NVIDIA GeForce RTX 5070 Ti Laptop GPU, sm_120) (50 epochs)
+2026-07-26 11:52:48,980 [INFO] higgslens.r005_uplift:   Config 06/18: {'hidden_layer_sizes': (64, 32), 'lr': 0.0003, 'batch_size': 512, 'max_epochs': 50} -> Val AUC: 0.88444 (28.16s)
+2026-07-26 11:52:48,996 [INFO] higgslens.ml.mlp_torch: TorchMLPClassifier: training on cuda:0 (NVIDIA GeForce RTX 5070 Ti Laptop GPU, sm_120)
+2026-07-26 11:53:36,768 [INFO] higgslens.ml.mlp_torch: Completed TorchMLPClassifier training on cuda:0 (NVIDIA GeForce RTX 5070 Ti Laptop GPU, sm_120) (50 epochs)
+2026-07-26 11:53:36,793 [INFO] higgslens.r005_uplift:   Config 07/18: {'hidden_layer_sizes': (128, 64), 'lr': 0.001, 'batch_size': 256, 'max_epochs': 50} -> Val AUC: 0.89799 (47.81s)
+2026-07-26 11:53:36,808 [INFO] higgslens.ml.mlp_torch: TorchMLPClassifier: training on cuda:0 (NVIDIA GeForce RTX 5070 Ti Laptop GPU, sm_120)
+2026-07-26 11:54:02,328 [INFO] higgslens.ml.mlp_torch: Completed TorchMLPClassifier training on cuda:0 (NVIDIA GeForce RTX 5070 Ti Laptop GPU, sm_120) (50 epochs)
+2026-07-26 11:54:02,352 [INFO] higgslens.r005_uplift:   Config 08/18: {'hidden_layer_sizes': (128, 64), 'lr': 0.001, 'batch_size': 512, 'max_epochs': 50} -> Val AUC: 0.89862 (25.56s)
+2026-07-26 11:54:02,367 [INFO] higgslens.ml.mlp_torch: TorchMLPClassifier: training on cuda:0 (NVIDIA GeForce RTX 5070 Ti Laptop GPU, sm_120)
+2026-07-26 11:54:52,433 [INFO] higgslens.ml.mlp_torch: Completed TorchMLPClassifier training on cuda:0 (NVIDIA GeForce RTX 5070 Ti Laptop GPU, sm_120) (50 epochs)
+2026-07-26 11:54:52,459 [INFO] higgslens.r005_uplift:   Config 09/18: {'hidden_layer_sizes': (128, 64), 'lr': 0.0005, 'batch_size': 256, 'max_epochs': 50} -> Val AUC: 0.89772 (50.11s)
+2026-07-26 11:54:52,482 [INFO] higgslens.ml.mlp_torch: TorchMLPClassifier: training on cuda:0 (NVIDIA GeForce RTX 5070 Ti Laptop GPU, sm_120)
+2026-07-26 11:55:26,945 [INFO] higgslens.ml.mlp_torch: Completed TorchMLPClassifier training on cuda:0 (NVIDIA GeForce RTX 5070 Ti Laptop GPU, sm_120) (50 epochs)
+2026-07-26 11:55:26,968 [INFO] higgslens.r005_uplift:   Config 10/18: {'hidden_layer_sizes': (128, 64), 'lr': 0.0005, 'batch_size': 512, 'max_epochs': 50} -> Val AUC: 0.89329 (34.51s)
+2026-07-26 11:55:26,984 [INFO] higgslens.ml.mlp_torch: TorchMLPClassifier: training on cuda:0 (NVIDIA GeForce RTX 5070 Ti Laptop GPU, sm_120)
+2026-07-26 11:56:20,694 [INFO] higgslens.ml.mlp_torch: Completed TorchMLPClassifier training on cuda:0 (NVIDIA GeForce RTX 5070 Ti Laptop GPU, sm_120) (50 epochs)
+2026-07-26 11:56:20,718 [INFO] higgslens.r005_uplift:   Config 11/18: {'hidden_layer_sizes': (128, 64), 'lr': 0.0003, 'batch_size': 256, 'max_epochs': 50} -> Val AUC: 0.89727 (53.75s)
+2026-07-26 11:56:20,733 [INFO] higgslens.ml.mlp_torch: TorchMLPClassifier: training on cuda:0 (NVIDIA GeForce RTX 5070 Ti Laptop GPU, sm_120)
+2026-07-26 11:56:45,710 [INFO] higgslens.ml.mlp_torch: Completed TorchMLPClassifier training on cuda:0 (NVIDIA GeForce RTX 5070 Ti Laptop GPU, sm_120) (50 epochs)
+2026-07-26 11:56:45,734 [INFO] higgslens.r005_uplift:   Config 12/18: {'hidden_layer_sizes': (128, 64), 'lr': 0.0003, 'batch_size': 512, 'max_epochs': 50} -> Val AUC: 0.89257 (25.02s)
+2026-07-26 11:56:45,749 [INFO] higgslens.ml.mlp_torch: TorchMLPClassifier: training on cuda:0 (NVIDIA GeForce RTX 5070 Ti Laptop GPU, sm_120)
+2026-07-26 11:57:41,853 [INFO] higgslens.ml.mlp_torch: Completed TorchMLPClassifier training on cuda:0 (NVIDIA GeForce RTX 5070 Ti Laptop GPU, sm_120) (50 epochs)
+2026-07-26 11:57:41,875 [INFO] higgslens.r005_uplift:   Config 13/18: {'hidden_layer_sizes': (128, 64, 32), 'lr': 0.001, 'batch_size': 256, 'max_epochs': 50} -> Val AUC: 0.89742 (56.14s)
+2026-07-26 11:57:41,891 [INFO] higgslens.ml.mlp_torch: TorchMLPClassifier: training on cuda:0 (NVIDIA GeForce RTX 5070 Ti Laptop GPU, sm_120)
+2026-07-26 11:58:15,825 [INFO] higgslens.ml.mlp_torch: Completed TorchMLPClassifier training on cuda:0 (NVIDIA GeForce RTX 5070 Ti Laptop GPU, sm_120) (50 epochs)
+2026-07-26 11:58:15,847 [INFO] higgslens.r005_uplift:   Config 14/18: {'hidden_layer_sizes': (128, 64, 32), 'lr': 0.001, 'batch_size': 512, 'max_epochs': 50} -> Val AUC: 0.89898 (33.97s)
+2026-07-26 11:58:15,863 [INFO] higgslens.ml.mlp_torch: TorchMLPClassifier: training on cuda:0 (NVIDIA GeForce RTX 5070 Ti Laptop GPU, sm_120)
+2026-07-26 11:59:21,244 [INFO] higgslens.ml.mlp_torch: Completed TorchMLPClassifier training on cuda:0 (NVIDIA GeForce RTX 5070 Ti Laptop GPU, sm_120) (50 epochs)
+2026-07-26 11:59:21,271 [INFO] higgslens.r005_uplift:   Config 15/18: {'hidden_layer_sizes': (128, 64, 32), 'lr': 0.0005, 'batch_size': 256, 'max_epochs': 50} -> Val AUC: 0.90020 (65.42s)
+2026-07-26 11:59:21,293 [INFO] higgslens.ml.mlp_torch: TorchMLPClassifier: training on cuda:0 (NVIDIA GeForce RTX 5070 Ti Laptop GPU, sm_120)
+2026-07-26 11:59:55,881 [INFO] higgslens.ml.mlp_torch: Completed TorchMLPClassifier training on cuda:0 (NVIDIA GeForce RTX 5070 Ti Laptop GPU, sm_120) (50 epochs)
+2026-07-26 11:59:55,904 [INFO] higgslens.r005_uplift:   Config 16/18: {'hidden_layer_sizes': (128, 64, 32), 'lr': 0.0005, 'batch_size': 512, 'max_epochs': 50} -> Val AUC: 0.89986 (34.63s)
+2026-07-26 11:59:55,922 [INFO] higgslens.ml.mlp_torch: TorchMLPClassifier: training on cuda:0 (NVIDIA GeForce RTX 5070 Ti Laptop GPU, sm_120)
+2026-07-26 12:01:01,912 [INFO] higgslens.ml.mlp_torch: Completed TorchMLPClassifier training on cuda:0 (NVIDIA GeForce RTX 5070 Ti Laptop GPU, sm_120) (50 epochs)
+2026-07-26 12:01:01,939 [INFO] higgslens.r005_uplift:   Config 17/18: {'hidden_layer_sizes': (128, 64, 32), 'lr': 0.0003, 'batch_size': 256, 'max_epochs': 50} -> Val AUC: 0.89904 (66.03s)
+2026-07-26 12:01:01,960 [INFO] higgslens.ml.mlp_torch: TorchMLPClassifier: training on cuda:0 (NVIDIA GeForce RTX 5070 Ti Laptop GPU, sm_120)
+2026-07-26 12:01:29,446 [INFO] higgslens.ml.mlp_torch: Completed TorchMLPClassifier training on cuda:0 (NVIDIA GeForce RTX 5070 Ti Laptop GPU, sm_120) (50 epochs)
+2026-07-26 12:01:29,469 [INFO] higgslens.r005_uplift:   Config 18/18: {'hidden_layer_sizes': (128, 64, 32), 'lr': 0.0003, 'batch_size': 512, 'max_epochs': 50} -> Val AUC: 0.89729 (27.53s)
+2026-07-26 12:01:29,469 [INFO] higgslens.r005_uplift: Best TorchMLP Config on Val: {'hidden_layer_sizes': (128, 64, 32), 'lr': 0.0005, 'batch_size': 256, 'max_epochs': 50} (Val AUC: 0.90020)
+2026-07-26 12:01:29,704 [INFO] higgslens.r005_uplift: 
+============================================================
+2026-07-26 12:01:29,704 [INFO] higgslens.r005_uplift: [svm_rbf] Subsample Scale-up (25k, 50k)
+2026-07-26 12:01:29,705 [INFO] higgslens.r005_uplift:   Fitting SVM RBF on 25,000 events...
+2026-07-26 12:02:35,534 [INFO] higgslens.r005_uplift:   SVM RBF 25,000 fit completed in 65.82s
+2026-07-26 12:09:29,080 [INFO] higgslens.r005_uplift:   Subsample 25,000: Val AUC=0.8799, Test AUC=0.8817, AMS=2.8937 (65.8s)
+2026-07-26 12:09:29,081 [INFO] higgslens.r005_uplift:   Fitting SVM RBF on 50,000 events...
+2026-07-26 12:18:40,541 [INFO] higgslens.r005_uplift:   SVM RBF 50,000 fit completed in 551.43s
+2026-07-26 12:37:39,611 [INFO] higgslens.r005_uplift:   Subsample 50,000: Val AUC=0.8854, Test AUC=0.8868, AMS=2.9756 (551.4s)
+2026-07-26 12:37:39,612 [INFO] higgslens.r005_uplift: 
+R005 Uplift report written to reports\r005_uplift_2026-07-26.md
+2026-07-26 12:37:39,630 [INFO] higgslens.r005_uplift: Added RF parity addendum to reports/arena_benchmark_2026-07-25.md
+2026-07-26 12:37:39,631 [INFO] higgslens.r005_uplift: 
+======================================================================
+2026-07-26 12:37:39,631 [INFO] higgslens.r005_uplift: R005 SESSION COMPLETE
+2026-07-26 12:37:39,631 [INFO] higgslens.r005_uplift: ======================================================================

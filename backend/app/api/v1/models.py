@@ -17,6 +17,7 @@ def list_models() -> ModelListResponse:
     for m_id in model_ids:
         artifact = model_registry_service.get_artifact(m_id)
         m = artifact.metrics
+        manifest = artifact.manifest
         summaries.append(
             ModelSummarySchema(
                 model_id=m_id,
@@ -25,7 +26,11 @@ def list_models() -> ModelListResponse:
                 ams_score=float(m.get("ams_score", 0.0)),
                 optimal_threshold=float(m.get("optimal_threshold", 0.6862)),
                 status="available" if artifact.has_weights else "weights_missing",
-                weights_available=artifact.has_weights
+                weights_available=artifact.has_weights,
+                device=manifest.get("device", m.get("device", "CPU")),
+                training_run_origin=manifest.get("training_run_origin", "R004 (Baseline)"),
+                subsample_notes=manifest.get("subsample_notes", "Full 250k train set"),
+                dataset_provenance=manifest.get("dataset_provenance", "ATLAS open data (record 328, DOI 10.7483/OPENDATA.ATLAS.ZBP2.M5T8)")
             )
         )
     return ModelListResponse(models=summaries)

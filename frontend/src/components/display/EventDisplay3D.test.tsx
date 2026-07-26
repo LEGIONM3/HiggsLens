@@ -46,7 +46,7 @@ describe('EventDisplay3D Component Smoke Test', () => {
               model_id: 'xgboost',
               probability: 0.8912,
               predicted_label: 'signal',
-              threshold: 0.8118,
+              threshold: 0.85,
             },
           },
         ],

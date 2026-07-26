@@ -6,6 +6,9 @@
   "dataset_doi": "10.7483/OPENDATA.ATLAS.ZBP2.M5T8",
   "cern_record_id": 328,
   "created_date": "2026-07-25",
-  "device": "cpu",
-  "subsample_size": 250000
+  "device": "CPU",
+  "subsample_size": 250000,
+  "training_run_origin": "R004 (Baseline)",
+  "subsample_notes": "Prior class distribution",
+  "dataset_provenance": "ATLAS open data (record 328, DOI 10.7483/OPENDATA.ATLAS.ZBP2.M5T8) \u2014 official ATLAS simulated events, classified by certified pre-trained models."
 }
