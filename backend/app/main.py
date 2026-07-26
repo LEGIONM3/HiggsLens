@@ -38,6 +38,9 @@ def create_app() -> FastAPI:
     app.include_router(predict.router, prefix="/api/v1/predict")
     app.include_router(metrics.router, prefix="/api/v1/metrics")
 
+    from backend.app.api.v1 import events
+    app.include_router(events.router, prefix="/api/v1/events")
+
     # Lab Sandboxed Zone Routers
     from backend.app.api.v1.lab import datasets_router, experiments_router
     app.include_router(datasets_router, prefix="/api/v1")

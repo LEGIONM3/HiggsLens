@@ -135,6 +135,13 @@ class ModelRegistryService:
                         )
                 else:
                     artifact.cached_model = joblib.load(artifact.weights_path)
+
+                # Ensure model operates cleanly on CPU for inference without device warnings
+                if hasattr(artifact.cached_model, "set_params"):
+                    try:
+                        artifact.cached_model.set_params(device="cpu")
+                    except Exception:
+                        pass
             except ArtifactCorruptError:
                 raise
             except Exception as e:

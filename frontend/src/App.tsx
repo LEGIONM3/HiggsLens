@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { DatasetStatus, ModelInfo } from './types';
 import { fetchDatasetStatus, fetchModelRegistry } from './services/api';
 import { DatasetCardComponent } from './components/DatasetCard';
 import { ModelArenaComponent } from './components/ModelArena';
-import { DetectorViewComponent } from './components/DetectorView';
 import { LabComponent } from './components/LabComponent';
-import { Atom, Terminal, Shield, Sparkles, ExternalLink } from 'lucide-react';
+import { Atom, Terminal, Shield, Sparkles, ExternalLink, RotateCcw } from 'lucide-react';
+
+const EventDisplay3D = lazy(() => import('./components/display/EventDisplay3D'));
 
 export const App: React.FC = () => {
   const [datasetStatus, setDatasetStatus] = useState<DatasetStatus | null>(null);
@@ -78,7 +79,7 @@ export const App: React.FC = () => {
                   : 'text-slate-400 hover:text-white'
               }`}
             >
-              3. Detector View
+              3. 3D Event Display
             </button>
             <button
               onClick={() => setActiveTab('lab')}
@@ -119,7 +120,7 @@ export const App: React.FC = () => {
               <div className="flex flex-wrap gap-4 pt-2 text-xs mono text-slate-400">
                 <span>DOI: `10.7483/OPENDATA.ATLAS.ZBP2.M5T8`</span>
                 <span>•</span>
-                <span>818,238 Full-Detector Simulated Events</span>
+                <span>818,238 Full-Detector Reconstruction Events</span>
                 <span>•</span>
                 <span>Approximate Median Significance ($b_r = 10$)</span>
               </div>
@@ -135,7 +136,16 @@ export const App: React.FC = () => {
 
         {activeTab === 'detector' && (
           <div className="animate-fadeIn">
-            <DetectorViewComponent models={models} />
+            <Suspense
+              fallback={
+                <div className="glass-panel p-12 flex flex-col items-center justify-center gap-3 text-cyan-400">
+                  <RotateCcw className="w-8 h-8 animate-spin" />
+                  <span className="text-sm font-medium">Loading 3D Event Display...</span>
+                </div>
+              }
+            >
+              <EventDisplay3D />
+            </Suspense>
           </div>
         )}
 

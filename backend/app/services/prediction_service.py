@@ -55,17 +55,20 @@ class PredictionService:
         model = self.registry.get_cached_model(request.model_id)
 
         try:
-            if hasattr(model, "predict_proba"):
-                probs = model.predict_proba(df)
-                if isinstance(probs, np.ndarray) and probs.ndim == 2:
-                    prob_signal = float(probs[0, 1])
+            import warnings
+            with warnings.catch_warnings():
+                warnings.simplefilter("ignore", UserWarning)
+                if hasattr(model, "predict_proba"):
+                    probs = model.predict_proba(df)
+                    if isinstance(probs, np.ndarray) and probs.ndim == 2:
+                        prob_signal = float(probs[0, 1])
+                    else:
+                        prob_signal = float(probs[0])
+                elif hasattr(model, "predict"):
+                    preds = model.predict(df)
+                    prob_signal = float(preds[0])
                 else:
-                    prob_signal = float(probs[0])
-            elif hasattr(model, "predict"):
-                preds = model.predict(df)
-                prob_signal = float(preds[0])
-            else:
-                raise AttributeError("Loaded model object has neither predict_proba nor predict method.")
+                    raise AttributeError("Loaded model object has neither predict_proba nor predict method.")
         except Exception as e:
             logger.error(f"Inference execution error for '{request.model_id}': {e}")
             raise RuntimeError(f"Error executing inference: {str(e)}")

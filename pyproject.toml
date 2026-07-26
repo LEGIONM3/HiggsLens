@@ -35,7 +35,6 @@ ml = [
     "xgboost>=2.0.0",
     "lightgbm>=4.3.0",
     "torch>=2.2.0",
-    "shap>=0.44.0",
 ]
 qml = [
     "qiskit>=1.0.0",
