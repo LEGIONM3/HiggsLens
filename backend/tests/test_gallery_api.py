@@ -14,6 +14,13 @@ from backend.app.services.explanation import ExplanationService
 from backend.app.services.gallery import GalleryService
 from fastapi.testclient import TestClient
 
+try:
+  import xgboost  # noqa: F401
+
+  XGBOOST_INSTALLED = True
+except ImportError:
+  XGBOOST_INSTALLED = False
+
 FIXTURE_CSV = Path(__file__).resolve().parent / "fixtures" / "events_fixture.csv"
 
 
@@ -103,6 +110,9 @@ def test_gallery_holdout_excluded(gallery_client):
     assert ev["event_id"] not in holdout_ids
 
 
+@pytest.mark.skipif(
+    not XGBOOST_INSTALLED, reason="xgboost is not installed in environment"
+)
 def test_permalink_response_shape(gallery_client, test_sampling_service):
   """Assert GET /api/v1/events/{id}/permalink returns combined event + explanation payload in one call."""
   # Event 300000 in test split
@@ -137,9 +147,15 @@ def test_gallery_interesting_fallback_metadata(gallery_client):
   data = resp.json()
 
   assert "selection_method" in data
-  assert data["selection_method"] in ("threshold_window", "nearest_threshold_fallback")
+  assert data["selection_method"] in (
+      "threshold_window",
+      "nearest_threshold_fallback",
+  )
 
 
+@pytest.mark.skipif(
+    not XGBOOST_INSTALLED, reason="xgboost is not installed in environment"
+)
 def test_gallery_and_permalink_p50_latency(gallery_client):
   """Amendment 5: Measured warm p50 latency < 200ms for both /events/gallery and /events/{id}/permalink."""
   # 1. Gallery p50
