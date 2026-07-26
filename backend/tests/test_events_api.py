@@ -107,8 +107,23 @@ def test_events_prediction_correctness(events_client):
 
     sample_prob = event_data["prediction"]["probability"]
     sample_label = event_data["prediction"]["predicted_label"]
+    sample_thresh = event_data["prediction"]["threshold"]
 
-    # Direct call to PredictionService /predict
+    # 1. Assert parity against HTTP POST /api/v1/predict endpoint
+    predict_payload = {
+        "model_id": "xgboost",
+        "features": event_data["features"]
+    }
+    http_predict_resp = events_client.post("/api/v1/predict", json=predict_payload)
+    assert http_predict_resp.status_code == 200
+    predict_data = http_predict_resp.json()
+
+    assert sample_prob == pytest.approx(predict_data["signal_probability"], abs=1e-6)
+    expected_predict_label = "signal" if predict_data["predicted_label"] == 1 else "background"
+    assert sample_label == expected_predict_label
+    assert sample_thresh == pytest.approx(predict_data["threshold_used"], abs=1e-6)
+
+    # 2. Direct call to PredictionService /predict service layer
     predict_req = PredictRequest(
         model_id="xgboost",
         features=event_data["features"],
