@@ -41,7 +41,7 @@ MANIFEST_EXTENSIONS = {
     "svm_rbf": {
         "training_run_origin": "R005 (GPU Sweep)",
         "subsample_notes": "50k fast subsample",
-        "device": "cuda:0 (cuML)",
+        "device": "CPU (scikit-learn, 50k subsample)",
     },
     "calibrated_ensemble": {
         "training_run_origin": "R004 (Baseline)",
