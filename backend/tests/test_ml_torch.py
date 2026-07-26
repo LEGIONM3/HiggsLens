@@ -1,6 +1,5 @@
 import numpy as np
 import pytest
-
 from ml.models.mlp_torch import TORCH_AVAILABLE, TorchMLPClassifier
 
 try:
@@ -24,7 +23,7 @@ def test_torch_mlp_construction_and_cpu_fallback():
     assert np.allclose(probs.sum(axis=1), 1.0, atol=1e-5)
 
 
-@pytest.mark.skipif(not TORCH_AVAILABLE or (torch and not torch.cuda.is_available()), reason="CUDA GPU not available")
+@pytest.mark.skipif(not TORCH_AVAILABLE or (torch is not None and not torch.cuda.is_available()), reason="CUDA GPU not available")
 def test_torch_mlp_cuda_execution():
     clf = TorchMLPClassifier(max_epochs=2, batch_size=16, device="cuda", seed=42)
     X = np.random.randn(30, 10).astype(np.float32)

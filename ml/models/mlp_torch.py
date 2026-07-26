@@ -29,7 +29,7 @@ except ImportError:
 class _PyTorchMLPModule(nn.Module if TORCH_AVAILABLE else object):  # type: ignore
     def __init__(self, input_dim: int, hidden_layer_sizes: tuple = (64, 32), num_classes: int = 2):
         super().__init__()
-        layers = []
+        layers: list[Any] = []
         in_dim = input_dim
         for h_dim in hidden_layer_sizes:
             layers.append(nn.Linear(in_dim, h_dim))

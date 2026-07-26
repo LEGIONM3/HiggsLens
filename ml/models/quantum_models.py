@@ -7,6 +7,7 @@ Provides scikit-learn compatible wrappers for:
 
 import logging
 from typing import Any, Optional
+
 import numpy as np
 from sklearn.base import BaseEstimator, ClassifierMixin
 from sklearn.svm import SVC
@@ -138,23 +139,6 @@ class VariationalQuantumClassifier(BaseEstimator, ClassifierMixin):
         self.weights_: Optional[Any] = None
         self.circuit_: Optional[Any] = None
         self.classes_: Optional[np.ndarray] = None
-
-    def fit(self, X: Any, y: Any) -> "VariationalQuantumClassifier":
-        if not PENNYLANE_AVAILABLE:
-            raise RuntimeError("pennylane is required for VariationalQuantumClassifier.")
-
-        X_arr = np.asarray(X, dtype=np.float32)
-        y_arr = np.asarray(y, dtype=np.int32)
-        self.classes_ = np.unique(y_arr)
-
-        if len(X_arr) > self.subsample:
-            rng = np.random.RandomState(self.seed)
-            idx = rng.choice(len(X_arr), self.subsample, replace=False)
-            X_sub = X_arr[idx]
-            y_sub = y_arr[idx]
-        else:
-            X_sub = X_arr
-            y_sub = y_arr
 
     def _get_qnode(self):
         dev = qml.device("default.qubit", wires=self.n_qubits)

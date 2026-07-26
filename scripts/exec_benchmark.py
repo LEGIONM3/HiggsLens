@@ -5,6 +5,7 @@ import subprocess
 import sys
 import time
 from pathlib import Path
+from typing import Any
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
@@ -65,7 +66,7 @@ def main():
                 shutil.copytree(item, t)
         logger.info(f"Archived previous certified artifacts to {arch_dir}")
 
-    results = {}
+    results: dict[str, dict[str, Any]] = {}
     import joblib
 
     for m_id, spec in MODEL_SPECS.items():

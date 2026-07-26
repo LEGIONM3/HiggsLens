@@ -13,10 +13,12 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 CANONICAL_DATASET_HASH = "54242acf28a78ce303ea48bcf7002f0a44df08448271477e0a63331486c4f316"
 TRAINING_COMMIT = "625d028"
 
+from typing import Dict, Any
+
 # ─── Definitive results from tasks 659/669/695 (run_arena_benchmark.py, Python 3.12 venv) ──
 # All results consistent across three independent runs on canonical data/processed/v1/.
 # Threshold selected on val 'b' (100k), final metrics on test 'v' (450k).
-RESULTS = {
+RESULTS: dict[str, dict[str, Any]] = {
     "xgboost": {
         "family": "gradient_boosting",
         "display": "XGBoost (CUDA)",

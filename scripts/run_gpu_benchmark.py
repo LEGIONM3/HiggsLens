@@ -29,12 +29,13 @@ from sklearn.metrics import roc_auc_score
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
+import io
+
 from ml.data.feature_sets import ALL_PHYSICS_FEATURES
 from ml.evaluation.metrics import compute_ams, evaluate_threshold_scan
 from ml.models.factory import build_model
 from ml.models.registry import MODEL_SPECS, DependencyMissingError
 
-import io
 # Force UTF-8 stdout on Windows to avoid cp1252 encoding errors
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
@@ -175,10 +176,10 @@ def run_gpu_first_benchmark():
         if subsample < len(X_train):
             rng = np.random.RandomState(42)
             idx = rng.choice(len(X_train), subsample, replace=False)
-            X_tr, y_tr, w_tr = X_train.iloc[idx], y_train[idx], w_train[idx]
+            X_tr, y_tr, _ = X_train.iloc[idx], y_train[idx], w_train[idx]
             logger.info(f"  Subsampled to {subsample:,} training events")
         else:
-            X_tr, y_tr, w_tr = X_train, y_train, w_train
+            X_tr, y_tr, _ = X_train, y_train, w_train
 
         # Fit (sequential — one at a time)
         logger.info(f"  Fitting on {len(X_tr):,} events...")
@@ -371,19 +372,19 @@ def run_gpu_first_benchmark():
 
     with open(report_file, "w", encoding="utf-8") as f:
         f.write("# HiggsLens — Official Model Arena Benchmark Report\n\n")
-        f.write(f"**Session**: R004 — Arena Benchmark (GPU-first)  \n")
+        f.write("**Session**: R004 — Arena Benchmark (GPU-first)  \n")
         f.write(f"**Date**: {today}  \n")
         f.write(f"**Commit**: `{TRAINING_COMMIT}`  \n\n")
 
         f.write("---\n\n## 1. Environment\n\n")
         f.write("```text\n" + nvidia_smi[:600] + "\n```\n\n")
-        f.write(f"| Item | Value |\n| :--- | :--- |\n")
+        f.write("| Item | Value |\n| :--- | :--- |\n")
         f.write(f"| PyTorch GPU | {torch_gpu_desc} |\n")
         f.write(f"| Dataset SHA-256 | `{CANONICAL_DATASET_HASH}` |\n")
-        f.write(f"| Train split | 250,000 events |\n")
-        f.write(f"| Val split | 100,000 events |\n")
-        f.write(f"| Test split | 450,000 events |\n")
-        f.write(f"| Holdout | 18,238 events — UNTOUCHED |\n\n")
+        f.write("| Train split | 250,000 events |\n")
+        f.write("| Val split | 100,000 events |\n")
+        f.write("| Test split | 450,000 events |\n")
+        f.write("| Holdout | 18,238 events — UNTOUCHED |\n\n")
 
         f.write("---\n\n## 2. Leaderboard (sorted by Test ROC-AUC)\n\n")
         f.write("> Fit on train → threshold on val → final metrics on test\n\n")

@@ -54,3 +54,15 @@ Sat Jul 25 22:55:04 2026
 ## 3. Scientific Disclaimer
 
 Pre-trained certified weights benchmarked on CERN/ATLAS open data (record 328, DOI: `10.7483/OPENDATA.ATLAS.ZBP2.M5T8`). Not CERN-validated. Educational/demonstrative purposes only.
+
+---
+
+## Addendum (2026-07-26): Random Forest Parity Analysis (Amendment 1 & 5)
+
+**Stored Evidence**: `007f35b:models/artifacts/random_forest/metrics.json`
+- `"mode": "fast"`
+- `"roc_auc_mean": 0.8851003551263907`
+- `"training_duration_seconds": 0.6716184616088867`
+- `"validation_rows": 100000`
+
+**Analysis**: The Iteration 01 baseline (`0.8851`) was evaluated on a fast sub-sample split with 10k/15k training events (fit duration 0.67s). The R004/R005 canonical benchmark trains on the full 250,000 KaggleSet `t` events and evaluates on the official 450,000 KaggleSet `v` test split (`0.9061` Test ROC-AUC) and 100,000 KaggleSet `b` validation split (`0.9043` Val ROC-AUC). The +1.92 percentage point gain is attributable strictly to full-dataset training.
