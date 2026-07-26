@@ -14,18 +14,19 @@ jobs:
       - name: Install uv
         uses: astral-sh/setup-uv@v4
         with:
-          version: "0.11.19"
+          enable-cache: true
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
           python-version: "3.12"
-      - name: Set up Python 3.12 environment
-        run: |
-          uv venv --python 3.12 .venv
-          uv pip install --venv .venv -e .
+      - name: Install Dependencies
+        run: uv sync --all-extras
       - name: Run Ruff Lint
-        run: uv run --python 3.12 ruff check backend/app backend/tests scripts ml
+        run: uv run ruff check backend/app backend/tests scripts ml
       - name: Run Mypy Typecheck
-        run: uv run --python 3.12 mypy backend/app backend/tests scripts ml
+        run: uv run mypy backend/app backend/tests scripts ml
       - name: Run Pytest
-        run: uv run --python 3.12 pytest -v backend/tests
+        run: uv run pytest -v backend/tests
 
   frontend-checks:
     runs-on: ubuntu-latest
