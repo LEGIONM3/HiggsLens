@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, TypedDict, cast
 
 import numpy as np
+from backend.app.core.config import settings
 from backend.app.schemas.events import EventDataResponse
 from backend.app.schemas.explain import ExplainRequest
 from backend.app.schemas.gallery import (
