@@ -19,7 +19,7 @@ jobs:
       - name: Set up Python 3.12 environment
         run: |
           uv venv --python 3.12 .venv
-          uv pip install -e .
+          uv pip install --venv .venv -e .
       - name: Run Ruff Lint
         run: uv run --python 3.12 ruff check backend/app backend/tests scripts ml
       - name: Run Mypy Typecheck
