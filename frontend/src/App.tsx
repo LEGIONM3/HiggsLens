@@ -7,11 +7,12 @@ import { LabComponent } from './components/LabComponent';
 import { Atom, Terminal, Shield, Sparkles, ExternalLink, RotateCcw } from 'lucide-react';
 
 const EventDisplay3D = lazy(() => import('./components/display/EventDisplay3D'));
+const AcceleratorJourneyView = lazy(() => import('./components/journey/AcceleratorJourneyView'));
 
 export const App: React.FC = () => {
   const [datasetStatus, setDatasetStatus] = useState<DatasetStatus | null>(null);
   const [models, setModels] = useState<Record<string, ModelInfo>>({});
-  const [activeTab, setActiveTab] = useState<'pipeline' | 'arena' | 'detector' | 'lab'>('pipeline');
+  const [activeTab, setActiveTab] = useState<'pipeline' | 'journey' | 'arena' | 'detector' | 'lab'>('pipeline');
 
   const loadInitialData = async () => {
     try {
@@ -45,7 +46,7 @@ export const App: React.FC = () => {
                 <span className="badge badge-purple text-[10px]">CERN Open Data 328</span>
               </h1>
               <p className="text-xs text-slate-400 font-medium">
-                ATLAS $H \to \tau\tau$ Machine Learning Challenge 2014 & Reproducible Arena
+                ATLAS $H \to \tau\tau$ Machine Learning Challenge 2014 &amp; Reproducible Arena
               </p>
             </div>
           </div>
@@ -53,7 +54,7 @@ export const App: React.FC = () => {
           <nav className="flex items-center gap-1 bg-slate-900/80 p-1 rounded-xl border border-slate-800">
             <button
               onClick={() => setActiveTab('pipeline')}
-              className={`px-4 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                 activeTab === 'pipeline'
                   ? 'bg-gradient-to-r from-cyan-500 to-cyan-600 text-slate-950 shadow-md'
                   : 'text-slate-400 hover:text-white'
@@ -62,34 +63,44 @@ export const App: React.FC = () => {
               1. Data Pipeline
             </button>
             <button
+              onClick={() => setActiveTab('journey')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                activeTab === 'journey'
+                  ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-md'
+                  : 'text-slate-400 hover:text-white'
+              }`}
+            >
+              2. Accelerator Journey
+            </button>
+            <button
               onClick={() => setActiveTab('arena')}
-              className={`px-4 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                 activeTab === 'arena'
                   ? 'bg-gradient-to-r from-purple-500 to-purple-600 text-white shadow-md'
                   : 'text-slate-400 hover:text-white'
               }`}
             >
-              2. Model Arena
+              3. Model Arena
             </button>
             <button
               onClick={() => setActiveTab('detector')}
-              className={`px-4 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                 activeTab === 'detector'
                   ? 'bg-gradient-to-r from-emerald-500 to-emerald-600 text-slate-950 shadow-md'
                   : 'text-slate-400 hover:text-white'
               }`}
             >
-              3. 3D Event Display
+              4. 3D Event Display
             </button>
             <button
               onClick={() => setActiveTab('lab')}
-              className={`px-4 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                 activeTab === 'lab'
                   ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 shadow-md'
                   : 'text-slate-400 hover:text-white'
               }`}
             >
-              4. Lab (Experimental)
+              5. Lab (Experimental)
             </button>
           </nav>
 
@@ -112,19 +123,34 @@ export const App: React.FC = () => {
             <div className="glass-panel p-6 border-l-4 border-l-cyan-500 flex flex-col gap-3">
               <h3 className="text-base font-bold text-white flex items-center gap-2">
                 <Shield className="w-5 h-5 text-cyan-400" />
-                Scientific Integrity & Preprocessing Rules
+                Scientific Integrity &amp; Preprocessing Rules
               </h3>
               <p className="text-sm text-slate-300 leading-relaxed">
-                The HiggsLens pipeline guarantees zero data leakage across partitions (`KaggleSet` mapping: `t` for training, `b` for validation & threshold selection, `v` for test evaluation). Imputers and standard scalers are fitted exclusively on training data (`t`). Sentinel values (`-999.0`) corresponding to leading/subleading jet measurements under jet multiplicity (`PRI_jet_num`) are preserved or imputed with binary missingness indicators based on candidate architecture requirements.
+                The HiggsLens pipeline guarantees zero data leakage across partitions (`KaggleSet` mapping: `t` for training, `b` for validation &amp; threshold selection, `v` for test evaluation). Imputers and standard scalers are fitted exclusively on training data (`t`). Sentinel values (`-999.0`) corresponding to leading/subleading jet measurements under jet multiplicity (`PRI_jet_num`) are preserved or imputed with binary missingness indicators based on candidate architecture requirements.
               </p>
               <div className="flex flex-wrap gap-4 pt-2 text-xs mono text-slate-400">
                 <span>DOI: `10.7483/OPENDATA.ATLAS.ZBP2.M5T8`</span>
-                <span>•</span>
+                <span>&bull;</span>
                 <span>818,238 Full-Detector Reconstruction Events</span>
-                <span>•</span>
+                <span>&bull;</span>
                 <span>Approximate Median Significance ($b_r = 10$)</span>
               </div>
             </div>
+          </div>
+        )}
+
+        {activeTab === 'journey' && (
+          <div className="animate-fadeIn">
+            <Suspense
+              fallback={
+                <div className="glass-panel p-12 flex flex-col items-center justify-center gap-3 text-cyan-400">
+                  <RotateCcw className="w-8 h-8 animate-spin" />
+                  <span className="text-sm font-medium">Loading Accelerator Journey...</span>
+                </div>
+              }
+            >
+              <AcceleratorJourneyView />
+            </Suspense>
           </div>
         )}
 

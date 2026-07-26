@@ -6,7 +6,9 @@ Exposes endpoints to sample and inspect test-split ATLAS events.
 import logging
 from typing import Optional
 
+from backend.app.schemas.derive import DeriveRequest, DeriveResponse
 from backend.app.schemas.events import EventDataResponse, EventSampleResponse
+from backend.app.services.derivation import derivation_service
 from backend.app.services.event_sampling import (
     EventDatasetNotFoundError,
     event_sampling_service,
@@ -98,4 +100,37 @@ def get_event_by_id(event_id: int) -> EventDataResponse:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Error fetching event {event_id}: {str(e)}"
+        )
+
+
+@router.post(
+    "/derive",
+    response_model=DeriveResponse,
+    status_code=status.HTTP_200_OK,
+    summary="Re-derive calculated DER_* features from primary PRI_* inputs",
+    description=(
+        "Validates 17 primary physics features (PRI_*), re-derives all 13 calculated features (DER_*), "
+        "applies MMC policy, and routes the assembled 30-feature vector through the certified PredictionService."
+    )
+)
+def derive_event(request: DeriveRequest) -> DeriveResponse:
+    try:
+        return derivation_service.derive_and_predict(request)
+    except ValueError as e:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail=str(e)
+        )
+    except EventDatasetNotFoundError as e:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail=str(e)
+        )
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Unexpected error deriving event features: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Error deriving event features: {str(e)}"
         )
