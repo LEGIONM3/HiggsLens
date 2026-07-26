@@ -6,7 +6,7 @@
 - **Full Citation**: ATLAS collaboration (2014). *Dataset from the ATLAS Higgs Boson Machine Learning Challenge 2014*. CERN Open Data Portal. DOI: `10.7483/OPENDATA.ATLAS.ZBP2.M5T8`
 - **Release License**: CC0 1.0 Universal Public Domain Dedication.
 
-## Simulation & Physics Context
+## Simulated Events & Physics Context
 The dataset simulates proton-proton collisions at $\sqrt{s} = 8\text{ TeV}$ using full ATLAS detector modeling.
 - **Signal ($s$)**: $H \to \tau^+\tau^-$ (Higgs boson mass fixed at $125\text{ GeV}$).
 - **Background ($b$)**:

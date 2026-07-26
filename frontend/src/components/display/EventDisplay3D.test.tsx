@@ -3,6 +3,8 @@ import { render, screen, act } from '@testing-library/react';
 import React from 'react';
 import { EventDisplay3D } from './EventDisplay3D';
 
+import { EducationProvider } from '../../context/EducationContext';
+
 // Mock Canvas & Three.js components for Vitest DOM environment
 vi.mock('@react-three/fiber', () => ({
   Canvas: ({ children }: { children: React.ReactNode }) => (
@@ -57,10 +59,14 @@ describe('EventDisplay3D Component Smoke Test', () => {
     }) as any;
 
     await act(async () => {
-      render(<EventDisplay3D />);
+      render(
+        <EducationProvider>
+          <EventDisplay3D />
+        </EducationProvider>
+      );
     });
 
     expect(screen.getByText(/3D Event Display & Kinematics/i)).toBeDefined();
-    expect(screen.getByText(/Sample New Set/i)).toBeDefined();
+    expect(screen.getByText(/Next Random Sample/i)).toBeDefined();
   });
 });

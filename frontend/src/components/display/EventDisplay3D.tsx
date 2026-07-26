@@ -20,6 +20,8 @@ import {
 import { DetectorScene } from './DetectorScene';
 import { EventObjects3D } from './EventObjects3D';
 import { CameraControls, CameraPreset } from './CameraControls';
+import { EducationMode } from '../education/EducationMode';
+import { useEducation } from '../../context/EducationContext';
 
 export interface EventData {
   event_id: number;
@@ -41,6 +43,7 @@ export interface EventSampleApiResponse {
 }
 
 export const EventDisplay3D: React.FC = () => {
+  const { toggleDrawer } = useEducation();
   const [events, setEvents] = useState<EventData[]>([]);
   const [selectedEventIndex, setSelectedEventIndex] = useState<number>(0);
   const [selectedObjectId, setSelectedObjectId] = useState<string | null>(null);
@@ -151,10 +154,19 @@ export const EventDisplay3D: React.FC = () => {
           <button
             onClick={handleSampleClick}
             disabled={loading}
-            className="px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-cyan-600 text-slate-950 font-bold text-xs flex items-center gap-2 shadow-lg shadow-cyan-500/20 hover:brightness-110 transition-all disabled:opacity-50"
+            className="px-3 py-1.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-semibold text-xs transition-all flex items-center gap-1.5 shadow-md shadow-cyan-600/20 disabled:opacity-50"
           >
-            <RotateCcw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
-            Sample New Set
+            <RotateCcw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
+            Next Random Sample
+          </button>
+
+          <button
+            onClick={toggleDrawer}
+            className="px-3 py-1.5 rounded-xl border border-cyan-500/40 bg-cyan-950/40 hover:bg-cyan-900/60 text-cyan-300 font-semibold text-xs flex items-center gap-1.5 transition-all shadow-sm"
+            aria-label="Toggle Physics Education Mode side panel"
+          >
+            <span>🎓</span>
+            <span>Education Mode</span>
           </button>
         </div>
       </div>
@@ -455,6 +467,13 @@ export const EventDisplay3D: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Physics Education Side Drawer */}
+      <EducationMode
+        features={currentEvent?.features}
+        signalProbability={currentEvent?.prediction.probability}
+        threshold={currentEvent?.prediction.threshold}
+      />
 
       {/* Dataset Provenance Footer */}
       <footer className="text-center text-xs text-slate-500 py-2 border-t border-slate-800/60 font-mono">

@@ -30,4 +30,4 @@
 - **Calibration Status**: `{{ calibration_status }}`
 
 ## 6. Ethical & Scientific Caveats
-- Predictions represent statistical similarity to Monte Carlo simulation templates. High classifier confidence does not imply real-world particle existence or physical discovery.
+- Predictions represent statistical similarity to Monte Carlo simulated event templates. High classifier confidence does not imply real-world particle existence or physical discovery.

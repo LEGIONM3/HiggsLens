@@ -4,16 +4,20 @@ import { fetchDatasetStatus, fetchModelRegistry } from './services/api';
 import { DatasetCardComponent } from './components/DatasetCard';
 import { ModelArenaComponent } from './components/ModelArena';
 import { LabComponent } from './components/LabComponent';
+import { EducationProvider } from './context/EducationContext';
+import { ErrorBoundary } from './components/common/ErrorBoundary';
 import { Atom, Terminal, Shield, Sparkles, ExternalLink, RotateCcw } from 'lucide-react';
 
 const EventDisplay3D = lazy(() => import('./components/display/EventDisplay3D'));
 const AcceleratorJourneyView = lazy(() => import('./components/journey/AcceleratorJourneyView'));
 const LeaderboardView = lazy(() => import('./components/leaderboard/LeaderboardView'));
+const GalleryView = lazy(() => import('./components/gallery/GalleryView').then(m => ({ default: m.GalleryView })));
 
 export const App: React.FC = () => {
   const [datasetStatus, setDatasetStatus] = useState<DatasetStatus | null>(null);
   const [models, setModels] = useState<Record<string, ModelInfo>>({});
-  const [activeTab, setActiveTab] = useState<'pipeline' | 'journey' | 'leaderboard' | 'arena' | 'detector' | 'lab'>('pipeline');
+  const [activeTab, setActiveTab] = useState<'pipeline' | 'journey' | 'leaderboard' | 'gallery' | 'arena' | 'detector' | 'lab'>('pipeline');
+  const [selectedEventId, setSelectedEventId] = useState<number | null>(null);
 
   const loadInitialData = async () => {
     try {
@@ -33,8 +37,9 @@ export const App: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col justify-between">
-      {/* Header */}
+    <EducationProvider>
+      <div className="min-h-screen flex flex-col justify-between">
+        {/* Header */}
       <header className="border-b border-slate-800/80 bg-slate-950/80 backdrop-blur-md sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -84,6 +89,16 @@ export const App: React.FC = () => {
               3. Model Leaderboard
             </button>
             <button
+              onClick={() => setActiveTab('gallery')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                activeTab === 'gallery'
+                  ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 shadow-md'
+                  : 'text-slate-400 hover:text-white'
+              }`}
+            >
+              4. Event Gallery
+            </button>
+            <button
               onClick={() => setActiveTab('arena')}
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                 activeTab === 'arena'
@@ -91,7 +106,7 @@ export const App: React.FC = () => {
                   : 'text-slate-400 hover:text-white'
               }`}
             >
-              4. Model Arena
+              5. Model Arena
             </button>
             <button
               onClick={() => setActiveTab('detector')}
@@ -101,17 +116,17 @@ export const App: React.FC = () => {
                   : 'text-slate-400 hover:text-white'
               }`}
             >
-              4. 3D Event Display
+              6. 3D Event Display
             </button>
             <button
               onClick={() => setActiveTab('lab')}
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                 activeTab === 'lab'
-                  ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 shadow-md'
+                  ? 'bg-gradient-to-r from-purple-500 to-indigo-600 text-white shadow-md'
                   : 'text-slate-400 hover:text-white'
               }`}
             >
-              5. Lab (Experimental)
+              7. Lab (Experimental)
             </button>
           </nav>
 
@@ -167,16 +182,40 @@ export const App: React.FC = () => {
 
         {activeTab === 'leaderboard' && (
           <div className="animate-fadeIn">
-            <Suspense
-              fallback={
-                <div className="glass-panel p-12 flex flex-col items-center justify-center gap-3 text-cyan-400">
-                  <RotateCcw className="w-8 h-8 animate-spin" />
-                  <span className="text-sm font-medium">Loading Official Leaderboard...</span>
-                </div>
-              }
-            >
-              <LeaderboardView />
-            </Suspense>
+            <ErrorBoundary fallbackTitle="Leaderboard View Error">
+              <Suspense
+                fallback={
+                  <div className="glass-panel p-12 flex flex-col items-center justify-center gap-3 text-cyan-400">
+                    <RotateCcw className="w-8 h-8 animate-spin" />
+                    <span className="text-sm font-medium">Loading Official Leaderboard...</span>
+                  </div>
+                }
+              >
+                <LeaderboardView />
+              </Suspense>
+            </ErrorBoundary>
+          </div>
+        )}
+
+        {activeTab === 'gallery' && (
+          <div className="animate-fadeIn">
+            <ErrorBoundary fallbackTitle="Event Gallery Error">
+              <Suspense
+                fallback={
+                  <div className="glass-panel p-12 flex flex-col items-center justify-center gap-3 text-amber-400">
+                    <RotateCcw className="w-8 h-8 animate-spin" />
+                    <span className="text-sm font-medium">Loading Curated Event Gallery...</span>
+                  </div>
+                }
+              >
+                <GalleryView
+                  onSelectEventForDisplay={(eventId) => {
+                    setSelectedEventId(eventId);
+                    setActiveTab('detector');
+                  }}
+                />
+              </Suspense>
+            </ErrorBoundary>
           </div>
         )}
 
@@ -236,5 +275,6 @@ export const App: React.FC = () => {
         </div>
       </footer>
     </div>
-  );
+  </EducationProvider>
+);
 };

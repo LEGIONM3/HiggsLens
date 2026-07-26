@@ -9,12 +9,18 @@ from typing import Optional
 from backend.app.schemas.derive import DeriveRequest, DeriveResponse
 from backend.app.schemas.events import EventDataResponse, EventSampleResponse
 from backend.app.schemas.explain import ExplainResponse
+from backend.app.schemas.gallery import (
+    GalleryEventSummary,
+    GalleryResponse,
+    PermalinkResponse,
+)
 from backend.app.services.derivation import derivation_service
 from backend.app.services.event_sampling import (
     EventDatasetNotFoundError,
     event_sampling_service,
 )
 from backend.app.services.explanation import explanation_service
+from backend.app.services.gallery import gallery_service
 from fastapi import APIRouter, HTTPException, Query, status
 
 logger = logging.getLogger("higgslens.api.events")
@@ -68,6 +74,75 @@ def sample_events(
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Error sampling events: {str(e)}"
+        )
+
+
+@router.get(
+    "/gallery",
+    response_model=GalleryResponse,
+    status_code=status.HTTP_200_OK,
+    summary="Fetch curated gallery of signal, background, and near-threshold interesting events",
+    description=(
+        "Returns a curated gallery of events from the test split categorized into top signal, top background, "
+        "and near-threshold interesting cases. CI-safe fallback when real dataset is absent."
+    )
+)
+def get_event_gallery(model_id: str = "xgboost") -> GalleryResponse:
+    try:
+        return gallery_service.get_gallery(model_id=model_id)
+    except Exception as e:
+        logger.error(f"Error serving gallery: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Error serving event gallery: {str(e)}"
+        )
+
+
+@router.get(
+    "/gallery/{event_id}",
+    response_model=GalleryEventSummary,
+    status_code=status.HTTP_200_OK,
+    summary="Fetch single gallery event by EventId",
+    description="Returns a single gallery event summary by EventId, or 404 if not in gallery."
+)
+def get_gallery_event_by_id(event_id: int, model_id: str = "xgboost") -> GalleryEventSummary:
+    item = gallery_service.get_gallery_event_by_id(event_id, model_id=model_id)
+    if item is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"EventId {event_id} not found in curated gallery."
+        )
+    return item
+
+
+@router.get(
+    "/{event_id}/permalink",
+    response_model=PermalinkResponse,
+    status_code=status.HTTP_200_OK,
+    summary="Fetch complete permalink payload (event + predict + TreeSHAP explanation) in one call",
+    description=(
+        "Returns complete shareable permalink payload for an event, including 30 physical features and "
+        "full TreeSHAP feature attributions. Returns 404 Not Found for holdout or missing EventIds."
+    )
+)
+def get_event_permalink(event_id: int, model_id: str = "xgboost") -> PermalinkResponse:
+    try:
+        return gallery_service.get_permalink(event_id, model_id=model_id)
+    except KeyError as e:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=str(e)
+        )
+    except EventDatasetNotFoundError as e:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail=str(e)
+        )
+    except Exception as e:
+        logger.error(f"Error fetching permalink for event {event_id}: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Error fetching permalink for event {event_id}: {str(e)}"
         )
 
 

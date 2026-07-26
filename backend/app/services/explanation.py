@@ -6,36 +6,39 @@ validates strict additivity, and aggregates contributions into 6 canonical physi
 
 import logging
 import math
-from typing import Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 
 import numpy as np
+from backend.app.schemas.explain import (
+  ExplainRequest,
+  ExplainResponse,
+  FeatureAttribution,
+  ObjectGroupAttribution,
+)
+from backend.app.schemas.predict import PredictRequest
+from backend.app.services.event_sampling import (
+  EventSamplingService,
+  event_sampling_service,
+)
+from backend.app.services.model_registry import (
+  ModelRegistryService,
+  model_registry_service,
+)
+from backend.app.services.prediction_service import (
+  PredictionService,
+  prediction_service,
+)
+from ml.data.feature_sets import ALL_PHYSICS_FEATURES
 
+xgb: Any = None
 try:
-  import xgboost as xgb
+  import xgboost as _xgb
+
+  xgb = _xgb
   XGBOOST_AVAILABLE = True
 except ImportError:
   xgb = None
   XGBOOST_AVAILABLE = False
-from backend.app.schemas.explain import (
-    ExplainRequest,
-    ExplainResponse,
-    FeatureAttribution,
-    ObjectGroupAttribution,
-)
-from backend.app.schemas.predict import PredictRequest
-from backend.app.services.event_sampling import (
-    EventSamplingService,
-    event_sampling_service,
-)
-from backend.app.services.model_registry import (
-    ModelRegistryService,
-    model_registry_service,
-)
-from backend.app.services.prediction_service import (
-    PredictionService,
-    prediction_service,
-)
-from ml.data.feature_sets import ALL_PHYSICS_FEATURES
 
 logger = logging.getLogger("higgslens.explanation")
 
