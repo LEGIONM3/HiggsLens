@@ -47,7 +47,7 @@ def report_client(test_sampling_service):
       pred_service=pred_service,
       expl_service=expl_service,
   )
-  ReportingService(
+  rep_service = ReportingService(
       registry_service=registry,
       pred_service=pred_service,
       expl_service=expl_service,
@@ -55,8 +55,11 @@ def report_client(test_sampling_service):
       gal_service=gal_service,
   )
 
+  import backend.app.api.v1.reports as reports_module
+
+  reports_module.reporting_service = rep_service
+
   app = create_app()
-  app.dependency_overrides = {}
   with TestClient(app) as client:
     yield client
 
