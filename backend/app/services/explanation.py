@@ -9,6 +9,7 @@ import math
 from typing import Dict, List, Optional, Tuple
 
 import numpy as np
+
 try:
   import xgboost as xgb
   XGBOOST_AVAILABLE = True
