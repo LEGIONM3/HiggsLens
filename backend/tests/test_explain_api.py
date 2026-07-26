@@ -120,6 +120,9 @@ def test_explain_event_by_id_parity(explain_client, test_sampling_service):
   assert len(get_data["attributions"]) == len(post_data["attributions"])
 
 
+@pytest.mark.skipif(
+    not XGBOOST_INSTALLED, reason="xgboost is not installed in environment"
+)
 def test_explain_holdout_and_missing_event_404(explain_client):
   """Amendment 2: Confirmed holdout EventId 300045 returns 404, as does non-existent ID 999999."""
   # Holdout EventId 300045

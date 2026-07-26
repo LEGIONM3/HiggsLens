@@ -9,7 +9,12 @@ import math
 from typing import Dict, List, Optional, Tuple
 
 import numpy as np
-import xgboost as xgb
+try:
+  import xgboost as xgb
+  XGBOOST_AVAILABLE = True
+except ImportError:
+  xgb = None
+  XGBOOST_AVAILABLE = False
 from backend.app.schemas.explain import (
     ExplainRequest,
     ExplainResponse,
@@ -105,7 +110,7 @@ class ExplanationService:
     model_wrapper = self.registry_service.get_cached_model(model_id)
 
     # Check for tree-booster TreeSHAP support
-    if not hasattr(model_wrapper, "get_booster"):
+    if not XGBOOST_AVAILABLE or not hasattr(model_wrapper, "get_booster"):
       raise ValueError(
           f"Model '{model_id}' does not support TreeSHAP attributions. Only"
           " tree boosters (e.g. xgboost) are supported."
