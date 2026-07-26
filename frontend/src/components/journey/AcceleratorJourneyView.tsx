@@ -51,7 +51,7 @@ export const AcceleratorJourneyView: React.FC = () => {
 
   // Auto Run Orchestration sequence
   useEffect(() => {
-    let timer: NodeJS.Timeout;
+    let timer: ReturnType<typeof setTimeout>;
 
     if (journeyState === 'injecting') {
       timer = setTimeout(() => {

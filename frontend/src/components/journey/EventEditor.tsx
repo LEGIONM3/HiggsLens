@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
 export interface EventEditorProps {
-  initialPriFeatures: Record<str, number>;
+  initialPriFeatures: Record<string, number>;
   baseEventId?: number;
   onDeriveComplete: (
     fullFeatures: Record<string, number>,
@@ -37,7 +37,7 @@ export const EventEditor: React.FC<EventEditorProps> = ({
 
   // Jet Multiplicity Auto-Snap logic (Amendment 4)
   const handleJetNumChange = (newJetNum: number) => {
-    const updated = { ...priFeatures, PRI_jet_num: newJetNum };
+    const updated: Record<string, number> = { ...priFeatures, PRI_jet_num: newJetNum };
 
     if (newJetNum === 0) {
       // Snap leading & subleading jet features to -999.0
