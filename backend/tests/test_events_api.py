@@ -14,6 +14,12 @@ from backend.app.services.event_sampling import EventSamplingService
 from backend.app.services.prediction_service import prediction_service
 from fastapi.testclient import TestClient
 
+try:
+    import xgboost  # noqa: F401
+    XGBOOST_INSTALLED = True
+except ImportError:
+    XGBOOST_INSTALLED = False
+
 FIXTURE_CSV = Path(__file__).resolve().parent / "fixtures" / "events_fixture.csv"
 REAL_TEST_CSV = Path(__file__).resolve().parent.parent.parent / "data" / "processed" / "v1" / "test.csv"
 
@@ -33,6 +39,7 @@ def events_client(test_sampling_service):
     return TestClient(app)
 
 
+@pytest.mark.skipif(not XGBOOST_INSTALLED, reason="xgboost is not installed in environment")
 def test_events_sample_happy_path(events_client):
     resp = events_client.get("/api/v1/events/sample?n=12&seed=42&label=any")
     assert resp.status_code == 200
@@ -51,6 +58,7 @@ def test_events_sample_happy_path(events_client):
     assert first_event["prediction"]["predicted_label"] in ("signal", "background")
 
 
+@pytest.mark.skipif(not XGBOOST_INSTALLED, reason="xgboost is not installed in environment")
 def test_events_sample_hard_cap_422(events_client):
     # n=51 exceeds hard cap of 50
     resp = events_client.get("/api/v1/events/sample?n=51")
@@ -61,6 +69,7 @@ def test_events_sample_hard_cap_422(events_client):
     assert resp_zero.status_code == 422
 
 
+@pytest.mark.skipif(not XGBOOST_INSTALLED, reason="xgboost is not installed in environment")
 def test_events_sample_seeded_determinism(events_client):
     resp1 = events_client.get("/api/v1/events/sample?n=10&seed=123")
     resp2 = events_client.get("/api/v1/events/sample?n=10&seed=123")
@@ -72,6 +81,7 @@ def test_events_sample_seeded_determinism(events_client):
     assert ids1 == ids2, "Seeded sampling must be 100% deterministic!"
 
 
+@pytest.mark.skipif(not XGBOOST_INSTALLED, reason="xgboost is not installed in environment")
 def test_events_holdout_exclusion(events_client):
     # In fixture, EventIds 300000..300039 are test 'v', 300040..300049 are holdout 'u'
     resp = events_client.get("/api/v1/events/sample?n=40&seed=42")
@@ -88,6 +98,7 @@ def test_events_holdout_exclusion(events_client):
     assert "not found in test split" in resp_holdout.json()["detail"]
 
 
+@pytest.mark.skipif(not XGBOOST_INSTALLED, reason="xgboost is not installed in environment")
 def test_events_prediction_correctness(events_client):
     # Amendment 2: Assert /events prediction equals /predict response for exact feature payload
     resp = events_client.get("/api/v1/events/sample?n=1&seed=42")
@@ -110,6 +121,7 @@ def test_events_prediction_correctness(events_client):
     assert sample_label == expected_direct_label
 
 
+@pytest.mark.skipif(not XGBOOST_INSTALLED, reason="xgboost is not installed in environment")
 def test_events_dynamic_threshold(events_client):
     # Amendment 3: Assert API-returned threshold equals metrics["optimal_threshold"] from artifact
     resp = events_client.get("/api/v1/events/sample?n=1&seed=42")
@@ -125,6 +137,7 @@ def test_events_dynamic_threshold(events_client):
     assert api_thresh == pytest.approx(expected_thresh, abs=1e-6)
 
 
+@pytest.mark.skipif(not XGBOOST_INSTALLED, reason="xgboost is not installed in environment")
 def test_events_sentinel_passthrough(events_client):
     resp = events_client.get("/api/v1/events/sample?n=20&seed=42")
     assert resp.status_code == 200
@@ -160,6 +173,7 @@ def test_events_missing_dataset_503():
         events_module.event_sampling_service = old_service
 
 
+@pytest.mark.skipif(not XGBOOST_INSTALLED, reason="xgboost is not installed in environment")
 def test_events_sample_p50_latency(events_client):
     # Amendment 5: Measure p50 latency after warm-up
     # Warm-up call
