@@ -38,7 +38,7 @@ class _PyTorchMLPModule(nn.Module if TORCH_AVAILABLE else object):  # type: igno
         layers.append(nn.Linear(in_dim, num_classes))
         self.network = nn.Sequential(*layers)
 
-    def forward(self, x: torch.Tensor) -> torch.Tensor:
+    def forward(self, x: Any) -> Any:
         return self.network(x)
 
 
