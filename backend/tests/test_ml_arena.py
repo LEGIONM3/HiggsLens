@@ -80,7 +80,8 @@ def test_r005_promoted_configs_baseline_parity():
     # R005 Baseline Parity Verification for Certified Models & Promoted R005 Configurations (2026-07-26)
     # Checks that certified artifact metrics in models/artifacts/ match expected benchmark values,
     # and validates that R005 uplift report (reports/r005_uplift_2026-07-26.md) reflects promoted AUC gains.
-    artifacts_dir = Path("models/artifacts")
+    repo_root = Path(__file__).resolve().parent.parent.parent
+    artifacts_dir = repo_root / "models" / "artifacts"
     certified_expectations = {
         "xgboost": 0.9096,
         "lightgbm": 0.9087,
@@ -99,7 +100,7 @@ def test_r005_promoted_configs_baseline_parity():
         )
 
     # Confirm R005 uplift report exists and documents promoted gains
-    uplift_report = Path("reports/r005_uplift_2026-07-26.md")
+    uplift_report = repo_root / "reports" / "r005_uplift_2026-07-26.md"
     assert uplift_report.exists(), "R005 uplift report missing!"
     report_text = uplift_report.read_text(encoding="utf-8")
     assert "0.9123" in report_text, "R005 promoted XGBoost ROC-AUC (0.9123) missing from uplift report!"
