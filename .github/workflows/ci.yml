@@ -20,13 +20,13 @@ jobs:
         with:
           python-version: "3.12"
       - name: Install Dependencies
-        run: uv sync --all-extras
+        run: uv pip install --system -e .
       - name: Run Ruff Lint
-        run: uv run ruff check backend/app backend/tests scripts ml
+        run: ruff check backend/app backend/tests scripts ml
       - name: Run Mypy Typecheck
-        run: uv run mypy backend/app backend/tests scripts ml
+        run: mypy backend/app backend/tests scripts ml
       - name: Run Pytest
-        run: uv run pytest -v backend/tests
+        run: pytest -v backend/tests
 
   frontend-checks:
     runs-on: ubuntu-latest
