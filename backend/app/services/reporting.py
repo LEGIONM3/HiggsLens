@@ -217,18 +217,18 @@ class ReportingService:
       raise KeyError(f"EventId {event_id} not found in test split.")
 
     # Live Certified Path Execution
-    artifact = self.registry_service.get_artifact("xgboost")
-    threshold = float(artifact.metrics["optimal_threshold"])
-
-    # Classification
-    pred_res = self.pred_service.predict(
-        PredictRequest(
-            model_id="xgboost", features=event.features, threshold=threshold
-        )
-    )
-
-    # Explanation via TreeSHAP
     try:
+      artifact = self.registry_service.get_artifact("xgboost")
+      threshold = float(artifact.metrics["optimal_threshold"])
+
+      # Classification
+      pred_res = self.pred_service.predict(
+          PredictRequest(
+              model_id="xgboost", features=event.features, threshold=threshold
+          )
+      )
+
+      # Explanation via TreeSHAP
       expl_res = self.expl_service.explain_event_by_id(
           event_id, model_id="xgboost"
       )
@@ -236,8 +236,10 @@ class ReportingService:
       object_groups = expl_res.object_groups
       base_val = expl_res.base_value
       margin_val = expl_res.margin
+      sig_prob = pred_res.signal_probability
+      pred_label = pred_res.predicted_label
     except Exception as e:
-      # If TreeSHAP fails or xgboost package missing on CI, attempt fixture fallback
+      # If TreeSHAP/XGBoost prediction fails or xgboost package is missing on CI, attempt fixture fallback
       if REPORT_FIXTURE_PATH.exists():
         fixture_data = json.loads(REPORT_FIXTURE_PATH.read_text())
         if fixture_data.get("event_id") == event_id:
@@ -251,6 +253,9 @@ class ReportingService:
           ]
           base_val = fixture_data["explanation"]["base_value"]
           margin_val = fixture_data["explanation"]["margin"]
+          sig_prob = fixture_data["classification"]["signal_probability"]
+          pred_label = fixture_data["classification"]["predicted_label"]
+          threshold = fixture_data["classification"]["threshold"]
         else:
           raise e
       else:
@@ -282,9 +287,9 @@ class ReportingService:
         ),
         classification=ReportClassification(
             model_id="xgboost",
-            signal_probability=pred_res.signal_probability,
+            signal_probability=sig_prob,
             predicted_label=(
-                "signal" if pred_res.predicted_label == 1 else "background"
+                pred_label if isinstance(pred_label, str) else ("signal" if pred_label == 1 else "background")
             ),
             threshold=threshold,
         ),

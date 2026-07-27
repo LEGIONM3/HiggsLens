@@ -7,11 +7,10 @@ GET /api/v1/reproducibility
 import logging
 from typing import Literal
 
+from backend.app.schemas.report import EventAnalysisReport, ReproducibilityManifest
+from backend.app.services.reporting import reporting_service
 from fastapi import APIRouter, HTTPException, Query, Response
 from fastapi.responses import HTMLResponse
-
-from app.schemas.report import EventAnalysisReport, ReproducibilityManifest
-from app.services.reporting import reporting_service
 
 logger = logging.getLogger("higgslens.api.reports")
 

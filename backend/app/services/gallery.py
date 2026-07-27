@@ -10,26 +10,25 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, TypedDict, cast
 
 import numpy as np
-
-from app.core.config import settings
-from app.schemas.events import EventDataResponse
-from app.schemas.explain import ExplainRequest
-from app.schemas.gallery import (
+from backend.app.core.config import settings
+from backend.app.schemas.events import EventDataResponse
+from backend.app.schemas.explain import ExplainRequest
+from backend.app.schemas.gallery import (
   GalleryEventSummary,
   GalleryResponse,
   PermalinkResponse,
 )
-from app.schemas.predict import PredictRequest
-from app.services.event_sampling import (
+from backend.app.schemas.predict import PredictRequest
+from backend.app.services.event_sampling import (
   EventSamplingService,
   event_sampling_service,
 )
-from app.services.explanation import ExplanationService, explanation_service
-from app.services.model_registry import (
+from backend.app.services.explanation import ExplanationService, explanation_service
+from backend.app.services.model_registry import (
   ModelRegistryService,
   model_registry_service,
 )
-from app.services.prediction_service import (
+from backend.app.services.prediction_service import (
   PredictionService,
   prediction_service,
 )

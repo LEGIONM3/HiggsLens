@@ -4,9 +4,8 @@ Pydantic v2 schemas for HiggsLens Research Reports and Reproducibility Manifests
 
 from typing import Any, Dict, List, Literal, Optional
 
+from backend.app.schemas.explain import FeatureAttribution, ObjectGroupAttribution
 from pydantic import BaseModel, Field
-
-from app.schemas.explain import FeatureAttribution, ObjectGroupAttribution
 
 
 class ReportGalleryCategory(BaseModel):
