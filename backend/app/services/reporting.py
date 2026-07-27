@@ -11,9 +11,9 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-from backend.app.schemas.explain import FeatureAttribution, ObjectGroupAttribution
-from backend.app.schemas.predict import PredictRequest
-from backend.app.schemas.report import (
+from app.schemas.explain import FeatureAttribution, ObjectGroupAttribution
+from app.schemas.predict import PredictRequest
+from app.schemas.report import (
   EventAnalysisReport,
   ReportClassification,
   ReportEventSummary,
@@ -24,23 +24,23 @@ from backend.app.schemas.report import (
   ReproducibilityManifest,
   ReproducibilityModelArtifact,
 )
-from backend.app.services.event_sampling import (
+from app.services.event_sampling import (
   EventSamplingService,
   event_sampling_service,
 )
-from backend.app.services.explanation import (
+from app.services.explanation import (
   ExplanationService,
   explanation_service,
 )
-from backend.app.services.gallery import (
+from app.services.gallery import (
   GalleryService,
   gallery_service,
 )
-from backend.app.services.model_registry import (
+from app.services.model_registry import (
   ModelRegistryService,
   model_registry_service,
 )
-from backend.app.services.prediction_service import (
+from app.services.prediction_service import (
   PredictionService,
   prediction_service,
 )
