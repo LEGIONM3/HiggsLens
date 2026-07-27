@@ -11,9 +11,9 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-from app.schemas.explain import FeatureAttribution, ObjectGroupAttribution
-from app.schemas.predict import PredictRequest
-from app.schemas.report import (
+from backend.app.schemas.explain import FeatureAttribution, ObjectGroupAttribution
+from backend.app.schemas.predict import PredictRequest
+from backend.app.schemas.report import (
   EventAnalysisReport,
   ReportClassification,
   ReportEventSummary,
@@ -24,23 +24,23 @@ from app.schemas.report import (
   ReproducibilityManifest,
   ReproducibilityModelArtifact,
 )
-from app.services.event_sampling import (
+from backend.app.services.event_sampling import (
   EventSamplingService,
   event_sampling_service,
 )
-from app.services.explanation import (
+from backend.app.services.explanation import (
   ExplanationService,
   explanation_service,
 )
-from app.services.gallery import (
+from backend.app.services.gallery import (
   GalleryService,
   gallery_service,
 )
-from app.services.model_registry import (
+from backend.app.services.model_registry import (
   ModelRegistryService,
   model_registry_service,
 )
-from app.services.prediction_service import (
+from backend.app.services.prediction_service import (
   PredictionService,
   prediction_service,
 )
@@ -162,7 +162,11 @@ class ReportingService:
     repro = self.get_reproducibility_manifest()
 
     # Try live sampling first
-    event = self.sampling_service.get_event_by_id(event_id)
+    event = None
+    try:
+      event = self.sampling_service.get_event_by_id(event_id)
+    except Exception:
+      event = None
 
     # CI Fixture Fallback Mode (Amendment 1)
     if event is None:
