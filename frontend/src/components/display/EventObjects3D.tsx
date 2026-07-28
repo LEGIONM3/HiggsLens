@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import * as THREE from 'three';
 import { Line } from '@react-three/drei';
 import { RenderableObject } from '../../lib/kinematics';
@@ -9,16 +9,15 @@ interface EventObjects3DProps {
   onSelectObject: (obj: RenderableObject) => void;
 }
 
-/**
- * Calculates a quaternion orientation that aligns a default upward geometry [0, 1, 0]
- * with a target 3D direction vector [dx, dy, dz].
- */
-function getAlignmentQuaternion(direction: [number, number, number]): THREE.Quaternion {
-  const target = new THREE.Vector3(direction[0], direction[1], direction[2]).normalize();
-  const up = new THREE.Vector3(0, 1, 0);
-  const q = new THREE.Quaternion();
-  q.setFromUnitVectors(up, target);
-  return q;
+// Pre-allocated static vectors for quaternion calculation to prevent per-render garbage collection
+const STATIC_UP = new THREE.Vector3(0, 1, 0);
+const STATIC_TARGET = new THREE.Vector3();
+const STATIC_QUAT = new THREE.Quaternion();
+
+function getAlignmentEuler(direction: [number, number, number]): THREE.Euler {
+  STATIC_TARGET.set(direction[0], direction[1], direction[2]).normalize();
+  STATIC_QUAT.setFromUnitVectors(STATIC_UP, STATIC_TARGET);
+  return new THREE.Euler().setFromQuaternion(STATIC_QUAT);
 }
 
 export const EventObjects3D: React.FC<EventObjects3DProps> = ({
@@ -30,10 +29,9 @@ export const EventObjects3D: React.FC<EventObjects3DProps> = ({
     <group>
       {objects.map((obj) => {
         const isSelected = selectedObjectId === obj.id;
-        const q = getAlignmentQuaternion(obj.direction);
-        const euler = new THREE.Euler().setFromQuaternion(q);
+        const euler = getAlignmentEuler(obj.direction);
 
-        // Calculate mid-point position along vector for cone/cylinder centering
+        // Mid-point calculations for centering 3D directional vectors
         const endX = obj.direction[0] * obj.length;
         const endY = obj.direction[1] * obj.length;
         const endZ = obj.direction[2] * obj.length;
@@ -43,7 +41,7 @@ export const EventObjects3D: React.FC<EventObjects3DProps> = ({
         const midZ = endZ / 2;
 
         if (obj.type === 'met') {
-          // MET: Red dashed line in transverse plane using Drei Line + arrow head
+          // MET (Missing Transverse Energy): Red dashed vector in transverse xy-plane
           return (
             <group key={obj.id} onClick={(e) => { e.stopPropagation(); onSelectObject(obj); }}>
               <Line
@@ -54,7 +52,7 @@ export const EventObjects3D: React.FC<EventObjects3DProps> = ({
                 gapSize={0.15}
                 lineWidth={3}
               />
-              {/* Arrow tip for MET */}
+              {/* Arrow head for MET vector */}
               <mesh position={[endX, endY, endZ]} rotation={euler}>
                 <coneGeometry args={[0.15, 0.4, 16]} />
                 <meshStandardMaterial color={obj.color} />
@@ -64,7 +62,7 @@ export const EventObjects3D: React.FC<EventObjects3DProps> = ({
         }
 
         if (obj.type === 'lepton') {
-          // Lepton: Cyan thin cylinder track
+          // Lepton: Cylinder vector aligned with reconstructed eta/phi
           return (
             <mesh
               key={obj.id}
@@ -82,9 +80,9 @@ export const EventObjects3D: React.FC<EventObjects3DProps> = ({
           );
         }
 
-        // Hadronic Tau or Jets: Cones
+        // Hadronic Tau or Jets: Cones representing angular shower cone boundaries
         const isTau = obj.type === 'tau';
-        const radius = isTau ? 0.15 : 0.45; // Narrow cone for tau, wider for jets
+        const radius = isTau ? 0.15 : 0.45;
 
         return (
           <mesh
@@ -98,7 +96,7 @@ export const EventObjects3D: React.FC<EventObjects3DProps> = ({
               color={obj.color}
               transparent
               opacity={0.85}
-              side={2}
+              side={THREE.DoubleSide}
               emissive={isSelected ? obj.color : '#000000'}
               emissiveIntensity={isSelected ? 0.7 : 0}
             />
@@ -108,3 +106,5 @@ export const EventObjects3D: React.FC<EventObjects3DProps> = ({
     </group>
   );
 };
+
+export default EventObjects3D;

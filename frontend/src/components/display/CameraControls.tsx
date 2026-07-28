@@ -1,17 +1,19 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, forwardRef, useImperativeHandle } from 'react';
 import { useThree } from '@react-three/fiber';
 import { OrbitControls as OrbitControlsImpl } from 'three-stdlib';
 import { OrbitControls } from '@react-three/drei';
 
 export type CameraPreset = 'side' | 'transverse' | 'perspective';
 
-interface CameraControlsProps {
+export interface CameraControlsProps {
   preset: CameraPreset;
 }
 
-export const CameraControls: React.FC<CameraControlsProps> = ({ preset }) => {
+export const CameraControls = forwardRef<OrbitControlsImpl, CameraControlsProps>(({ preset }, ref) => {
   const { camera } = useThree();
   const controlsRef = useRef<OrbitControlsImpl>(null);
+
+  useImperativeHandle(ref, () => controlsRef.current!, []);
 
   useEffect(() => {
     if (!camera || !controlsRef.current) return;
@@ -33,4 +35,6 @@ export const CameraControls: React.FC<CameraControlsProps> = ({ preset }) => {
   }, [preset, camera]);
 
   return <OrbitControls ref={controlsRef} makeDefault enableDamping dampingFactor={0.05} />;
-};
+});
+
+CameraControls.displayName = 'CameraControls';
