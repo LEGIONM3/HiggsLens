@@ -10,6 +10,7 @@ vi.mock('@react-three/fiber', () => ({
     <div data-testid="r3f-canvas">{children}</div>
   ),
   useThree: () => ({ camera: { position: { set: vi.fn() }, lookAt: vi.fn() } }),
+  useFrame: vi.fn(),
 }));
 
 vi.mock('@react-three/drei', () => ({
@@ -51,12 +52,12 @@ const mockEventSampleResponse = {
   label_filter: 'any',
 };
 
-describe('EventDisplay3D Component & Release A Requirements', () => {
+describe('EventDisplay3D & Release B Spatial Observatory Tests', () => {
   beforeEach(() => {
     vi.restoreAllMocks();
   });
 
-  it('renders top toolbar, controls, and canvas container cleanly', async () => {
+  it('renders top toolbar, controls, and Spatial Observatory canvas cleanly', async () => {
     globalThis.fetch = vi.fn().mockResolvedValue({
       ok: true,
       json: async () => mockEventSampleResponse,
@@ -72,6 +73,7 @@ describe('EventDisplay3D Component & Release A Requirements', () => {
 
     expect(screen.getByText(/3D Event Display & Kinematics/i)).toBeDefined();
     expect(screen.getByText(/Next Random Sample/i)).toBeDefined();
+    expect(screen.getByText(/Detector-inspired illustrative geometry — not to scale/i)).toBeDefined();
   });
 
   it('provides accessible form labels, ids, and names for filter and seed controls', async () => {
@@ -99,7 +101,7 @@ describe('EventDisplay3D Component & Release A Requirements', () => {
     expect(seedInput.name).toBe('event-seed-input');
   });
 
-  it('handles camera preset changes and axes toggle', async () => {
+  it('handles Release B camera preset changes (Observatory, Event Focus, Barrel Slice, Longitudinal) and axes toggle', async () => {
     globalThis.fetch = vi.fn().mockResolvedValue({
       ok: true,
       json: async () => mockEventSampleResponse,
@@ -113,16 +115,23 @@ describe('EventDisplay3D Component & Release A Requirements', () => {
       );
     });
 
-    const transverseBtn = screen.getByRole('button', { name: /Transverse \(z=0\)/i });
-    const sideBtn = screen.getByRole('button', { name: /Side View/i });
+    const observatoryBtn = screen.getByRole('button', { name: /Observatory/i });
+    const eventFocusBtn = screen.getByRole('button', { name: /Event Focus/i });
+    const barrelSliceBtn = screen.getByRole('button', { name: /Barrel Slice/i });
+    const longitudinalBtn = screen.getByRole('button', { name: /Longitudinal/i });
     const axesBtn = screen.getByRole('button', { name: /Axes \(XYZ\)/i });
 
-    expect(transverseBtn).toBeDefined();
-    expect(sideBtn).toBeDefined();
+    expect(observatoryBtn).toBeDefined();
+    expect(eventFocusBtn).toBeDefined();
+    expect(barrelSliceBtn).toBeDefined();
+    expect(longitudinalBtn).toBeDefined();
     expect(axesBtn).toBeDefined();
 
     act(() => {
-      fireEvent.click(transverseBtn);
+      fireEvent.click(eventFocusBtn);
+      fireEvent.click(barrelSliceBtn);
+      fireEvent.click(longitudinalBtn);
+      fireEvent.click(observatoryBtn);
       fireEvent.click(axesBtn);
     });
   });
