@@ -1,84 +1,26 @@
 /**
- * Pure TypeScript state machine for Accelerator Journey flow.
- * Zero Three.js or DOM dependencies.
+ * Deterministic PRNG using Mulberry32 for reproducible accelerator packet animations.
  */
-
-export type JourneyState =
-  | 'idle'
-  | 'injecting'
-  | 'accelerating'
-  | 'colliding'
-  | 'zooming'
-  | 'displaying';
-
-export type JourneyEventType =
-  | 'START_AUTO_RUN'
-  | 'INJECTION_COMPLETE'
-  | 'ACCELERATION_COMPLETE'
-  | 'COLLISION_COMPLETE'
-  | 'ZOOM_COMPLETE'
-  | 'RESET';
-
-export interface JourneyEvent {
-  type: JourneyEventType;
+export function createDeterministicPRNG(seed: number) {
+  let s = seed >>> 0;
+  return function () {
+    let t = (s += 0x6d2b79f5);
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
 }
 
-const ALLOWED_TRANSITIONS: Record<JourneyState, Partial<Record<JourneyEventType, JourneyState>>> = {
-  idle: {
-    START_AUTO_RUN: 'injecting',
-    RESET: 'idle',
-  },
-  injecting: {
-    INJECTION_COMPLETE: 'accelerating',
-    RESET: 'idle',
-  },
-  accelerating: {
-    ACCELERATION_COMPLETE: 'colliding',
-    RESET: 'idle',
-  },
-  colliding: {
-    COLLISION_COMPLETE: 'zooming',
-    RESET: 'idle',
-  },
-  zooming: {
-    ZOOM_COMPLETE: 'displaying',
-    RESET: 'idle',
-  },
-  displaying: {
-    START_AUTO_RUN: 'injecting',
-    RESET: 'idle',
-  },
+export interface BeamPacketConfig {
+  bunchCount: number;
+  protonsPerBunch: number;
+  energyGev: number;
+  speed: number;
+}
+
+export const DEFAULT_BEAM_CONFIG: BeamPacketConfig = {
+  bunchCount: 2808,
+  protonsPerBunch: 1.15e11,
+  energyGev: 4000, // 4 TeV per beam => sqrt(s) = 8 TeV
+  speed: 1.0,
 };
-
-export class JourneyStateMachine {
-  private currentState: JourneyState;
-
-  constructor(initialState: JourneyState = 'idle') {
-    this.currentState = initialState;
-  }
-
-  public getState(): JourneyState {
-    return this.currentState;
-  }
-
-  public canTransition(event: JourneyEventType): boolean {
-    const transitions = ALLOWED_TRANSITIONS[this.currentState];
-    return transitions[event] !== undefined;
-  }
-
-  public transition(event: JourneyEventType): JourneyState {
-    const nextState = ALLOWED_TRANSITIONS[this.currentState]?.[event];
-    if (!nextState) {
-      throw new Error(
-        `Invalid journey transition '${event}' from current state '${this.currentState}'.`
-      );
-    }
-    this.currentState = nextState;
-    return this.currentState;
-  }
-
-  public reset(): JourneyState {
-    this.currentState = 'idle';
-    return this.currentState;
-  }
-}

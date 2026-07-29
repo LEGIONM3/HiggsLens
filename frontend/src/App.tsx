@@ -1,24 +1,31 @@
-import React, { useState, useEffect, Suspense, lazy } from 'react';
+import React, { useState, useEffect } from 'react';
 import { DatasetStatus, ModelInfo } from './types';
 import { fetchDatasetStatus, fetchModelRegistry } from './services/api';
-import { DatasetCardComponent } from './components/DatasetCard';
-import { ModelArenaComponent } from './components/ModelArena';
-import { LabComponent } from './components/LabComponent';
-import { EducationProvider } from './context/EducationContext';
-import { ErrorBoundary } from './components/common/ErrorBoundary';
 import { ObservatoryShell } from './observatory/components/shell/ObservatoryShell';
-import { ModeType } from './observatory/tokens/theme';
-import { Shield, RotateCcw } from 'lucide-react';
-
-const EventDisplay3D = lazy(() => import('./components/display/EventDisplay3D'));
-const AcceleratorJourneyView = lazy(() => import('./components/journey/AcceleratorJourneyView'));
-const LeaderboardView = lazy(() => import('./components/leaderboard/LeaderboardView'));
-const GalleryView = lazy(() => import('./components/gallery/GalleryView').then(m => ({ default: m.GalleryView })));
+import { AcceleratorJourneyView } from './observatory/components/journey/AcceleratorJourneyView';
+import { EventStudioView } from './observatory/components/studio/EventStudioView';
+import { PipelineView } from './observatory/components/views/PipelineView';
+import { LeaderboardView } from './observatory/components/views/LeaderboardView';
+import { GalleryView } from './observatory/components/views/GalleryView';
+import { ArenaView } from './observatory/components/views/ArenaView';
+import { LabView } from './observatory/components/views/LabView';
 
 export const App: React.FC = () => {
   const [datasetStatus, setDatasetStatus] = useState<DatasetStatus | null>(null);
   const [models, setModels] = useState<Record<string, ModelInfo>>({});
-  const [selectedEventId, setSelectedEventId] = useState<number | null>(null);
+  const [selectedEventId, setSelectedEventId] = useState<number>(100001);
+
+  // Check window URL location for permalinks (/display/:eventId or /studio/event/:id)
+  useEffect(() => {
+    const path = window.location.pathname;
+    const match = path.match(/\/(display|studio\/event)\/(\d+)/);
+    if (match && match[2]) {
+      const parsedId = parseInt(match[2], 10);
+      if (!isNaN(parsedId)) {
+        setSelectedEventId(parsedId);
+      }
+    }
+  }, []);
 
   const loadInitialData = async () => {
     try {
@@ -38,117 +45,44 @@ export const App: React.FC = () => {
   }, []);
 
   return (
-    <EducationProvider>
-      <ObservatoryShell>
-        {(currentMode, setMode) => (
-          <>
-            {currentMode === 'pipeline' && (
-              <div className="flex flex-col gap-6 animate-fadeIn">
-                <DatasetCardComponent status={datasetStatus} onRefresh={loadInitialData} />
+    <ObservatoryShell>
+      {(currentMode, setMode) => (
+        <>
+          {currentMode === 'journey' && (
+            <AcceleratorJourneyView onEnterStudio={() => setMode('studio')} />
+          )}
 
-                {/* Scientific Briefing Card */}
-                <div className="glass-panel p-6 border-l-4 border-l-cyan-500 flex flex-col gap-3">
-                  <h3 className="text-base font-bold text-white flex items-center gap-2">
-                    <Shield className="w-5 h-5 text-cyan-400" />
-                    Scientific Integrity &amp; Preprocessing Rules
-                  </h3>
-                  <p className="text-sm text-slate-300 leading-relaxed">
-                    The HiggsLens pipeline guarantees zero data leakage across partitions (`KaggleSet` mapping: `t` for training, `b` for validation &amp; threshold selection, `v` for test evaluation). Imputers and standard scalers are fitted exclusively on training data (`t`). Sentinel values (`-999.0`) corresponding to leading/subleading jet measurements under jet multiplicity (`PRI_jet_num`) are preserved or imputed with binary missingness indicators based on candidate architecture requirements.
-                  </p>
-                  <div className="flex flex-wrap gap-4 pt-2 text-xs font-mono text-slate-400">
-                    <span>DOI: `10.7483/OPENDATA.ATLAS.ZBP2.M5T8`</span>
-                    <span>&bull;</span>
-                    <span>818,238 Full-Detector Reconstruction Events</span>
-                    <span>&bull;</span>
-                    <span>Approximate Median Significance (b_r = 10)</span>
-                  </div>
-                </div>
-              </div>
-            )}
+          {currentMode === 'studio' && (
+            <EventStudioView
+              eventId={selectedEventId}
+              onOpenDetails={(id) => {
+                setSelectedEventId(id);
+                window.history.pushState({}, '', `/display/${id}`);
+              }}
+            />
+          )}
 
-            {currentMode === 'journey' && (
-              <div className="animate-fadeIn">
-                <Suspense
-                  fallback={
-                    <div className="glass-panel p-12 flex flex-col items-center justify-center gap-3 text-cyan-400">
-                      <RotateCcw className="w-8 h-8 animate-spin" />
-                      <span className="text-sm font-medium">Loading Accelerator Journey...</span>
-                    </div>
-                  }
-                >
-                  <AcceleratorJourneyView />
-                </Suspense>
-              </div>
-            )}
+          {currentMode === 'leaderboard' && <LeaderboardView />}
 
-            {(currentMode === 'studio' || currentMode === ('detector' as ModeType)) && (
-              <div className="animate-fadeIn">
-                <Suspense
-                  fallback={
-                    <div className="glass-panel p-12 flex flex-col items-center justify-center gap-3 text-cyan-400">
-                      <RotateCcw className="w-8 h-8 animate-spin" />
-                      <span className="text-sm font-medium">Loading 3D Event Display...</span>
-                    </div>
-                  }
-                >
-                  <EventDisplay3D />
-                </Suspense>
-              </div>
-            )}
+          {currentMode === 'pipeline' && (
+            <PipelineView status={datasetStatus} onRefresh={loadInitialData} />
+          )}
 
-            {currentMode === 'leaderboard' && (
-              <div className="animate-fadeIn">
-                <ErrorBoundary fallbackTitle="Leaderboard View Error">
-                  <Suspense
-                    fallback={
-                      <div className="glass-panel p-12 flex flex-col items-center justify-center gap-3 text-cyan-400">
-                        <RotateCcw className="w-8 h-8 animate-spin" />
-                        <span className="text-sm font-medium">Loading Official Leaderboard...</span>
-                      </div>
-                    }
-                  >
-                    <LeaderboardView />
-                  </Suspense>
-                </ErrorBoundary>
-              </div>
-            )}
+          {currentMode === 'gallery' && (
+            <GalleryView
+              onSelectEventForDisplay={(id) => {
+                setSelectedEventId(id);
+                setMode('studio');
+                window.history.pushState({}, '', `/display/${id}`);
+              }}
+            />
+          )}
 
-            {currentMode === 'gallery' && (
-              <div className="animate-fadeIn">
-                <ErrorBoundary fallbackTitle="Event Gallery Error">
-                  <Suspense
-                    fallback={
-                      <div className="glass-panel p-12 flex flex-col items-center justify-center gap-3 text-amber-400">
-                        <RotateCcw className="w-8 h-8 animate-spin" />
-                        <span className="text-sm font-medium">Loading Curated Event Gallery...</span>
-                      </div>
-                    }
-                  >
-                    <GalleryView
-                      onSelectEventForDisplay={(eventId) => {
-                        setSelectedEventId(eventId);
-                        setMode('studio');
-                      }}
-                    />
-                  </Suspense>
-                </ErrorBoundary>
-              </div>
-            )}
+          {currentMode === 'arena' && <ArenaView models={models} onRefresh={loadInitialData} />}
 
-            {currentMode === 'arena' && (
-              <div className="animate-fadeIn">
-                <ModelArenaComponent models={models} onRefresh={loadInitialData} />
-              </div>
-            )}
-
-            {currentMode === 'lab' && (
-              <div className="animate-fadeIn">
-                <LabComponent models={models} />
-              </div>
-            )}
-          </>
-        )}
-      </ObservatoryShell>
-    </EducationProvider>
+          {currentMode === 'lab' && <LabView models={models} />}
+        </>
+      )}
+    </ObservatoryShell>
   );
 };

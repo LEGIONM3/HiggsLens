@@ -36,11 +36,6 @@ export const OBSERVATORY_THEME = {
     fontSans: 'Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
     fontMono: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
   },
-  shadows: {
-    glowCyan: '0 0 20px rgba(6, 182, 212, 0.25)',
-    glowMagenta: '0 0 20px rgba(236, 72, 153, 0.25)',
-    glowAmber: '0 0 20px rgba(245, 158, 11, 0.25)',
-  },
 } as const;
 
 export type ModeType = 'journey' | 'studio' | 'leaderboard' | 'pipeline' | 'gallery' | 'arena' | 'lab';

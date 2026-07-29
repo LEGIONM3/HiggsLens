@@ -44,48 +44,8 @@ export interface ModelMetrics {
   calibration_status: string;
 }
 
-export interface RecommendationExplanation {
-  recommended_model_id: string;
-  validation_objective_used: string;
-  feature_set_used: string;
-  mean_roc_auc: number;
-  variance_across_seeds: number;
-  calibration_quality: string;
-  training_duration_seconds: number;
-  selected_threshold: number;
-  weighted_ams: number;
-  warnings: string[];
-  reasoning: string;
-}
-
-export interface ExperimentRun {
-  run_id: string;
-  timestamp: string;
-  git_commit: string | null;
-  dataset_fingerprint: string;
-  split_strategy: string;
-  feature_set: string;
-  mode: string;
-  seeds: number[];
-  metrics_by_model: Record<string, ModelMetrics>;
-  recommendation?: RecommendationExplanation;
-}
-
-export interface JobStatus {
-  job_id: string;
-  state: 'queued' | 'validating_data' | 'preprocessing' | 'training' | 'evaluating' | 'saving_artifacts' | 'completed' | 'failed';
-  current_model: string | null;
-  completed_models: number;
-  total_models: number;
-  progress_message: string;
-  started_timestamp: string;
-  updated_timestamp: string;
-  error_details: string | null;
-  run_id: string | null;
-}
-
 export interface ReconstructedObject {
-  object_type: string;
+  object_type: 'tau' | 'lepton' | 'jet_leading' | 'jet_subleading' | string;
   label: string;
   pt: number;
   eta: number;
@@ -111,7 +71,7 @@ export interface PredictionResponse {
     feature_set: string;
     signal_probability: number;
     background_probability: number;
-    predicted_class: string;
+    predicted_class: 'signal' | 'background';
     decision_threshold: number;
     distance_from_threshold: number;
     validation_status: string;
