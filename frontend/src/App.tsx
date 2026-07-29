@@ -1,21 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { DatasetStatus, ModelInfo } from './types';
-import { fetchDatasetStatus, fetchModelRegistry } from './services/api';
-import { ObservatoryShell } from './observatory/components/shell/ObservatoryShell';
-import { AcceleratorJourneyView } from './observatory/components/journey/AcceleratorJourneyView';
-import { EventStudioView } from './observatory/components/studio/EventStudioView';
-import { PipelineView } from './observatory/components/views/PipelineView';
-import { LeaderboardView } from './observatory/components/views/LeaderboardView';
-import { GalleryView } from './observatory/components/views/GalleryView';
-import { ArenaView } from './observatory/components/views/ArenaView';
-import { LabView } from './observatory/components/views/LabView';
+import { CernEventObservatory } from './observatory/components/CernEventObservatory';
 
 export const App: React.FC = () => {
-  const [datasetStatus, setDatasetStatus] = useState<DatasetStatus | null>(null);
-  const [models, setModels] = useState<Record<string, ModelInfo>>({});
   const [selectedEventId, setSelectedEventId] = useState<number>(100001);
 
-  // Check window URL location for permalinks (/display/:eventId or /studio/event/:id)
+  // Check window URL location for permalinks (/display/:eventId or /studio/event/:id or ?eventId=...)
   useEffect(() => {
     const path = window.location.pathname;
     const match = path.match(/\/(display|studio\/event)\/(\d+)/);
@@ -24,65 +13,29 @@ export const App: React.FC = () => {
       if (!isNaN(parsedId)) {
         setSelectedEventId(parsedId);
       }
+    } else {
+      const searchParams = new URLSearchParams(window.location.search);
+      const queryId = searchParams.get('eventId');
+      if (queryId) {
+        const parsedQueryId = parseInt(queryId, 10);
+        if (!isNaN(parsedQueryId)) {
+          setSelectedEventId(parsedQueryId);
+        }
+      }
     }
   }, []);
 
-  const loadInitialData = async () => {
-    try {
-      const [ds, mods] = await Promise.all([
-        fetchDatasetStatus().catch(() => null),
-        fetchModelRegistry().catch(() => ({})),
-      ]);
-      if (ds) setDatasetStatus(ds);
-      if (mods) setModels(mods);
-    } catch (err) {
-      console.error('Error loading initial data:', err);
+  const handleEventChange = (eventId: number) => {
+    setSelectedEventId(eventId);
+    if (typeof window !== 'undefined') {
+      window.history.pushState({}, '', `/display/${eventId}`);
     }
   };
 
-  useEffect(() => {
-    loadInitialData();
-  }, []);
-
   return (
-    <ObservatoryShell>
-      {(currentMode, setMode) => (
-        <>
-          {currentMode === 'journey' && (
-            <AcceleratorJourneyView onEnterStudio={() => setMode('studio')} />
-          )}
-
-          {currentMode === 'studio' && (
-            <EventStudioView
-              eventId={selectedEventId}
-              onOpenDetails={(id) => {
-                setSelectedEventId(id);
-                window.history.pushState({}, '', `/display/${id}`);
-              }}
-            />
-          )}
-
-          {currentMode === 'leaderboard' && <LeaderboardView />}
-
-          {currentMode === 'pipeline' && (
-            <PipelineView status={datasetStatus} onRefresh={loadInitialData} />
-          )}
-
-          {currentMode === 'gallery' && (
-            <GalleryView
-              onSelectEventForDisplay={(id) => {
-                setSelectedEventId(id);
-                setMode('studio');
-                window.history.pushState({}, '', `/display/${id}`);
-              }}
-            />
-          )}
-
-          {currentMode === 'arena' && <ArenaView models={models} onRefresh={loadInitialData} />}
-
-          {currentMode === 'lab' && <LabView models={models} />}
-        </>
-      )}
-    </ObservatoryShell>
+    <CernEventObservatory
+      initialEventId={selectedEventId}
+      onEventChange={handleEventChange}
+    />
   );
 };
